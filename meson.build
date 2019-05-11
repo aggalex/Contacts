@@ -1,5 +1,5 @@
 # project name and programming language
-project('com.github.Contacts', 'vala', 'c', version: '0.1.0')
+project('com.github.aggalex.contacts', 'vala', 'c', version: '0.1.0')
 
 message ('project name and programming language')
 

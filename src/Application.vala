@@ -27,7 +27,7 @@ namespace Contacts {
 
         public Application () {
             Object(
-                application_id: "com.github.Contacts", 
+                application_id: "com.github.aggalex.contacts", 
                 flags: ApplicationFlags.FLAGS_NONE
             );
         }
