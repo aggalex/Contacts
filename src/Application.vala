@@ -34,7 +34,6 @@ namespace Contacts {
 
         protected override void activate () {
             var window = new Gtk.ApplicationWindow (this);
-            var main = new Gtk.Grid ();
 
             var contact_list = new ContactList ();
             window.add (contact_list);
@@ -46,7 +45,6 @@ namespace Contacts {
 
             window.title = "Contacts";
             window.set_default_size (900, 640);
-            window.add (main);
             window.show_all ();
 
             contact_list.parse_local_vcard_threaded ();
