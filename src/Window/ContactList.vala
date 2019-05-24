@@ -75,103 +75,125 @@ namespace Contacts {
         	}
         }
 
-        private List<Contact>? parse_local_vcard (string path) {
-            var home = Environment.get_home_dir ();
 
-            try {
-                File init_file = File.new_for_path (path);
-                File file = File.new_for_path (path + ".temp");
-                init_file.copy (file, FileCopyFlags.OVERWRITE);
-                var dis = new DataInputStream (file.read ());
-                var list = new List<Contact> ();
+        private void set_contact_info(string line, Contact contact){
+            var home = Environment.get_home_dir();
+            if (line.has_prefix ("FN")){
 
-                var line = dis.read_line_utf8 (null);
-                while (line != null) {
-                    var next_line = dis.read_line_utf8 (null);
-                    if (line == "BEGIN:VCARD" && next_line == "VERSION:3.0") {
-                        var contact = new Contact ("Alex Angelou");
-                        contact.saving = false;
+                var needle = parse_needle (line);
+                assert (needle != null);
 
-                        while ((line = dis.read_line_utf8 (null)) != "END:VCARD") {
+                contact.set_title (needle);
+                return;
+           }
+           if (line.has_prefix ("EMAIL")) {
 
-                            if (line.has_prefix ("FN")) {
-                                var needle = parse_needle (line);
-                                assert (needle != null);
+                var type = parse_type (line);
+                var needle = parse_needle (line);
 
-                                contact.set_title (needle);
+                contact.new_email (needle, type);
+                return;
 
-                            } else if (line.has_prefix ("EMAIL")) {
-
-                                var type = parse_type (line);
-                                var needle = parse_needle (line);
-
-                                contact.new_email (needle, type);
-
-                            } else if (line.has_prefix ("TEL")) {
-
-                                var type = parse_type (line);
-                                var needle = parse_needle (line);
-
-                                contact.new_phone (needle, type);
-
-                            } else if (line.has_prefix ("ADR")) {
-
-                                var type = parse_type (line);
-                                var starting_needle = parse_needle (line);
-
-                                string[] needle = starting_needle.split (";", 0);
-
-                                if (needle.length >= 8)
-                                    contact.new_address ({needle[3], needle[4], needle[5], needle[6], needle[7]}, type);
-                            } else if (line.has_prefix ("NOTE")) {
-
-                                var needle = parse_needle (line);
-                                contact.new_note (needle);
-
-                            } else if (line.has_prefix ("URL")) {
-
-                                var needle = parse_needle (line);
-                                contact.new_website (needle);
-
-                            } else if (line.has_prefix ("NICKNAME")) {
-
-                                var needle = parse_needle (line);
-                                contact.new_nickname (needle);
-
-                            } else if (line.has_prefix ("BDAY")) {
-
-                                var needle = parse_needle (line);
-                                var year = int.parse (needle.substring (0, 4));
-                                var month = int.parse (needle.substring (4, 2));
-                                var day = int.parse (needle.substring (6, 2));
-                                contact.new_birthday (day, month, year);
-
-                            } else if (line.has_prefix ("PHOTO")) {
-
-                                var needle = parse_needle (line);
-                                File image_file = File.new_for_path (home + "/.local/share/contacts/image.png");
-                                var os = image_file.replace (null, false, FileCreateFlags.PRIVATE);
-                                os.write (Base64.decode (needle));
-
-                                contact.set_image (home + "/.local/share/contacts/image.png");
-                            }
-                        }
-                        contact.name_changed.connect (() => {
-                            sidebar.on_sidebar_changed ();
-                        });
-
-                        contact.saving = true;
-                        list.append (contact);
-
-                    }
-                    line = dis.read_line_utf8 ();
-                }
-                file.move (init_file, FileCopyFlags.OVERWRITE);
-                return list.copy ();
-            } catch (Error e) {
-                print (e.message);
-                return null;
             }
+            if (line.has_prefix ("TEL")) {
+
+                var type = parse_type (line);
+                var needle = parse_needle (line);
+
+                contact.new_phone (needle, type);
+                return;
+
+            }
+            if (line.has_prefix ("ADR")) {
+
+                var type = parse_type (line);
+                var starting_needle = parse_needle (line);
+
+                string[] needle = starting_needle.split (";", 0);
+
+                if (needle.length >= 8)
+                    contact.new_address ({needle[3], needle[4], needle[5], needle[6], needle[7]}, type);
+
+                return;
+            }
+            if (line.has_prefix ("NOTE")) {
+
+                var needle = parse_needle (line);
+                contact.new_note (needle);
+
+                return;
+            }
+            if (line.has_prefix ("URL")) {
+
+                var needle = parse_needle (line);
+                contact.new_website (needle);
+
+                return;
+
+            }
+            if (line.has_prefix ("NICKNAME")) {
+
+                var needle = parse_needle (line);
+                contact.new_nickname (needle);
+
+                return;
+            }
+            if (line.has_prefix ("BDAY")) {
+
+                var needle = parse_needle (line);
+                var year = int.parse (needle.substring (0, 4));
+                var month = int.parse (needle.substring (4, 2));
+                var day = int.parse (needle.substring (6, 2));
+                contact.new_birthday (day, month, year);
+
+                return;
+            }
+            if (line.has_prefix ("PHOTO")) {
+
+                var needle = parse_needle (line);
+                File image_file = File.new_for_path (home + "/.local/share/contacts/image.png");
+                var os = image_file.replace (null, false, FileCreateFlags.PRIVATE);
+                os.write (Base64.decode (needle));
+
+                contact.set_image (home + "/.local/share/contacts/image.png");
+
+                return;
+            }
+        }
+
+        private List<Contact>? parse_local_vcard (string path) throws Error {
+            File init_file = File.new_for_path (path);
+            File file = File.new_for_path (path + ".temp");
+            init_file.copy (file, FileCopyFlags.OVERWRITE);
+            var dis = new DataInputStream (file.read ());
+            var list = new List<Contact> ();
+            var line = dis.read_line_utf8 (null);
+            while (line != null) {
+                var next_line = dis.read_line_utf8 (null);
+                if (line != "BEGIN:VCARD" || next_line != "VERSION:3.0"){
+                    line = dis.read_line_utf8 ();
+                    continue;
+                }
+
+                var contact = new Contact ("");
+                contact.saving = false;
+
+                while (!((line = dis.read_line_utf8(null)) == "END:VCARD")){
+                    set_contact_info(line, contact);
+                }
+
+                contact.name_changed.connect (() => {
+                    sidebar.on_sidebar_changed ();
+                });
+
+                contact.saving = true;
+                list.append (contact);
+
+            }
+
+            file.move (init_file, FileCopyFlags.OVERWRITE);
+
+            return list;
         }
 
         private string parse_type (string line) {
@@ -213,6 +235,5 @@ namespace Contacts {
             contact_stack.add_named (contact, name.replace(" ", "_") + "_contact");
             contact_stack.show_all ();
         }
-
     }
 }
