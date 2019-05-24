@@ -235,5 +235,45 @@ namespace Contacts {
             contact_stack.add_named (contact, name.replace(" ", "_") + "_contact");
             contact_stack.show_all ();
         }
+
+        public void import () throws FileChooserError {
+            var chooser = new Gtk.FileChooserNative (
+                "Choose an vcard file",     // name: string
+                (Gtk.Window) this.get_toplevel (),       // transient parent: Gtk.Window
+                FileChooserAction.OPEN,     // File chooser action: FileChooserAction
+                null,                       // Accept label: string
+                null                        // Cancel label: string
+            );
+
+            var vcf_filter = new Gtk.FileFilter ();
+            vcf_filter.set_name ("VCard contact file");
+            vcf_filter.add_mime_type ("text/vcard");
+            chooser.add_filter (vcf_filter);
+
+            SList<string> paths;
+
+            if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+                paths = chooser.get_filenames ();
+            } else {
+                throw new FileChooserError.USER_CANCELED ("User canceled file choosing");
+            }
+
+            chooser.destroy ();
+
+            var home = Environment.get_home_dir ();
+            foreach (var path in paths) {
+                var path_split = path.split ("/");
+                var filename = path_split[path_split.length-1];
+
+                var path_file = File.new_for_path (path);
+                var filename_file = File.new_for_path (@"$home/.local/share/contacts/$filename");
+
+                VCardTranslator.translate (path_file, filename_file);
+                parse_local_vcard (@"$home/.local/share/contacts/$filename").foreach ((contact) => {
+                    contact_stack.add (contact);
+                });
+                contact_stack.show_all ();
+            }
+        }
     }
 }

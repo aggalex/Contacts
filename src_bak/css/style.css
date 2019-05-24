@@ -1,0 +1,8 @@
+/*.transparent_background {
+    background-color: @bg_color;
+}*/
+@define-color colorAccent #68b723;
+
+.bold {
+    font-weight: bold;
+}

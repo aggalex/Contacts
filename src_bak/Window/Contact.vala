@@ -63,7 +63,7 @@ namespace Contacts {
         }
         private bool icon_is_set = false;
 
-        public Contact (string name = "") {
+        public Contact (string name) {
             var user_name = Environment.get_user_name ();
             Object (
                 display_widget: new Granite.Widgets.Avatar.from_file ("../data/icons/32/contacts-avatar-default.svg", 32),
@@ -173,11 +173,11 @@ namespace Contacts {
                 null                        // Cancel label: string
             );
 
-            var filter = new Gtk.FileFilter ();
-            filter.set_name ("Image");
-            filter.add_mime_type ("image/*");
+            var exe_filter = new Gtk.FileFilter ();
+            exe_filter.set_name ("Image");
+            exe_filter.add_mime_type ("image/*");
 
-            chooser.add_filter (filter);
+            chooser.add_filter (exe_filter);
 
             if (chooser.run () == Gtk.ResponseType.ACCEPT) {
                 name = chooser.get_filename ();
@@ -225,7 +225,6 @@ namespace Contacts {
 
                 title = text;
                 name_label.set_text (text);
-                print (@"SET TITLE TO $title\n");
                 changed ();
             } catch (Error e) {
                 stderr.printf (e.message + "\n");

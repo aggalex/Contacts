@@ -24,40 +24,38 @@ using Gtk;
 
 namespace Contacts {
 
-    public class SimpleMenu : Gtk.Popover {
+    public class IconPopup : Gtk.Popover {
 
         public signal void poped_down (string text);
-        private ListBox list_box = new Gtk.ListBox ();
+        public Gtk.Button change_button = new Gtk.Button ();
+        public Gtk.Button delete_button = new Gtk.Button ();
 
-        public SimpleMenu (Gtk.Button? Relative) {
+        public IconPopup (Gtk.Button? Relative) {
             if (Relative != null) this.set_relative_to (Relative);
             Relative.clicked.connect (() => {
                 popup ();
                 show_all ();
             });
-            this.add (list_box);
-            list_box.margin_top = 3;
-            list_box.margin_bottom = 3;
-        }
 
-        public void append (string text) {
-            var button = new Gtk.Button ();
-            button.set_label (text);
-            button.get_style_context ().add_class ("flat");
-            button.clicked.connect (() => {
-                poped_down (button.get_label ());
+            change_button.set_label ("Set from File...");
+            change_button.get_style_context ().add_class ("suggested-action");
+            change_button.clicked.connect (() => {
                 this.popdown ();
             });
-            button.margin = 6;
-            button.margin_top = 0;
-            button.margin_bottom = 0;
-            list_box.add (button);
-        }
 
-        public void clear () {
-            list_box.get_children ().foreach ((child) => {
-                child.destroy ();
+            delete_button.set_label ("Delete");
+            delete_button.get_style_context ().add_class ("destructive-action");
+            delete_button.set_sensitive (false);
+            delete_button.clicked.connect (() => {
+                this.popdown ();
             });
+
+            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            box.margin = 6;
+            box.pack_start (delete_button, true, true, 0);
+            box.pack_start (change_button, true, true, 0);
+
+            this.add (box);
         }
     }
 }

@@ -52,10 +52,6 @@ namespace Contacts {
                 ChangedSearch (Search.get_text());
             });
 
-            import_button.clicked.connect (() => {
-                contact_list.import ();
-            });
-
             this.pack_start (addEntryButton);
             this.pack_start (Search);
             this.pack_end (export_button);
