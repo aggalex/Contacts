@@ -22,32 +22,37 @@ using Granite;
 using Granite.Widgets;
 using Gtk;
 
+using View;
+
 namespace Contacts {
     public class Application : Granite.Application {
 
         public Application () {
             Object(
-                application_id: "com.github.aggalex.contacts", 
+                application_id: "com.github.aggalex.Contacts", 
                 flags: ApplicationFlags.FLAGS_NONE
             );
         }
 
         protected override void activate () {
             var window = new Gtk.ApplicationWindow (this);
+            var main = new Gtk.Grid ();
 
             var contact_list = new ContactList ();
             window.add (contact_list);
 
-            var headerbar = new Contacts.Headerbar (contact_list);
+            contact_list.new_contact ("Alex Angelou");
+            contact_list.new_contact ("Giannis Kont");
+
+            var headerbar = new Headerbar ();
             window.set_titlebar (headerbar);
 
             Css.apply ();
 
             window.title = "Contacts";
             window.set_default_size (900, 640);
+            window.add (main);
             window.show_all ();
-
-            contact_list.parse_local_vcard_threaded ();
         }
 
         public static int main (string[] args) {
