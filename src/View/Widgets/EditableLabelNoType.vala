@@ -29,6 +29,8 @@ namespace View.Widgets {
         private Gtk.Label label = new Gtk.Label ("");
         private Gtk.Entry entry = new Gtk.Entry ();
 
+        private Gtk.Label explaining_label = new Gtk.Label ("");
+
         public string data_type {set; protected get;}
         public string text {
             owned get {
@@ -36,14 +38,14 @@ namespace View.Widgets {
             }
         }
 
-        public EditableLabelNoType (string? text, string label_text) {
-            data_type = label_text;
-
+        public EditableLabelNoType (string text = "", string label_text) {
             if (text == null) {
                 text = "";
             }
 
             label.set_text (text);
+            data_type = label_text;
+            explaining_label.label = data_type + ":";
         }
 
         construct {
@@ -53,7 +55,6 @@ namespace View.Widgets {
             var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic", Gtk.IconSize.BUTTON);
             edit_button.get_style_context ().add_class ("flat");
 
-            var explaining_label = new Gtk.Label (data_type + ":");
             explaining_label.get_style_context ().add_class ("bold");
 
             var label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

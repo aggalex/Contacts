@@ -35,7 +35,7 @@ namespace View.Widgets {
 
         public string data_type {get; protected set;}
         public string text {
-            get {
+            owned get {
                 return label.label;
             }
         }

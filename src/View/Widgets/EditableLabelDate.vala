@@ -29,6 +29,8 @@ namespace View.Widgets {
         private Gtk.Label label = new Gtk.Label ("");
         private Gtk.Calendar calendar = new Gtk.Calendar ();
 
+        private Gtk.Label explaining_label = new Gtk.Label ("");
+
         private Date date_backup = Date ();
 
         public string data_type {get; private set;}
@@ -44,6 +46,8 @@ namespace View.Widgets {
             }
         }
 
+        delegate void VoidFunc ();
+
         public EditableLabelDate (uint? day, uint? month, uint? year, string label_text) {
             data_type = label_text;
 
@@ -55,6 +59,7 @@ namespace View.Widgets {
             } else {
                 label.set_text ("");
             }
+            explaining_label.label = data_type + ":";
         }
 
         private string extract_label_text () {
@@ -71,7 +76,6 @@ namespace View.Widgets {
             var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic", Gtk.IconSize.BUTTON);
             edit_button.get_style_context ().add_class ("flat");
 
-            var explaining_label = new Gtk.Label (data_type + ":");
             explaining_label.get_style_context ().add_class ("bold");
 
             var label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -85,6 +89,7 @@ namespace View.Widgets {
             calendar.margin = 6;
 
             var calendar_revealer = new Gtk.Revealer ();
+            calendar_revealer.can_focus = true;
             calendar_revealer.set_transition_type (RevealerTransitionType.SLIDE_DOWN);
             calendar_revealer.add (calendar);
             calendar_revealer.set_reveal_child (false);
@@ -96,25 +101,26 @@ namespace View.Widgets {
 
             delete_button.clicked.connect (() => deleted ());
 
-            edit_button.clicked.connect (() => {
-                this.set_visible_child_name ("calendar");
-                calendar_revealer.set_reveal_child (true);
-            });
-
-            calendar.day_selected_double_click.connect (() => {
+            VoidFunc close_calendar = () => {
                 calendar_revealer.set_reveal_child (false);
                 this.set_visible_child_name ("label");
                 date_backup.set_dmy ((DateDay)calendar.day, calendar.month, (DateYear)calendar.year);
                 label.set_text (extract_label_text ());
                 changed ();
+            };
+
+            edit_button.clicked.connect (() => {
+                this.set_visible_child_name ("calendar");
+                calendar_revealer.set_reveal_child (true);
             });
 
-            calendar.focus_out_event.connect (() => {
-                this.set_visible_child_name ("label");
-                calendar.day = date_backup.get_day ();
-                calendar.month = date_backup.get_month ();
-                calendar.year = date_backup.get_year ();
+            calendar.key_release_event.connect ((key) => {
+                if (key.keyval == 65293)
+                    close_calendar ();
+                return false;
             });
+
+            calendar.focus_out_event.connect (() => {close_calendar ();});
 
             this.show_all();
             this.set_visible_child_name ("label");

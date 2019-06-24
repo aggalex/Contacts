@@ -33,7 +33,7 @@ namespace View.Widgets {
 
         public string data_type {get; private set;}
         public string text {
-            get {
+            owned get {
                 var month = (calendar.month + 1).to_string ();
                 if (month.length == 1) month = "0" + month;
     
@@ -43,6 +43,8 @@ namespace View.Widgets {
                 return (calendar.year.to_string () + month + day).to_string ();
             }
         }
+
+        delegate void VoidFunc ();
 
         public EditableLabelDate (uint? day, uint? month, uint? year, string label_text) {
             data_type = label_text;
@@ -85,6 +87,7 @@ namespace View.Widgets {
             calendar.margin = 6;
 
             var calendar_revealer = new Gtk.Revealer ();
+            calendar_revealer.can_focus = true;
             calendar_revealer.set_transition_type (RevealerTransitionType.SLIDE_DOWN);
             calendar_revealer.add (calendar);
             calendar_revealer.set_reveal_child (false);
@@ -96,25 +99,26 @@ namespace View.Widgets {
 
             delete_button.clicked.connect (() => deleted ());
 
-            edit_button.clicked.connect (() => {
-                this.set_visible_child_name ("calendar");
-                calendar_revealer.set_reveal_child (true);
-            });
-
-            calendar.day_selected_double_click.connect (() => {
+            VoidFunc close_calendar = () => {
                 calendar_revealer.set_reveal_child (false);
                 this.set_visible_child_name ("label");
                 date_backup.set_dmy ((DateDay)calendar.day, calendar.month, (DateYear)calendar.year);
                 label.set_text (extract_label_text ());
                 changed ();
+            };
+
+            edit_button.clicked.connect (() => {
+                this.set_visible_child_name ("calendar");
+                calendar_revealer.set_reveal_child (true);
             });
 
-            calendar.focus_out_event.connect (() => {
-                this.set_visible_child_name ("label");
-                calendar.day = date_backup.get_day ();
-                calendar.month = date_backup.get_month ();
-                calendar.year = date_backup.get_year ();
+            calendar.key_release_event.connect ((key) => {
+                if (key.keyval == 65293)
+                    close_calendar ();
+                return false;
             });
+
+            calendar.focus_out_event.connect (() => {close_calendar ();});
 
             this.show_all();
             this.set_visible_child_name ("label");

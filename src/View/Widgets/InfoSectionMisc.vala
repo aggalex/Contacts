@@ -53,7 +53,6 @@ namespace View.Widgets {
         }
 
         protected override void add_button_action () {
-            print ("Hello motherfucker");
             menu.popup ();
             menu.show_all ();
         }

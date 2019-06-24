@@ -34,7 +34,7 @@ namespace View.Widgets {
 
         construct {
             menu = new SimpleMenu (add_button);
-            foreach (var data in DataHelper.Type.ALL) {
+            foreach (var data in DataHelper.Type.MISC) {
                 menu.append (data.to_string ());
             }
             menu.poped_down.connect ((data) => {

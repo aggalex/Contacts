@@ -42,7 +42,8 @@ namespace View.Widgets {
 
         public EditableLabel (string text = "", string type){
             label.set_text (text);
-            this.data_type = type;
+            data_type = type;
+            type_button.set_label (data_type + ":");
         }
 
         //Making the UI
@@ -54,7 +55,6 @@ namespace View.Widgets {
             var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic", Gtk.IconSize.BUTTON);
             edit_button.get_style_context ().add_class ("flat");
 
-            type_button.set_label (data_type + ":");
             type_button.get_style_context ().add_class ("flat");
             type_button.get_style_context ().add_class ("bold");
             type_list.set_relative_to (type_button);
