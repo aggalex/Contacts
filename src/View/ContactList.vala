@@ -50,9 +50,33 @@ namespace  View {
 
             contact_list_handler.add_contact (name);
 
-            contact_stack.add_named (contact, name.replace(" ", "_") + "_contact");
+            contact_stack.add (contact);
             contact_stack.set_visible_child (contact);
             contact_stack.show_all ();
+        }
+
+        public void search (string needle) {
+            if (needle == "") {
+                sidebar.show_all ();
+                return;
+            }
+
+            var indexes = contact_list_handler.search (needle);
+
+            if (indexes.length () == 0) {
+                sidebar.hide_all_rows ();
+                return;
+            } else {
+                sidebar.show_all_rows ();
+            }
+
+            for (var i=0; i<contact_list_handler.length; i++) {
+                if (i != indexes.first ().data) {
+                    sidebar.hide_row (i);
+                } else if (indexes.length () != 1) {
+                    indexes.remove (i);
+                }
+            }
         }
     }
 }

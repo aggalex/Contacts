@@ -77,7 +77,6 @@ namespace View {
                 title: name
             );
             this.name = name.replace(" ", "_") + "_contact";
-            print ("*******************************" + name + "\n");
             contact_name = name;
         }
 

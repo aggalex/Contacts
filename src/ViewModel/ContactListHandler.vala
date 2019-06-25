@@ -27,6 +27,11 @@ namespace ViewModel {
  
         private ContactList contact_list = new ContactList ();
 
+        public uint length {
+            get {
+                return contact_list.data.length ();
+            }
+        }
         private GLib.CompareFunc<Model.Contact>? compare_contacts = (c1, c2) => {
             return strcmp (c1.name, c2.name);
         };
@@ -52,9 +57,19 @@ namespace ViewModel {
                 contact_list = null;
                 return true;
             }
-            
+
             contact_list.data.remove (contact_list.data.nth_data (index));
             return true;
+        }
+
+        public List<int> search (string needle) {
+            List<int> indexes = new List<int> ();
+            for (var i=0; i<contact_list.data.length (); i++) {
+                var contact = contact_list.data.nth_data (i);
+                if (contact.name.contains (needle))
+                    indexes.append (i);
+            }
+            return indexes;
         }
 
     }

@@ -47,6 +47,8 @@ namespace View.Widgets {
         private Gtk.ListBox listbox;
         private bool[] available_headers = new bool[26];
 
+        private uint hidden_counter = 0;
+
         /**
          * The Gtk.Stack to control
          */
@@ -132,6 +134,44 @@ namespace View.Widgets {
             });
 
             listbox.show_all ();
+        }
+
+        public void show_all_rows () {
+            listbox.show_all ();
+        }
+
+        public void hide_all_rows () {
+            foreach (var row in listbox.get_children ()) {
+                row.hide ();
+            }
+        }
+
+        public bool hide_row (uint index) {
+            var widget = listbox.get_row_at_index ((int) index);
+            if (widget == null) return false;
+
+            return set_visibility (widget, false);
+        }
+
+        public bool show_row (uint index) {
+            var widget = listbox.get_row_at_index ((int) index);
+            if (widget == null) return false;
+
+            return set_visibility (widget, true);
+        }
+
+        public bool set_visibility (ListBoxRow widget, bool new_visible) {
+            if (widget.visible == new_visible) return false;
+
+            if (hidden_counter == 0 && new_visible = false) listbox.no_show_all = true;
+            if (hidden_counter == 1 && new_visible = true) listbox.show_all ();
+
+            widget.visible = new_visible;
+            if (new_visible)
+                hidden_counter--;
+            else
+                hidden_counter++;
+            return true;
         }
     }
 }

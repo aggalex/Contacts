@@ -26,9 +26,9 @@ using View.Widgets;
 namespace View {
     public class Headerbar : Gtk.HeaderBar {
 
-        public signal void ChangedSearch (string query);
+        public signal void changed_search (string query);
 
-        public Gtk.Button addEntryButton = new Gtk.Button.from_icon_name ("contact-new", Gtk.IconSize.LARGE_TOOLBAR);
+        private Gtk.Button add_entry_button = new Gtk.Button.from_icon_name ("contact-new", Gtk.IconSize.LARGE_TOOLBAR);
         private Gtk.SearchEntry Search = new Gtk.SearchEntry ();
         private Gtk.Button export_button = new Gtk.Button.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
         private Gtk.Button import_button = new Gtk.Button.from_icon_name ("document-import", Gtk.IconSize.LARGE_TOOLBAR);
@@ -38,11 +38,11 @@ namespace View {
         public signal void export ();
 
         public Headerbar () {
-            addEntryButton.set_tooltip_text ("Create new contact");
+            add_entry_button.set_tooltip_text ("Create new contact");
 
-            var popover = new Popover (addEntryButton);
+            var popover = new Popover (add_entry_button);
 
-            addEntryButton.clicked.connect (() => {
+            add_entry_button.clicked.connect (() => {
                 popover.popup ();
                 popover.show_all ();
             });
@@ -54,19 +54,15 @@ namespace View {
             Search.valign = Gtk.Align.CENTER;
             Search.set_placeholder_text ("Search Contacts");
 
-            Search.changed.connect(() => ChangedSearch (Search.get_text()));
+            Search.changed.connect(() => changed_search (Search.get_text()));
 
             import_button.clicked.connect (() => import ());
 
-            this.pack_start (addEntryButton);
+            this.pack_start (add_entry_button);
             this.pack_start (Search);
             this.pack_end (export_button);
             this.pack_end (import_button);
             this.set_show_close_button (true);
-        }
-
-        public Gtk.SearchEntry get_search_entry () {
-            return Search;
         }
     }
 }
