@@ -9,4 +9,6 @@ An easy contact manager for elementary OS (Prerelease State, very unstable)
 Curently unavailale. Please compile using:
 
         cd src
-        valac --pkg=gtk+-3.0 --pkg=granite *.vala */*.vala
+        ./compnrun
+
+Also, `compnrun -r` can be used to run the previously compiled version, even if compiling failed (assuming the previous compilation's output file name and location didn't change)
