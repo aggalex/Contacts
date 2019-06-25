@@ -1,5 +1,5 @@
 # Contacts
-An easy contact manager for elementary OS (Beta State, very unstable)
+An easy contact manager for elementary OS (Prerelease State, very unstable)
 
 <p align="center">
     <img  src="https://github.com/aggalex/Contacts/blob/master/data/Images/Screenshot.png" alt="Screenshot"> <br>

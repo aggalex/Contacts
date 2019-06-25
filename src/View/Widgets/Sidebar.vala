@@ -137,10 +137,12 @@ namespace View.Widgets {
         }
 
         public void show_all_rows () {
+            listbox.no_show_all = false;
             listbox.show_all ();
         }
 
         public void hide_all_rows () {
+            listbox.no_show_all = true;
             foreach (var row in listbox.get_children ()) {
                 row.hide ();
             }

@@ -46,8 +46,8 @@ namespace ViewModel {
             if (contact_list == null) 
                 contact_list = new ContactList ();
 
-            contact_list.data.insert_sorted (new Contact (name), compare_contacts);
-
+            if (search (name).length () == 0)
+                contact_list.data.insert_sorted (new Contact (name), compare_contacts);
         }
 
         public bool remove_contact (int index)
@@ -66,7 +66,7 @@ namespace ViewModel {
             List<int> indexes = new List<int> ();
             for (var i=0; i<contact_list.data.length (); i++) {
                 var contact = contact_list.data.nth_data (i);
-                if (contact.name.contains (needle))
+                if (contact.name.casefold ().contains (needle.down ()))
                     indexes.append (i);
             }
             return indexes;

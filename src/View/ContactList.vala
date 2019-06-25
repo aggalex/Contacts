@@ -50,14 +50,17 @@ namespace  View {
 
             contact_list_handler.add_contact (name);
 
+            var index = contact_list_handler.search (name).first ().data;
+
             contact_stack.add (contact);
+            contact_stack.child_set_property (contact, "position", index);
             contact_stack.set_visible_child (contact);
             contact_stack.show_all ();
         }
 
         public void search (string needle) {
             if (needle == "") {
-                sidebar.show_all ();
+                sidebar.show_all_rows ();
                 return;
             }
 
@@ -70,13 +73,10 @@ namespace  View {
                 sidebar.show_all_rows ();
             }
 
-            for (var i=0; i<contact_list_handler.length; i++) {
-                if (i != indexes.first ().data) {
-                    sidebar.hide_row (i);
-                } else if (indexes.length () != 1) {
-                    indexes.remove (i);
-                }
-            }
+            sidebar.hide_all_rows ();
+
+            foreach (var index in indexes)
+                sidebar.show_row (index);
         }
     }
 }
