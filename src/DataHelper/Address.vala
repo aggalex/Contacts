@@ -30,5 +30,12 @@ namespace DataHelper {
         public string[] to_string_array () {
             return {street, city, state, zip, country};
         }
+
+        public string to_string () {
+            var output = new StringBuilder ("");
+            foreach (var str in to_string_array ())
+                output.append (str);
+            return output.str;
+        }
     }
 }

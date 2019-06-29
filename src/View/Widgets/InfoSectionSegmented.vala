@@ -22,9 +22,23 @@ using Granite;
 using Granite.Widgets;
 using Gtk;
 
+using DataHelper;
+
 namespace View.Widgets {
 
+    public class HandlerInterfaceSegmented {
+        public delegate void HandlerAddFunc (Address data, DataHelper.Type type);
+        public delegate void HandlerRemoveFunc (int index);
+        public delegate bool HandlerSetFunc (Address data, DataHelper.Type type, int index);
+
+        public HandlerAddFunc add;
+        public HandlerRemoveFunc remove;
+        public HandlerSetFunc change;
+    }
+
     public class InfoSectionSegmented : InfoSection{
+
+        internal new HandlerInterfaceSegmented handler = new HandlerInterfaceSegmented ();
 
         private string[] placeholders;
 
@@ -34,16 +48,42 @@ namespace View.Widgets {
         }
 
         protected override void add_button_action () {
-            new_entry (null, DataHelper.Type.DEFAULT.to_string ());
+            new_entry (null, DataHelper.Type.DEFAULT);
         }
 
-        public new void new_entry (string[]? data, string type) {
+        public new void new_entry (string[]? data, DataHelper.Type type) {
             EditableLabelSegmented entry;
             if (data == null || data.length != placeholders.length)
                 entry = new EditableLabelSegmented.empty (placeholders, type);
             else
                 entry = new EditableLabelSegmented (data, placeholders, type);
             _new_entry (entry);
+        }
+
+        protected override void handler_new_entry (EditableWidget widget) {
+            var label = (EditableLabelSegmented) widget;
+            var address = extract_address_data (label.text_array);
+            handler.add (address, widget.data_type);
+        }
+
+        public override void handler_change_entry (EditableWidget widget, int index) {
+            var label = (EditableLabelSegmented) widget;
+            var address = extract_address_data (label.text_array);
+            handler.change (address, widget.data_type, index);
+        }
+
+        protected override void handler_remove_entry (int index, DataHelper.Type? type) {
+            handler.remove (index);
+        }
+
+        private static Address extract_address_data (List<string> data) {
+            return Address () {
+                street = data.nth_data (0),
+                city = data.nth_data (1),
+                state = data.nth_data (2),
+                zip = data.nth_data (3),
+                country = data.nth_data (4)
+            };
         }
     }
 }

@@ -31,21 +31,21 @@ namespace View.Widgets {
 
         private Gtk.Label explaining_label = new Gtk.Label ("");
 
-        public string data_type {set; protected get;}
+        public DataHelper.Type data_type {set; protected get;}
         public string text {
             owned get {
                 return label.get_text ();
             }
         }
 
-        public EditableLabelNoType (string text = "", string label_text) {
+        public EditableLabelNoType (string text = "", DataHelper.Type label_text) {
             if (text == null) {
                 text = "";
             }
 
             label.set_text (text);
             data_type = label_text;
-            explaining_label.label = data_type + ":";
+            explaining_label.label = @"$data_type:";
         }
 
         construct {

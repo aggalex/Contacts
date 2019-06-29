@@ -41,11 +41,10 @@ namespace ViewModel {
 
         public Date? birthday {
             get {
-                if (contact.birthday == null)
-                    contact.birthday = Date ();
                 return contact.birthday;
             }
             set {
+                print ("setting birthday");
                 contact.birthday = value;
             }
         }
@@ -80,11 +79,20 @@ namespace ViewModel {
             this.contact = contact;
         }
 
-        public void add_phone (string phone){
+        public void add_phone (string phone, DataHelper.Type type){
             if (contact.phones == null)
-                contact.phones = new List<string>();
+                contact.phones = new List<DataWithType<string>>();
 
-            contact.phones.append(phone);
+            contact.phones.append(new DataWithType<string> (phone, type));
+        }
+
+        public bool set_phone (string phone, DataHelper.Type type, int index){
+            if (contact.phones == null) return false;
+
+            unowned List<DataWithType<string>> element = contact.phones.nth (index);
+            element.data.data = phone;
+            element.data.type = type;
+            return true;
         }
 
         public void remove_phone(int index){
@@ -95,10 +103,19 @@ namespace ViewModel {
             contact.phones.remove(contact.phones.nth_data(index));
         }
 
-        public void add_email (string email){
+        public void add_email (string email, DataHelper.Type type){
             if (contact.emails == null)
-                contact.emails = new List<string>();
-            contact.emails.append (email);
+                contact.emails = new List<DataWithType<string>>();
+            contact.emails.append (new DataWithType<string> (email, type));
+        }
+
+        public bool set_email (string email, DataHelper.Type type, int index){
+            if (contact.emails == null) return false;
+
+            unowned List<DataWithType<string>> element = contact.emails.nth (index);
+            element.data.data = email;
+            element.data.type = type;
+            return true;
         }
 
         public void remove_email(int index){
@@ -110,10 +127,19 @@ namespace ViewModel {
             contact.emails.remove(contact.emails.nth_data(index));
         }
 
-        public void add_address (Address address){
+        public void add_address (Address address, DataHelper.Type type){
             if (contact.addresses == null)
-                contact.addresses = new List<Address?>();
-            contact.addresses.append (address);
+                contact.addresses = new List<DataWithType<Address?>>();
+            contact.addresses.append (new DataWithType<Address?> (address, type));
+        }
+
+        public bool set_address (Address address, DataHelper.Type type, int index){
+            if (contact.addresses == null) return false;
+
+            unowned List<DataWithType<Address?>> element = contact.addresses.nth (index);
+            element.data.data = address;
+            element.data.type = type;
+            return true;
         }
 
         public void remove_address(int index){
@@ -125,9 +151,17 @@ namespace ViewModel {
         }
 
         public void add_note (string note){
+            print ("CREATING A NOTE");
             if (contact.notes == null)
                 contact.notes = new List<string>();
             contact.notes.append (note);
+        }
+
+        public bool set_note (string note, int index){
+            if (contact.notes == null) return false;
+
+            contact.notes.nth (index).data = note;
+            return true;
         }
 
         public void remove_note(int index){
@@ -145,6 +179,13 @@ namespace ViewModel {
             contact.nicknames.append (nickname);
         }
 
+        public bool set_nickname (string nickname, int index){
+            if (contact.nicknames == null) return false;
+
+            contact.nicknames.nth (index).data = nickname;
+            return true;
+        }
+
         public void remove_nickname(int index){
             if (contact.nicknames.length () == 1){
                 contact.nicknames = null;
@@ -160,13 +201,24 @@ namespace ViewModel {
             contact.websites.append (webiste);
         }
 
-        public void remove_website(int index){
+        public bool set_website (string website, int index){
+            if (contact.websites == null) return false;
+
+            contact.websites.nth (index).data = website;
+            return true;
+        }
+
+        public void remove_website(int index) {
             if (contact.websites.length () == 1){
                 contact.websites = null;
                 return;
             }
 
             contact.websites.remove(contact.websites.nth_data(index));
+        }
+
+        public void save () {
+            contact.save ();
         }
     }
 

@@ -27,16 +27,14 @@ using DataHelper;
 namespace View.Widgets {
     public class EditableLabelSegmented : Gtk.Stack, EditableWidget {
 
-        //public signal void deleted ();
-
         private Gtk.Label label = new Gtk.Label ("");
         private List<Gtk.Entry> entries = new List<Gtk.Entry> ();
         private Gtk.Button delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
         private SimpleMenu type_list = new SimpleMenu (null);
 
-        private List<string> backup = new List<string> ();
+        internal List<string> text_array = new List<string> ();
 
-        public string data_type {get; protected set;}
+        public DataHelper.Type data_type {get; protected set;}
         public string text {
             owned get {
                 var output = new StringBuilder ();
@@ -52,12 +50,13 @@ namespace View.Widgets {
             }
         }
 
-        public EditableLabelSegmented (string[]? text_array, string[] entry_names, string type) {
+        public EditableLabelSegmented (string[]? text_array, string[] entry_names, DataHelper.Type type) {
             for (int i = 0; i<entry_names.length; i++) {
                 var entry = new Gtk.Entry ();
                 entry.text = text_array [i];
                 entry.set_placeholder_text (entry_names[i]);
                 entries.append (entry);
+                this.text_array.append ("");
             }
 
             this.data_type = type;
@@ -65,13 +64,14 @@ namespace View.Widgets {
             construct_this ();
         }
 
-        public EditableLabelSegmented.empty (string[] entry_names, string type) {
+        public EditableLabelSegmented.empty (string[] entry_names, DataHelper.Type type) {
             foreach (var name in entry_names) {
                 var entry = new Gtk.Entry ();
                 entry.text = "";
                 entry.set_placeholder_text (name);
                 entries.append (entry);
-                backup.append ("");
+                text_array.append ("");
+                this.text_array.append ("");
             }
 
             this.data_type = type;
@@ -106,7 +106,7 @@ namespace View.Widgets {
                 type_list.show_all ();
             });
             type_list.poped_down.connect ((text) => {
-                this.data_type = text;
+                this.data_type = DataHelper.Type.parse (text);
                 type_button.set_label (text + ":");
                 changed ();
             });
@@ -153,14 +153,17 @@ namespace View.Widgets {
                 entry_revealer.set_reveal_child (true);
             });
 
-            var i = 0;
             foreach (Gtk.Entry entry in entries) {
                 entry.activate.connect (() => {
                     entry_revealer.set_reveal_child (false);
                     this.set_visible_child_name ("label");
 
-                    backup.nth (i++).data = entry.text;
+                    var i = 0;
+                    foreach (var s_entry in entries)
+                        text_array.nth (i++).data = s_entry.text;
+
                     label.set_text (text);
+
                     if (get_lines () >= 2) {
                         button_box.set_orientation (Gtk.Orientation.VERTICAL);
                         label_box.set_orientation (Gtk.Orientation.VERTICAL);
@@ -168,15 +171,16 @@ namespace View.Widgets {
                         button_box.set_orientation (Gtk.Orientation.HORIZONTAL);
                         label_box.set_orientation (Gtk.Orientation.HORIZONTAL);
                     }
+
                     changed ();
                 });
             }
 
             entry_box.focus_out_event.connect (() => {
                 this.set_visible_child_name ("label");
-                i = 0;
+                var i = 0;
                 foreach (Gtk.Entry entry in entries) {
-                    entry.text = backup.nth_data (i++);
+                    entry.text = text_array.nth_data (i++);
                 }
                 return true;
             });

@@ -33,22 +33,34 @@ namespace View.Widgets {
 
         private Date date_backup = Date ();
 
-        public string data_type {get; private set;}
+        public int day {
+            get {return calendar.day;}
+        }
+
+        public int month {
+            get {return calendar.month;}
+        }
+
+        public int year {
+            get {return calendar.year;}
+        }
+
+        public DataHelper.Type data_type {get; private set;}
         public string text {
             owned get {
                 var month = (calendar.month + 1).to_string ();
                 if (month.length == 1) month = "0" + month;
-    
+
                 var day = calendar.day.to_string ();
                 if (day.length == 1) day = "0" + day;
-    
+
                 return (calendar.year.to_string () + month + day).to_string ();
             }
         }
 
         delegate void VoidFunc ();
 
-        public EditableLabelDate (uint? day, uint? month, uint? year, string label_text) {
+        public EditableLabelDate (uint? day, uint? month, uint? year, DataHelper.Type label_text) {
             data_type = label_text;
 
             if (day != null && month != null && year != null) {
@@ -59,7 +71,7 @@ namespace View.Widgets {
             } else {
                 label.set_text ("");
             }
-            explaining_label.label = data_type + ":";
+            explaining_label.label = @"$data_type:";
         }
 
         private string extract_label_text () {

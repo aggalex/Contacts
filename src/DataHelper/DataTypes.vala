@@ -31,6 +31,8 @@ namespace DataHelper {
 
         public const Type DEFAULT = HOME;
 
+        public const Type MISC_DEFAULT = NOTES;
+
         public string to_string () {
             switch (this) {
                 case HOME: return "Home";
@@ -58,11 +60,13 @@ namespace DataHelper {
         }
     }
 
-    public struct DataWithType {
-
-        public string data;
+    public class DataWithType<G> : Object{
+        public G data;
         public Type type;
 
+        public DataWithType (G data, Type type) {
+            this.data = data;
+            this.type = type;
+        }
     }
-
 }

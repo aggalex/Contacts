@@ -20,19 +20,22 @@
 */
 
 using DataHelper;
+using Json;
+using JsonHelper;
 
 namespace Model {
+
     public class Contact {
         public Gdk.Pixbuf? icon;
-        
+
         // Default properties
         public string name;
         public Date? birthday;
-        
-        public List<string>? phones;
-        public List<string>? emails;
-        public List<Address?>? addresses;
-        
+
+        public List<DataWithType<string>>? phones;
+        public List<DataWithType<string>>? emails;
+        public List<DataWithType<Address?>>? addresses;
+
         public List<string>? notes;
         public List<string>? nicknames;
         public List<string>? websites;
@@ -47,6 +50,53 @@ namespace Model {
             notes = null;
             nicknames = null;
             websites = null;
+        }
+
+        public void save () {
+            var builder = new Json.Builder ();
+            builder.begin_object ();
+
+            builder.set_member_name ("name");
+            builder.add_string_value (name);
+
+            builder.set_member_name ("icon");
+            if (icon != null) {
+                uint8[] buffer;
+                icon.save_to_buffer (out buffer, "jpeg");
+                builder.add_string_value (Base64.encode (buffer));
+            } else
+                builder.add_string_value ("");
+
+            builder.set_member_name ("birthday");
+            builder.add_value (get_date (birthday));
+
+            builder.set_member_name ("phones");
+            builder.add_value (get_string_list_with_type (phones));
+
+            builder.set_member_name ("emails");
+            builder.add_value (get_string_list_with_type (emails));
+
+            builder.set_member_name ("addresses");
+            builder.add_value (get_address_list_with_type (addresses));
+
+            builder.set_member_name ("notes");
+            builder.add_value (get_string_list (notes));
+
+            builder.set_member_name ("nicknames");
+            builder.add_value (get_string_list (nicknames));
+
+            builder.set_member_name ("websites");
+            builder.add_value (get_string_list (websites));
+
+            builder.end_object ();
+
+            var generator = new Json.Generator ();
+            var root = builder.get_root ();
+            generator.set_root (root);
+
+            var output = generator.to_data (null);
+            print (output);
+            print ("\n");
         }
 
     }

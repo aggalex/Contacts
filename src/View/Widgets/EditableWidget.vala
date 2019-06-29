@@ -22,15 +22,17 @@ using Granite;
 using Granite.Widgets;
 using Gtk;
 
+using DataHelper;
+
 namespace View.Widgets {
 
     public interface EditableWidget : Gtk.Stack {
-        
+
         public signal void changed ();
 
         public signal void deleted ();
 
-        public abstract string data_type {get; protected set;}
+        public abstract DataHelper.Type data_type {get; protected set;}
 
         public abstract string text {owned get;}
 

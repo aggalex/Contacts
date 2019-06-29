@@ -28,6 +28,7 @@ namespace View.Widgets {
 
         public signal void poped_down (string text);
         private ListBox list_box = new Gtk.ListBox ();
+        private List<Gtk.Button> list = new List<Gtk.Button> ();
 
         public SimpleMenu (Gtk.Button? Relative) {
             if (Relative != null) this.set_relative_to (Relative);
@@ -52,12 +53,22 @@ namespace View.Widgets {
             button.margin_top = 0;
             button.margin_bottom = 0;
             list_box.add (button);
+            list.append (button);
+        }
+
+        public Gtk.Button? find_by_label (string label) {
+            foreach (var button in list) {
+                if (button.label == label)
+                    return button;
+            }
+            return null;
         }
 
         public void clear () {
             list_box.get_children ().foreach ((child) => {
                 child.destroy ();
             });
+            list = new List<Gtk.Button> ();
         }
     }
 }

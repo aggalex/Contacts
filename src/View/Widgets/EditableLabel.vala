@@ -33,17 +33,17 @@ namespace View.Widgets {
         private SimpleMenu type_list = new SimpleMenu (null);
         private Gtk.Button type_button = new Gtk.Button ();
 
-        public string data_type {get; protected set;}
+        public DataHelper.Type data_type {get; protected set;}
         public string text {
             owned get {
                 return label.label;
             }
         }
 
-        public EditableLabel (string text = "", string type){
+        public EditableLabel (string text = "", DataHelper.Type type){
             label.set_text (text);
             data_type = type;
-            type_button.set_label (data_type + ":");
+            type_button.set_label (@"$data_type:");
         }
 
         //Making the UI
@@ -68,8 +68,7 @@ namespace View.Widgets {
 
             type_list.poped_down.connect ((text) => {
                 type_button.set_label (text + ":");
-                var temp = text;
-                this.data_type = temp;
+                this.data_type = DataHelper.Type.parse (text);
                 changed ();
             });
 

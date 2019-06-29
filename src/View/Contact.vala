@@ -99,22 +99,7 @@ namespace View {
                 }
             });
 
-            name_label.changed.connect (() => {
-                title = name_label.text;
-                name_changed ();
-                changed ();
-            });
-
-            phone_info.changed.connect ((text) => {
-                status = text;
-                changed ();
-            });
-
-            email_info.info_changed.connect ((text) => changed ());
-
-            address_info.info_changed.connect ((text) => changed ());
-
-            misc_info.info_changed.connect ((text) => changed ());
+            set_connections ();
 
             var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
             title_box.pack_start (icon_button, false, false, 0);
@@ -135,7 +120,12 @@ namespace View {
             delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             delete_button.clicked.connect (() => delete_contact());
 
+            var save_button = new Gtk.Button ();
+            save_button.set_label ("Save");
+            save_button.clicked.connect (() => handler.save());
+
             var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            bottom_box.pack_end (save_button, false, false, 0);
             bottom_box.pack_end (delete_button, false, false, 0);
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -193,41 +183,47 @@ namespace View {
             }
         }
 
-        public void new_phone (string phone, DataHelper.Type type = DataHelper.Type.DEFAULT) {
-            handler.add_phone (phone);
-            phone_info.new_entry (phone, type.to_string ());
-        }
+        private void set_connections () {
+            name_label.changed.connect (() => {
+                title = name_label.text;
+                handler.name = name_label.text;
+                name_changed ();
+                changed ();
+            });
 
-        public void new_email (string email, DataHelper.Type type = DataHelper.Type.DEFAULT) {
-            handler.add_email (email);
-            email_info.new_entry (email, type.to_string ());
-        }
+            phone_info.handler.add = handler.add_phone;
+            phone_info.handler.remove = (index) => {
+                handler.remove_phone (index);
+                if (index == 0) status = "";
+            };
+            phone_info.handler.change = (phone, type, index) => {
+                if (index == 0) status = phone;
+                return handler.set_phone (phone, type, index);
+            };
 
-        public void new_address (Address address, DataHelper.Type type = DataHelper.Type.DEFAULT) {
-            handler.add_address (address);
-            address_info.new_entry (address.to_string_array (), type.to_string ());
-        }
+            email_info.handler.add = handler.add_email;
+            email_info.handler.remove = handler.remove_email;
+            email_info.handler.change = handler.set_email;
 
-        public void new_birthday (uint day, uint month, uint year) {
-            handler.birthday.set_day ((DateDay)(uchar) day);
-            handler.birthday.set_month ((DateMonth)(uchar) month);
-            handler.birthday.set_year ((DateYear)(uchar) year);
-            misc_info.new_entry_calendar (day, month, year, DataHelper.Type.BIRTHDAY.to_string ());
-        }
+            address_info.handler.add = handler.add_address;
+            address_info.handler.remove = handler.remove_address;
+            address_info.handler.change = handler.set_address;
 
-        public void new_note (string note) {
-            handler.add_note (note);
-            misc_info.new_entry_without_type (note, DataHelper.Type.NOTES.to_string ());
-        }
+            misc_info.handler.add_note = handler.add_note;
+            misc_info.handler.remove_note = handler.remove_note;
+            misc_info.handler.change_note = handler.set_note;
 
-        public void new_website (string www) {
-            handler.add_website (www);
-            misc_info.new_entry_without_type (www, DataHelper.Type.WEBSITE.to_string ());
-        }
+            misc_info.handler.add_website = handler.add_website;
+            misc_info.handler.remove_website = handler.remove_website;
+            misc_info.handler.change_website = handler.set_website;
 
-        public void new_nickname (string name) {
-            handler.add_nickname (name);
-            misc_info.new_entry_without_type (name, DataHelper.Type.NICKNAME.to_string ());
+            misc_info.handler.add_nickname = handler.add_nickname;
+            misc_info.handler.remove_nickname = handler.remove_nickname;
+            misc_info.handler.change_nickname = handler.set_nickname;
+
+            misc_info.handler.set_birthday = (day, month, year) => handler.birthday.set_dmy (day, month, year);
+            misc_info.handler.new_birthday = () => handler.birthday = Date ();
+            misc_info.handler.clear_birthday = () => handler.birthday = null;
         }
     }
 }

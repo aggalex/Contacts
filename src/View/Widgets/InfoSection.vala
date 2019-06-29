@@ -22,18 +22,29 @@ using Granite;
 using Granite.Widgets;
 using Gtk;
 
+using ViewModel;
+
 namespace View.Widgets {
 
-    public class InfoSection : Gtk.Box {
+    public class HandlerInterface {
+        public delegate void HandlerAddFunc (string data, DataHelper.Type type);
+        public delegate void HandlerRemoveFunc (int index);
+        public delegate bool HandlerSetFunc (string data, DataHelper.Type type, int index);
 
-        public signal void changed (string text);
-        public signal void info_changed ();
+        public HandlerAddFunc add;
+        public HandlerRemoveFunc remove;
+        public HandlerSetFunc change;
+    }
+
+    public class InfoSection : Gtk.Box {
 
         protected string title;
         protected Gtk.Label title_label = new Gtk.Label (null);
 
         private ListBox list_box = new Gtk.ListBox ();
         private int population = 0;
+
+        internal HandlerInterface handler = new HandlerInterface ();
 
         protected Gtk.Button add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.BUTTON);
 
@@ -68,31 +79,25 @@ namespace View.Widgets {
         }
 
         protected virtual void add_button_action () {
-            new_entry ("", DataHelper.Type.DEFAULT.to_string ());
+            new_entry ("", DataHelper.Type.DEFAULT);
         }
 
-        public void new_entry (string data, string type) {
+        public void new_entry (string data, DataHelper.Type type) {
             var entry = new EditableLabel (data, type);
             _new_entry (entry);
         }
 
-        protected void _new_entry (EditableWidget entry) {
-            string data;
+        protected void _new_entry (EditableWidget entry, int? index = null) {
+            string data = entry.text;
 
-            data = entry.text;
+            handler_new_entry (entry);
 
-            population++;
+            if (index == null) 
+                index = population++;
+            else
+                population++;
 
-            if (population == 1) {
-                entry.changed.connect (() => {
-                    changed (entry.text);
-                    info_changed ();
-                });
-            } else {
-                entry.changed.connect (() => {
-                    info_changed ();
-                });
-            }
+            entry.changed.connect (() => handler_change_entry (entry, index));
 
             var entry_revealer = new Gtk.Revealer ();
             entry_revealer.set_transition_type (RevealerTransitionType.SLIDE_DOWN);
@@ -106,7 +111,7 @@ namespace View.Widgets {
 
             entry.deleted.connect (() => {
                 entry_revealer.reveal_child = false;
-                remove_entry ((ListBoxRow) entry_revealer.get_parent ());
+                remove_entry_wrapper ((ListBoxRow) entry_revealer.get_parent (), entry.data_type, index);
             });
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -118,14 +123,23 @@ namespace View.Widgets {
             entry_revealer.set_reveal_child (true);
         }
 
-        public void remove_entry (Gtk.ListBoxRow sender) {
+        protected virtual void handler_new_entry (EditableWidget widget) {
+            handler.add (widget.text, widget.data_type);
+        }
+
+        protected virtual void handler_change_entry (EditableWidget widget, int index) {
+            handler.change (widget.text, widget.data_type, index);
+        }
+
+        private void remove_entry_wrapper (Gtk.ListBoxRow sender, DataHelper.Type? type, int index) {
             list_box.remove (list_box.get_row_at_index (sender.get_index () - 1));
             list_box.remove (sender);
+            handler_remove_entry (index, type);
             population--;
-            if (population == 0) {
-                changed ("");
-            }
-            info_changed ();
+        }
+
+        protected virtual void handler_remove_entry (int index, DataHelper.Type? type) {
+            handler.remove (index);
         }
     }
 }
