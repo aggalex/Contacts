@@ -22,6 +22,7 @@
 using DataHelper;
 using Json;
 using JsonHelper;
+using FileHelper;
 
 namespace Model {
 
@@ -40,6 +41,8 @@ namespace Model {
         public List<string>? nicknames;
         public List<string>? websites;
 
+        private string file_name;
+
         public Contact (string str) {
             icon = null;
             name = str;
@@ -50,6 +53,8 @@ namespace Model {
             notes = null;
             nicknames = null;
             websites = null;
+
+            file_name = name;
         }
 
         public void save () {
@@ -97,6 +102,15 @@ namespace Model {
             var output = generator.to_data (null);
             print (output);
             print ("\n");
+
+            if (name != file_name)
+                FileHelper.rename (get_filename (file_name), get_filename (name));
+
+            FileHelper.save (get_filename (name), output);
+        }
+
+        private string get_filename (string name) {
+            return name.replace (" ", "_") + ".json";
         }
 
     }

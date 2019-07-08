@@ -178,9 +178,7 @@ namespace View.Widgets {
         protected override void handler_change_entry (EditableWidget widget, int index) {
             switch (widget.data_type) {
                 case BIRTHDAY:
-                    print ("AM IN");
                     var label = (EditableLabelDate) widget;
-                    print (@"D: $(label.day), M: $(label.month), Y: $(label.year)\n");
                     handler.set_birthday ((DateDay) label.day, label.month+1, (DateYear) label.year);
                     return;
                 case NOTES:

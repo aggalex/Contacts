@@ -195,13 +195,13 @@ namespace ViewModel {
             contact.nicknames.remove(contact.nicknames.nth_data(index));
         }
 
-        public void add_website (string webiste){
+        public void add_website (string webiste) {
             if (contact.websites == null)
                 contact.websites =  new List<string>();
             contact.websites.append (webiste);
         }
 
-        public bool set_website (string website, int index){
+        public bool set_website (string website, int index) {
             if (contact.websites == null) return false;
 
             contact.websites.nth (index).data = website;

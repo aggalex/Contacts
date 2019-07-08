@@ -30,6 +30,7 @@ namespace View.Widgets {
         private Gtk.Calendar calendar = new Gtk.Calendar ();
 
         private Gtk.Label explaining_label = new Gtk.Label ("");
+        private Gtk.Revealer calendar_revealer = new Gtk.Revealer ();
 
         private Date date_backup = Date ();
 
@@ -100,7 +101,6 @@ namespace View.Widgets {
             calendar.set_halign (Gtk.Align.FILL);
             calendar.margin = 6;
 
-            var calendar_revealer = new Gtk.Revealer ();
             calendar_revealer.can_focus = true;
             calendar_revealer.set_transition_type (RevealerTransitionType.SLIDE_DOWN);
             calendar_revealer.add (calendar);
@@ -113,8 +113,12 @@ namespace View.Widgets {
 
             delete_button.clicked.connect (() => deleted ());
 
+            var loop = new MainLoop ();
             VoidFunc close_calendar = () => {
-                calendar_revealer.set_reveal_child (false);
+                revealer_pause.begin ((obj, res) => {
+                    loop.quit ();
+                });
+                loop.run ();
                 this.set_visible_child_name ("label");
                 date_backup.set_dmy ((DateDay)calendar.day, calendar.month, (DateYear)calendar.year);
                 label.set_text (extract_label_text ());
@@ -138,6 +142,19 @@ namespace View.Widgets {
             this.set_visible_child_name ("label");
             this.set_homogeneous (false);
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+        }
+
+        public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
+          GLib.Timeout.add (interval, () => {
+              nap.callback ();
+              return false;
+            }, priority);
+          yield;
+        }
+
+        public async void revealer_pause () {
+            calendar_revealer.set_reveal_child (false);
+            yield nap ((int) calendar_revealer.get_transition_duration () - 150);
         }
     }
 }

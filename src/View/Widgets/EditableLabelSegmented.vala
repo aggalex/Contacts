@@ -31,6 +31,7 @@ namespace View.Widgets {
         private List<Gtk.Entry> entries = new List<Gtk.Entry> ();
         private Gtk.Button delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
         private SimpleMenu type_list = new SimpleMenu (null);
+        private Gtk.Revealer entry_revealer = new Gtk.Revealer ();
 
         internal List<string> text_array = new List<string> ();
 
@@ -140,7 +141,6 @@ namespace View.Widgets {
             entry_box.set_halign (Gtk.Align.FILL);
             entry_box.margin = 6;
 
-            var entry_revealer = new Gtk.Revealer ();
             entry_revealer.set_transition_type (RevealerTransitionType.SLIDE_DOWN);
             entry_revealer.add (entry_box);
             entry_revealer.set_reveal_child (false);
@@ -153,9 +153,13 @@ namespace View.Widgets {
                 entry_revealer.set_reveal_child (true);
             });
 
+            var loop = new MainLoop ();
             foreach (Gtk.Entry entry in entries) {
                 entry.activate.connect (() => {
-                    entry_revealer.set_reveal_child (false);
+                    revealer_pause.begin ((obj, res) => {
+                        loop.quit ();
+                    });
+                    loop.run ();
                     this.set_visible_child_name ("label");
 
                     var i = 0;
@@ -189,6 +193,19 @@ namespace View.Widgets {
             this.set_visible_child_name ("label");
             this.set_homogeneous (false);
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+        }
+
+        public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
+          GLib.Timeout.add (interval, () => {
+              nap.callback ();
+              return false;
+            }, priority);
+          yield;
+        }
+
+        public async void revealer_pause () {
+            entry_revealer.set_reveal_child (false);
+            yield nap ((int) entry_revealer.get_transition_duration () - 150);
         }
 
         private int get_lines () {

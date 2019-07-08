@@ -25,6 +25,12 @@ namespace Model{
 
         public List<Contact> data = new List<Contact> ();
 
+        public void save_all () {
+            foreach (var contact in data) {
+                contact.save ();
+            }
+        }
+
     }
 
 }
