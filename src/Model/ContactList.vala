@@ -19,9 +19,14 @@
 * Authored by: Alex Angelou <>
 */
 
-namespace Model{
+using JsonHelper;
+using FileHelper;
 
-    public class ContactList {
+namespace Model {
+
+    public class ContactList : Object {
+
+        public signal void loaded_contact (Contact contact);
 
         public List<Contact> data = new List<Contact> ();
 
@@ -31,6 +36,18 @@ namespace Model{
             }
         }
 
+        // construct {
+        //     try {
+        //         // GLib.MainLoop mainloop = new GLib.MainLoop();
+        //         // load.begin((obj, res) => {
+        //         //     mainloop.quit();
+        //         // });
+        //         // mainloop.run ();
+        //         load ();
+        //     } catch (FileError e) {
+        //         error (e.message);
+        //     }
+        // }
     }
 
 }

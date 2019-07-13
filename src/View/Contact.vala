@@ -80,6 +80,39 @@ namespace View {
             contact_name = name;
         }
 
+        public Contact.from_handler (ContactHandler handler)
+        {
+            this (handler.name);
+            this.handler = handler;
+
+            if (handler.phones != null) foreach (var phone in handler.phones)
+                phone_info.new_entry (phone.data, phone.type);
+
+            if (handler.emails != null) foreach (var email in handler.emails)
+                email_info.new_entry (email.data, email.type);
+
+            if (handler.addresses != null) foreach (var address in handler.addresses)
+                address_info.new_entry (address.data.to_string_array (), address.type);
+
+            if (handler.notes != null) foreach (var note in handler.notes)
+                misc_info.new_entry_note (note);
+
+            if (handler.websites != null) foreach (var website in handler.websites)
+                misc_info.new_entry_website (website);
+
+            if (handler.notes != null) foreach (var nickname in handler.nicknames)
+                misc_info.new_entry_nickname (nickname);
+
+            if (handler.birthday != null)
+                misc_info.new_entry_birthday (handler.birthday.get_day (), handler.birthday.get_month (), handler.birthday.get_year ());
+
+            if (handler.icon != null) {
+                icon.pixbuf = handler.icon;
+                ((Granite.Widgets.Avatar) display_widget).pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
+                has_icon (true);
+            }
+        }
+
         construct {
             var icon_button = new Gtk.Button ();
             icon_button.get_style_context ().add_class ("flat");
@@ -176,7 +209,7 @@ namespace View {
             try {
                 handler.icon =  new Gdk.Pixbuf.from_file_at_scale (path, 64, 64, true);
                 icon.pixbuf = handler.icon;
-                ((Granite.Widgets.Avatar) display_widget).pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);;
+                ((Granite.Widgets.Avatar) display_widget).pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
                 has_icon (true);
             } catch (Error e) {
                 stderr.printf (e.message);
@@ -225,5 +258,6 @@ namespace View {
             misc_info.handler.new_birthday = () => handler.birthday = Date ();
             misc_info.handler.clear_birthday = () => handler.birthday = null;
         }
+
     }
 }

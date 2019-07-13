@@ -36,13 +36,12 @@ namespace Contacts {
 
         protected override void activate () {
             var window = new Gtk.ApplicationWindow (this);
-            var main = new Gtk.Grid ();
 
             var contact_list = new ContactList ();
             window.add (contact_list);
 
-            contact_list.new_contact ("Alex Angelou");
-            contact_list.new_contact ("Giannis Kont");
+            //contact_list.add_contact ("Alex Angelou");
+            //contact_list.add_contact ("Giannis Kont");
 
             var headerbar = new Headerbar ();
             window.set_titlebar (headerbar);
@@ -50,14 +49,13 @@ namespace Contacts {
                 contact_list.search (query);
             });
             headerbar.new_contact.connect ((name) => {
-                contact_list.new_contact (name);
+                contact_list.add_contact (name);
             });
 
             Css.apply ();
 
             window.title = "Contacts";
             window.set_default_size (900, 640);
-            window.add (main);
             window.show_all ();
         }
 

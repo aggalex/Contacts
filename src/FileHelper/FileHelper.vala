@@ -25,14 +25,14 @@ namespace FileHelper {
         var data_folder = Granite.Services.Paths.xdg_data_home_folder.get_path ();
 
         if (!(data_folder.has_suffix ("Contacts"))) {
-            var home_path = Environment.get_home_dir ();
-            Granite.Services.Paths.initialize ("Contacts", Granite.Services.Paths.xdg_data_home_folder.get_path () + "Contacts");
+            var data_path = @"$(Environment.get_home_dir ())/.local/share/contacts";
+            if (!(FileUtils.test (data_path, FileTest.IS_DIR)))
+                File.new_for_path (data_path).make_directory ();
+            Granite.Services.Paths.initialize ("Contacts", data_path);
             data_folder = Granite.Services.Paths.xdg_data_home_folder.get_path ();
         }
 
-        print (data_folder);
-
-        return data_folder;
+        return data_folder + "/contacts";
     }
 
     private string get_file_path (string filename, string path_suffix) {
@@ -75,7 +75,25 @@ namespace FileHelper {
             builder.append (line);
             builder.append ("\n");
         }
+
         return builder.str;
+    }
+
+    public List<string> get_contact_files () throws FileError {
+        var directory = get_file_path ("", "");
+
+        var file_list = new List<string> ();
+
+        Dir dir = Dir.open (directory, 0);
+        string? name = null;
+        while ((name = dir.read_name ()) != null) {
+            string path = Path.build_filename (directory, name);
+
+            if (FileUtils.test (path, FileTest.IS_REGULAR) && name.has_suffix (".json"))
+                file_list.append (name);
+        }
+
+        return file_list;
     }
 
 }
