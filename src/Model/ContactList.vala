@@ -26,8 +26,6 @@ namespace Model {
 
     public class ContactList : Object {
 
-        public signal void loaded_contact (Contact contact);
-
         public List<Contact> data = new List<Contact> ();
 
         public void save_all () {

@@ -45,7 +45,6 @@ namespace JsonHelper {
         builder.begin_array ();
         if (list != null) {
             foreach (var data in list) {
-                print (@"$(data.data) ($(data.type))");
                 builder.add_value (get_string_with_type (data));
             }
         }
@@ -118,7 +117,7 @@ namespace JsonHelper {
         builder.set_member_name ("data");
         builder.add_string_value (data.data);
 
-        builder.set_member_name ("type");
+        builder.set_member_name ("data_type");
         builder.add_string_value (data.type.to_string ());
 
         builder.end_object ();
@@ -133,7 +132,7 @@ namespace JsonHelper {
         builder.set_member_name ("data");
         builder.add_value (get_address (data.data));
 
-        builder.set_member_name ("type");
+        builder.set_member_name ("data_type");
         builder.add_string_value (data.type.to_string ());
 
         builder.end_object ();

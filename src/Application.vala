@@ -23,6 +23,7 @@ using Granite.Widgets;
 using Gtk;
 
 using View;
+using ViewModel;
 
 namespace Contacts {
     public class Application : Granite.Application {
@@ -40,9 +41,6 @@ namespace Contacts {
             var contact_list = new ContactList ();
             window.add (contact_list);
 
-            //contact_list.add_contact ("Alex Angelou");
-            //contact_list.add_contact ("Giannis Kont");
-
             var headerbar = new Headerbar ();
             window.set_titlebar (headerbar);
             headerbar.changed_search.connect ((query) => {
@@ -53,10 +51,11 @@ namespace Contacts {
             });
 
             Css.apply ();
-
             window.title = "Contacts";
             window.set_default_size (900, 640);
             window.show_all ();
+
+            contact_list.initialize ();
         }
 
         public static int main (string[] args) {

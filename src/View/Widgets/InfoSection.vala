@@ -43,6 +43,7 @@ namespace View.Widgets {
 
         private ListBox list_box = new Gtk.ListBox ();
         private int population = 0;
+        public bool can_write = false;
 
         internal HandlerInterface handler = new HandlerInterface ();
 
@@ -90,14 +91,17 @@ namespace View.Widgets {
         protected void _new_entry (EditableWidget entry, int? index = null) {
             string data = entry.text;
 
-            handler_new_entry (entry);
+            if (can_write) handler_new_entry (entry);
 
             if (index == null) 
                 index = population++;
             else
                 population++;
 
-            entry.changed.connect (() => handler_change_entry (entry, index));
+            entry.changed.connect (() => {
+                if (can_write)
+                    handler_change_entry (entry, index);
+            });
 
             var entry_revealer = new Gtk.Revealer ();
             entry_revealer.set_transition_type (RevealerTransitionType.SLIDE_DOWN);
@@ -134,7 +138,7 @@ namespace View.Widgets {
         private void remove_entry_wrapper (Gtk.ListBoxRow sender, DataHelper.Type? type, int index) {
             list_box.remove (list_box.get_row_at_index (sender.get_index () - 1));
             list_box.remove (sender);
-            handler_remove_entry (index, type);
+            if (can_write) handler_remove_entry (index, type);
             population--;
         }
 

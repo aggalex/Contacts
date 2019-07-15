@@ -18,7 +18,7 @@
 *
 * Authored by: Alex Angelou <>
 */
-//Based on Granite.SettingsSidebar:
+//*************Based on Granite.SettingsSidebar:****************
 /*
 * Copyright (c) 2017 elementary LLC. (https://elementary.io)
 *
@@ -42,17 +42,16 @@ using Granite;
 using Granite.Widgets;
 using Gtk;
 
+using ViewModel;
+
 namespace View.Widgets {
     public class Sidebar : Gtk.ScrolledWindow {
         private Gtk.ListBox listbox;
-        private bool[] available_headers = new bool[26];
 
         private uint hidden_counter = 0;
 
-        /**
-         * The Gtk.Stack to control
-         */
-        public Gtk.Stack stack { get; construct; }
+        public LightStack stack { get; default = new LightStack (); }
+        public ContactListHandler handler { get; construct; }
 
         /**
          * The name of the currently visible Granite.SettingsPage
@@ -79,17 +78,13 @@ namespace View.Widgets {
         /**
          * Create a new SettingsSidebar
          */
-        public Sidebar (Gtk.Stack stack) {
+        public Sidebar (ContactListHandler handler) {
             Object (
-                stack: stack
+                handler: handler
             );
         }
 
         construct {
-            foreach (bool letter in available_headers) {
-                letter = false;
-            }
-
             hscrollbar_policy = Gtk.PolicyType.NEVER;
             width_request = 200;
             listbox = new Gtk.ListBox ();
@@ -99,18 +94,18 @@ namespace View.Widgets {
             add (listbox);
 
             on_sidebar_changed ();
-            stack.add.connect (on_sidebar_changed);
-            stack.remove.connect (on_sidebar_changed);
+            handler.added_contact.connect (on_sidebar_changed);
+            handler.removed_contact.connect (on_sidebar_changed);
+
+            stack.compare_func = (old_child, new_child) => {
+                return strcmp ((old_child as Contact).name, (new_child as Contact).name);
+            };
 
             listbox.row_selected.connect ((row) => {
-                stack.visible_child = ((SidebarRow) row).page;
-            });
-
-            listbox.set_header_func ((row, before) => {
-                var header = ((SidebarRow) row).header;
-                if (header != null && !available_headers[get_index(header.get_char(0))]) {
-                    row.set_header (new HeaderLabel (header));
-                }
+                var handler = ((SidebarRow) row).handler;
+                print ("HANDLER NAME: " + handler.name + "\n");
+                var contact = new Contact.from_handler (handler);
+                stack.child = contact;
             });
         }
 
@@ -123,15 +118,9 @@ namespace View.Widgets {
                 listbox_child.destroy ();
             });
 
-            var sorted_children = stack.get_children ();
-            sorted_children.sort ((a, b) => strcmp (((SettingsPage) a).title, ((SettingsPage) b).title));
-
-            sorted_children.foreach ((child) => {
-                if (child is SettingsPage) {
-                    var row = new SidebarRow ((SettingsPage) child);
-                    listbox.add (row);
-                }
-            });
+            foreach (var contact_handler in handler) {
+                listbox.add (new SidebarRow (contact_handler));
+            }
 
             listbox.show_all ();
         }

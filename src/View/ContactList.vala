@@ -25,53 +25,30 @@ using Gtk;
 using View.Widgets;
 using ViewModel;
 
-namespace  View {
+namespace View {
     public class ContactList : Gtk.Paned {
 
-        private Gtk.Stack contact_stack = new Gtk.Stack ();
+        private LightStack contact_stack;
         private Sidebar sidebar;
 
         private ContactListHandler handler = new ContactListHandler ();
 
         construct {
-            // foreach (var contact_handler in handler)
-            //     add_contact_with_data (contact_handler);
+            sidebar = new Sidebar (handler);
+            contact_stack = sidebar.stack;
 
-            handler.new_contact.connect (add_contact_with_data);
-
-            contact_stack.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
-
-            sidebar = new Sidebar (contact_stack);
-
-            handler.initialize ();
+            contact_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
 
             add1 (sidebar);
             add2 (contact_stack);
         }
 
+        public void initialize () {
+            handler.initialize ();
+        }
+
         public void add_contact (string name) {
-            var contact = new Contact (name);
-            initialize_contact (contact);
-        }
-
-        public void add_contact_with_data (ContactHandler handler) {
-            var contact = new Contact.from_handler (handler);
-            initialize_contact (contact);
-        }
-
-        private void initialize_contact (Contact contact) {
-            contact.name_changed.connect (() => {
-                sidebar.on_sidebar_changed ();
-            });
-
-            handler.add_contact (contact.name);
-
-            var index = handler.search (contact.name).first ().data;
-
-            contact_stack.add (contact);
-            contact_stack.child_set_property (contact, "position", index);
-            contact_stack.set_visible_child (contact);
-            contact_stack.show_all ();
+            handler.add_contact (name);
         }
 
         public void search (string needle) {

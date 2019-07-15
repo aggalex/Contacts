@@ -33,9 +33,17 @@ public errordomain FileChooserError {
 
 namespace View {
 
-    public class Contact : Granite.SettingsPage {
+    public class Contact : Gtk.ScrolledWindow {
 
-        public ContactHandler handler = new ContactHandler ();
+        public unowned ContactHandler _handler;
+        public unowned ContactHandler handler {
+            get {
+                return _handler;
+            }
+            private set {
+                _handler = value;
+            }
+        }
 
         public signal void delete ();
         public signal void name_changed ();
@@ -58,7 +66,9 @@ namespace View {
         });
         private InfoSectionMisc misc_info = new InfoSectionMisc ("Miscellaneous");
 
-        public string contact_name {
+        private string title { get; set; }
+
+        public string name {
             get {
                 return title;
             }
@@ -69,21 +79,14 @@ namespace View {
             }
         }
 
-        public Contact (string name = "") {
-
-            Object (
-                display_widget: new Granite.Widgets.Avatar.from_file ("../data/icons/32/contacts-avatar-default.svg", 32),
-                //header: name[0].to_string (),
-                title: name
-            );
-            this.name = name.replace(" ", "_") + "_contact";
-            contact_name = name;
+        public Contact.from_handler (ContactHandler handler) {
+            this.handler = handler;
+            set_connections ();
+            initialize ();
         }
 
-        public Contact.from_handler (ContactHandler handler)
-        {
-            this (handler.name);
-            this.handler = handler;
+        private void initialize () {
+            name = handler.name;
 
             if (handler.phones != null) foreach (var phone in handler.phones)
                 phone_info.new_entry (phone.data, phone.type);
@@ -108,12 +111,18 @@ namespace View {
 
             if (handler.icon != null) {
                 icon.pixbuf = handler.icon;
-                ((Granite.Widgets.Avatar) display_widget).pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
                 has_icon (true);
             }
+
+            phone_info.can_write = true;
+            email_info.can_write = true;
+            address_info.can_write = true;
+            misc_info.can_write = true;
         }
 
         construct {
+            hscrollbar_policy = Gtk.PolicyType.NEVER;
+
             var icon_button = new Gtk.Button ();
             icon_button.get_style_context ().add_class ("flat");
             icon_button.add (icon);
@@ -131,8 +140,6 @@ namespace View {
                     print ("You canceled the operation\n");
                 }
             });
-
-            set_connections ();
 
             var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
             title_box.pack_start (icon_button, false, false, 0);
@@ -163,15 +170,14 @@ namespace View {
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
-            var content_area = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-            content_area.margin = 12;
-            content_area.pack_start (title_box, false, false, 0);
-            content_area.pack_start (flow_box, false, false, 0);
-            content_area.pack_end (bottom_box, false, false, 0);
-            content_area.pack_end (separator, false, false, 0);
-            this.add (content_area);
+            var contents = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+            contents.margin = 12;
+            contents.pack_start (title_box, false, false, 0);
+            contents.pack_start (flow_box, false, false, 0);
+            contents.pack_end (bottom_box, false, false, 0);
+            contents.pack_end (separator, false, false, 0);
 
-            handler.name = name;
+            this.add (contents);
         }
 
         private void delete_contact () {
@@ -209,7 +215,7 @@ namespace View {
             try {
                 handler.icon =  new Gdk.Pixbuf.from_file_at_scale (path, 64, 64, true);
                 icon.pixbuf = handler.icon;
-                ((Granite.Widgets.Avatar) display_widget).pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
+                // ((Granite.Widgets.Avatar) display_widget).pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
                 has_icon (true);
             } catch (Error e) {
                 stderr.printf (e.message);
@@ -225,14 +231,8 @@ namespace View {
             });
 
             phone_info.handler.add = handler.add_phone;
-            phone_info.handler.remove = (index) => {
-                handler.remove_phone (index);
-                if (index == 0) status = "";
-            };
-            phone_info.handler.change = (phone, type, index) => {
-                if (index == 0) status = phone;
-                return handler.set_phone (phone, type, index);
-            };
+            phone_info.handler.remove = handler.remove_phone;
+            phone_info.handler.change = handler.set_phone;
 
             email_info.handler.add = handler.add_email;
             email_info.handler.remove = handler.remove_email;

@@ -27,7 +27,8 @@ using DataHelper;
 namespace ViewModel {
 
     public class ContactHandler {
- 
+
+        public signal void changed ();
         private Contact contact;
 
         public string name {
@@ -36,6 +37,7 @@ namespace ViewModel {
             }
             set {
                 contact.name = value;
+                changed ();
             }
         }
 
@@ -46,6 +48,7 @@ namespace ViewModel {
             set {
                 print ("setting birthday");
                 contact.birthday = value;
+                changed ();
             }
         }
 
@@ -68,6 +71,7 @@ namespace ViewModel {
                     image = image.scale_simple (64, 64, Gdk.InterpType.HYPER);
 
                 contact.icon = image;
+                changed ();
             }
         }
 
@@ -127,6 +131,7 @@ namespace ViewModel {
                 contact.phones = new List<DataWithType<string>>();
 
             contact.phones.append(new DataWithType<string> (phone, type));
+            changed ();
         }
 
         public bool set_phone (string phone, DataHelper.Type type, int index) {
@@ -135,7 +140,11 @@ namespace ViewModel {
             unowned List<DataWithType<string>> element = contact.phones.nth (index);
             element.data.data = phone;
             element.data.type = type;
-            return true;
+            try {
+                return true;
+            } finally {
+                changed ();
+            }
         }
 
         public void remove_phone(int index) {
@@ -144,6 +153,7 @@ namespace ViewModel {
                 return;
             }
             contact.phones.remove(contact.phones.nth_data(index));
+            changed ();
         }
 
 
@@ -153,6 +163,7 @@ namespace ViewModel {
             if (contact.emails == null)
                 contact.emails = new List<DataWithType<string>>();
             contact.emails.append (new DataWithType<string> (email, type));
+            changed ();
         }
 
         public bool set_email (string email, DataHelper.Type type, int index) {
@@ -161,7 +172,11 @@ namespace ViewModel {
             unowned List<DataWithType<string>> element = contact.emails.nth (index);
             element.data.data = email;
             element.data.type = type;
-            return true;
+            try {
+                return true;
+            } finally {
+                changed ();
+            }
         }
 
         public void remove_email(int index) {
@@ -171,6 +186,7 @@ namespace ViewModel {
             }
 
             contact.emails.remove(contact.emails.nth_data(index));
+            changed ();
         }
 
 
@@ -180,6 +196,7 @@ namespace ViewModel {
             if (contact.addresses == null)
                 contact.addresses = new List<DataWithType<Address?>>();
             contact.addresses.append (new DataWithType<Address?> (address, type));
+            changed ();
         }
 
         public bool set_address (Address address, DataHelper.Type type, int index) {
@@ -188,7 +205,11 @@ namespace ViewModel {
             unowned List<DataWithType<Address?>> element = contact.addresses.nth (index);
             element.data.data = address;
             element.data.type = type;
-            return true;
+            try {
+                return true;
+            } finally {
+                changed ();
+            }
         }
 
         public void remove_address(int index) {
@@ -197,6 +218,7 @@ namespace ViewModel {
                 return;
             }
             contact.addresses.remove(contact.addresses.nth_data(index));
+            changed ();
         }
 
 
@@ -207,13 +229,18 @@ namespace ViewModel {
             if (contact.notes == null)
                 contact.notes = new List<string>();
             contact.notes.append (note);
+            changed ();
         }
 
         public bool set_note (string note, int index) {
             if (contact.notes == null) return false;
 
             contact.notes.nth (index).data = note;
-            return true;
+            try {
+                return true;
+            } finally {
+                changed ();
+            }
         }
 
         public void remove_note(int index) {
@@ -223,6 +250,7 @@ namespace ViewModel {
             }
 
             contact.notes.remove(contact.notes.nth_data(index));
+            changed ();
         }
 
 
@@ -232,13 +260,18 @@ namespace ViewModel {
             if (contact.nicknames == null)
                 contact.nicknames = new List<string>();
             contact.nicknames.append (nickname);
+            changed ();
         }
 
         public bool set_nickname (string nickname, int index) {
             if (contact.nicknames == null) return false;
 
             contact.nicknames.nth (index).data = nickname;
-            return true;
+            try {
+                return true;
+            } finally {
+                changed ();
+            }
         }
 
         public void remove_nickname(int index) {
@@ -248,6 +281,7 @@ namespace ViewModel {
             }
 
             contact.nicknames.remove(contact.nicknames.nth_data(index));
+            changed ();
         }
 
 
@@ -257,13 +291,18 @@ namespace ViewModel {
             if (contact.websites == null)
                 contact.websites =  new List<string>();
             contact.websites.append (webiste);
+            changed ();
         }
 
         public bool set_website (string website, int index) {
             if (contact.websites == null) return false;
 
             contact.websites.nth (index).data = website;
-            return true;
+            try {
+                return true;
+            } finally {
+                changed ();
+            }
         }
 
         public void remove_website(int index) {
@@ -273,6 +312,7 @@ namespace ViewModel {
             }
 
             contact.websites.remove(contact.websites.nth_data(index));
+            changed ();
         }
 
 

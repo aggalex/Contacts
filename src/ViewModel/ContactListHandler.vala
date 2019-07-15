@@ -25,7 +25,8 @@ namespace ViewModel {
 
     public class ContactListHandler : Object {
 
-        public signal void new_contact (ContactHandler handler);
+        public signal void added_contact ();
+        public signal void removed_contact ();
 
         private ContactList contact_list = new ContactList ();
 
@@ -37,22 +38,15 @@ namespace ViewModel {
             }
         }
 
-        // public void initialize () {
-        //     var loop = new MainLoop ();
-        //     foreach (var path in FileHelper.get_contact_files ()) {
-        //         load.begin (path, (obj, res) => {
-        //             var contact = load.end (res);
-        //             new_contact (new ContactHandler.from_model (contact));
-        //             loop.quit ();
-        //         });
-        //         loop.run ();
-        //     }
-        // }
-
         public void initialize () {
-            foreach (var path in FileHelper.get_contact_files ()) {
-                new_contact (new ContactHandler.from_model (load (path)));
+            var paths = FileHelper.get_contact_files ();
+            if (paths.length () == 0) return;
+
+            foreach (var path in paths) {
+                contact_list.data.insert_sorted (load (path), compare_contacts);
             }
+
+            added_contact ();
         }
 
         private GLib.CompareFunc<Model.Contact>? compare_contacts = (c1, c2) => {
@@ -65,15 +59,15 @@ namespace ViewModel {
             return new ContactHandler.from_model (contact_list.data.nth_data (index));
         }
 
-        public virtual signal void add_contact (string name) {
+        public void add_contact (string name) {
             if (contact_list == null) 
                 contact_list = new ContactList ();
 
-            if (search (name).length () == 0)
-                contact_list.data.insert_sorted (new Contact (name), compare_contacts);
+            contact_list.data.insert_sorted (new Contact (name), compare_contacts);
+            added_contact ();
         }
 
-        public virtual signal bool remove_contact (int index) {
+        public bool remove_contact (int index) {
             assert (index >= 0 && index < contact_list.data.length ());
 
             if (contact_list.data.length () == 1) {
@@ -82,7 +76,11 @@ namespace ViewModel {
             }
 
             contact_list.data.remove (contact_list.data.nth_data (index));
-            return true;
+            try {
+                return true;
+            } finally {
+                removed_contact ();
+            }
         }
 
         public List<int> search (string needle) {
@@ -97,7 +95,6 @@ namespace ViewModel {
 
         public Contact load (string path) {
             var contact = JsonHelper.parse (FileHelper.read (path));
-            contact_list.data.append (contact);
             return contact;
         }
 

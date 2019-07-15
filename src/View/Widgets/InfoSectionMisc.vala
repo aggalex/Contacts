@@ -135,7 +135,7 @@ namespace View.Widgets {
 
             _new_entry (entry, note_count++);
 
-            handler.add_note (data);
+            if (can_write) handler.add_note (data);
         }
 
         public void new_entry_website (string data) {
@@ -144,7 +144,7 @@ namespace View.Widgets {
 
             _new_entry (entry, website_count++);
 
-            handler.add_website (data);
+            if (can_write) handler.add_website (data);
         }
 
         public void new_entry_nickname (string data) {
@@ -152,14 +152,14 @@ namespace View.Widgets {
             var entry = new EditableLabelNoType (data, type);
             _new_entry (entry, nickname_count++);
 
-            handler.add_nickname (data);
+            if (can_write) handler.add_nickname (data);
         }
 
         public void new_entry_birthday (uint? day, uint? month, uint? year) {
             var entry = new EditableLabelDate (day, month, year, DataHelper.Type.BIRTHDAY);
             _new_entry (entry);
 
-            handler.new_birthday ();
+            if (can_write) handler.new_birthday ();
 
             if (day != null && month != null && year != null) {
 
@@ -168,7 +168,7 @@ namespace View.Widgets {
                 var date_year = (year >= 1)? (DateYear) year: DateYear.BAD_YEAR;
 
                 if (date_day != DateDay.BAD_DAY && date_month != 0 && date_year != DateYear.BAD_YEAR) {
-                    handler.set_birthday (date_day, date_month, date_year);
+                    if (can_write) handler.set_birthday (date_day, date_month, date_year);
                 }
             }
         }

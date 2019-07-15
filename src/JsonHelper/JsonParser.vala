@@ -55,11 +55,11 @@ namespace JsonHelper {
                 return null;
 
             return Address () {
-                street = street,
-                city = city,
-                state = state,
-                zip = zip,
-                country = country
+                street = street.locale_to_utf8 (-1, null, null),
+                city = city.locale_to_utf8 (-1, null, null),
+                state = state.locale_to_utf8 (-1, null, null),
+                zip = zip.locale_to_utf8 (-1, null, null),
+                country = country.locale_to_utf8 (-1, null, null)
             };
         }
     }
@@ -72,11 +72,11 @@ namespace JsonHelper {
         // GObject Deserialize won't dedserialize arrays :(
 
         public Contact to_contact () {
-            var contact = new Contact (name);
+            var contact = new Contact (name.locale_to_utf8 (-1, null, null));
 
             if (icon != null? icon != "" : false) {
                 var data = Base64.decode (icon);
-                //contact.icon = new Gdk.Pixbuf.from_data (data, Gdk.Colorspace.RGB, true, 8, 64, 64, 150);
+                contact.icon = new Gdk.Pixbuf.from_data (data, Gdk.Colorspace.RGB, true, 8, 64, 64, 150);
             }
 
             if (birthday != null) {
@@ -92,7 +92,7 @@ namespace JsonHelper {
         public string data_type {get; set;}
 
         public DataWithType<string> to_dwt () {
-            return new DataWithType<string> (data, DataHelper.Type.parse (data_type));
+            return new DataWithType<string> (data.locale_to_utf8 (-1, null, null), DataHelper.Type.parse (data_type));
         }
     }
 
@@ -135,7 +135,6 @@ namespace JsonHelper {
             phones_jarray.foreach_element ((array, i, node) => {
                 var data = Json.gobject_deserialize (typeof (JsonDWTStringModel), node) as JsonDWTStringModel;
                 contact.phones.append (data.to_dwt ());
-                node.free ();
             });
         }
 
@@ -145,7 +144,6 @@ namespace JsonHelper {
             emails_jarray.foreach_element ((array, i, node) => {
                 var data = Json.gobject_deserialize (typeof (JsonDWTStringModel), node) as JsonDWTStringModel;
                 contact.emails.append (data.to_dwt ());
-                node.free ();
             });
         }
 
@@ -155,7 +153,6 @@ namespace JsonHelper {
             addresses_jarray.foreach_element ((array, i, node) => {
                 var data = Json.gobject_deserialize (typeof (JsonDWTAddressModel), node) as JsonDWTAddressModel;
                 contact.addresses.append (data.to_dwt ());
-                node.free ();
             });
         }
 
@@ -165,7 +162,6 @@ namespace JsonHelper {
             notes_jarray.foreach_element ((array, i, node) => {
                 var data = new Reader (node).get_string_value ();
                 contact.notes.append (data);
-                node.free ();
             });
         }
 
@@ -175,7 +171,6 @@ namespace JsonHelper {
             websites_jarray.foreach_element ((array, i, node) => {
                 var data = new Reader (node).get_string_value ();
                 contact.websites.append (data);
-                node.free ();
             });
         }
 
@@ -185,11 +180,8 @@ namespace JsonHelper {
             nicknames_jarray.foreach_element ((array, i, node) => {
                 var data = new Reader (node).get_string_value ();
                 contact.nicknames.append (data);
-                node.free ();
             });
         }
-
-        node.free ();
 
         return contact;
     }
