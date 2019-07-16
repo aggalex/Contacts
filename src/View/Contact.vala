@@ -45,7 +45,7 @@ namespace View {
             }
         }
 
-        public signal void delete ();
+        public signal void removed ();
         public signal void name_changed ();
         public signal void changed ();
         private signal void has_icon (bool has);
@@ -181,8 +181,9 @@ namespace View {
         }
 
         private void delete_contact () {
-            this.delete ();
-            this.destroy ();
+            handler.remove ();
+            this.removed ();
+            //this.destroy ();
         }
 
         private void get_icon_from_file () throws FileChooserError {

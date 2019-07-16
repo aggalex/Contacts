@@ -37,8 +37,9 @@ namespace View.Widgets {
             return 0;
         };
 
+        private Widget _default_widget = new Label ("Empty");
         private Gtk.Stack stack = new Gtk.Stack ();
-        private Widget _child = new Label ("ashdjklasdhjkasldhjkasdhl");
+        private Widget _child;
 
         public Widget child {
             get {
@@ -46,6 +47,18 @@ namespace View.Widgets {
             }
             set {
                 set_visible_child (value);
+            }
+        }
+
+        public Widget default_widget {
+            get {
+                return _default_widget;
+            }
+            set {
+                if (_default_widget == _child) {
+                    set_visible_child (value);
+                }
+                _default_widget = value;
             }
         }
 
@@ -68,14 +81,13 @@ namespace View.Widgets {
         }
 
         construct {
+            _child = _default_widget;
             stack.add (_child);
             stack.visible_child = _child;
             this.add (stack);
         }
 
-        public void set_visible_child (owned Widget new_child)
-            requires (new_child != null)
-        {
+        public void set_visible_child (owned Widget new_child) {
             var old_child = _child;
             _child = new_child;
 
@@ -88,13 +100,34 @@ namespace View.Widgets {
 
             var loop = new MainLoop ();
             stack.visible_child = _child;
-            switch_child.begin ((obj, res) => {
+            wait_for.begin ((int) stack.get_transition_duration (), (obj, res) => {
                 loop.quit ();
             });
             loop.run ();
 
-            stack.remove (old_child);
-            old_child = null;
+            wait_and_destroy.begin (old_child);
+
+            return;
+        }
+
+        private async void wait_and_destroy (Widget old_child) {
+            SourceFunc callback = wait_and_destroy.callback;
+
+            ThreadFunc<bool> action = () => {
+                wait_for.begin (1000, (obj, res) => {
+                    wait_for.end (res);
+                    stack.remove (old_child);
+                });
+                Idle.add((owned) callback);
+                return true;
+            };
+            var thread = new Thread<bool> ("garbage-handling-thread", action);
+
+            yield;
+        }
+
+        public void show_default_widget () {
+            set_visible_child (_default_widget);
         }
 
         private async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
@@ -105,8 +138,8 @@ namespace View.Widgets {
             yield;
         }
 
-        private async void switch_child () {
-            yield nap ((int) stack.get_transition_duration () + 50); // Lessening the duration margin of 50 might cause a segfault *shrug*
+        private async void wait_for (int interval) {
+            yield nap (interval);
         }
 
     }

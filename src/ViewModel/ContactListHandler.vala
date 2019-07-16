@@ -25,8 +25,7 @@ namespace ViewModel {
 
     public class ContactListHandler : Object {
 
-        public signal void added_contact ();
-        public signal void removed_contact ();
+        public signal void changed ();
 
         private ContactList contact_list = new ContactList ();
 
@@ -43,10 +42,12 @@ namespace ViewModel {
             if (paths.length () == 0) return;
 
             foreach (var path in paths) {
-                contact_list.data.insert_sorted (load (path), compare_contacts);
+                var contact = load (path);
+                contact.remove.connect (() => remove_contact (contact));
+                contact_list.data.insert_sorted (contact, compare_contacts);
             }
 
-            added_contact ();
+            changed ();
         }
 
         private GLib.CompareFunc<Model.Contact>? compare_contacts = (c1, c2) => {
@@ -60,27 +61,20 @@ namespace ViewModel {
         }
 
         public void add_contact (string name) {
-            if (contact_list == null) 
-                contact_list = new ContactList ();
+            var contact = new Contact (name);
+            contact.remove.connect (() => remove_contact (contact));
 
-            contact_list.data.insert_sorted (new Contact (name), compare_contacts);
-            added_contact ();
+            contact_list.data.insert_sorted (contact, compare_contacts);
+            changed ();
         }
 
-        public bool remove_contact (int index) {
-            assert (index >= 0 && index < contact_list.data.length ());
+        public bool remove_contact (Contact contact) {
+            if (!contains (contact)) return false;
 
-            if (contact_list.data.length () == 1) {
-                contact_list = null;
-                return true;
-            }
+            contact_list.data.remove (contact);
 
-            contact_list.data.remove (contact_list.data.nth_data (index));
-            try {
-                return true;
-            } finally {
-                removed_contact ();
-            }
+            changed ();
+            return true;
         }
 
         public List<int> search (string needle) {
@@ -91,6 +85,14 @@ namespace ViewModel {
                     indexes.append (i);
             }
             return indexes;
+        }
+
+        public bool contains (Contact input_contact) {
+            foreach (var contact in contact_list.data) {
+                if (contact == input_contact)
+                    return true;
+            }
+            return false;
         }
 
         public Contact load (string path) {

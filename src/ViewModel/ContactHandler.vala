@@ -125,7 +125,6 @@ namespace ViewModel {
 
 
 
-
         public void add_phone (string phone, DataHelper.Type type) {
             if (contact.phones == null)
                 contact.phones = new List<DataWithType<string>>();
@@ -320,6 +319,10 @@ namespace ViewModel {
 
         public void save () {
             contact.save ();
+        }
+
+        public void remove () {
+            contact.remove ();
         }
 
     }

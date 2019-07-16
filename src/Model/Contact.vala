@@ -43,6 +43,8 @@ namespace Model {
 
         private string file_name;
 
+        public signal void remove ();
+
         public Contact (string str) {
             icon = null;
             name = str;

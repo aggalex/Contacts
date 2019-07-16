@@ -28,27 +28,70 @@ using ViewModel;
 namespace View {
     public class ContactList : Gtk.Paned {
 
+        private ContactListHandler handler = new ContactListHandler ();
+
         private LightStack contact_stack;
         private Sidebar sidebar;
+        private Revealer sidebar_revealer = new Gtk.Revealer ();
 
-        private ContactListHandler handler = new ContactListHandler ();
+        public bool show_sidebar {
+            get {
+                return sidebar_revealer.child_revealed;
+            }
+            set {
+                sidebar_revealer.set_reveal_child (value);
+            }
+        }
 
         construct {
             sidebar = new Sidebar (handler);
+
+            var welcome = new Granite.Widgets.Welcome ("No contacts", "Your contact list is empty.");
+            welcome.append ("address-book-new", "New contact", "Create a new contact");
+            welcome.get_style_context ().add_class ("normal-background");
+
+            var welcome_button = welcome.get_button_from_index (0);
+
+            var popover = new Widgets.Popover (welcome_button);
+            popover.set_position (PositionType.BOTTOM);
+            popover.activated.connect (() => {
+                add_contact (popover.text);
+            });
+
+            welcome.activated.connect ((index) => {
+                popover.popup ();
+                popover.show_all ();
+            });
+
             contact_stack = sidebar.stack;
-
             contact_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+            contact_stack.default_widget = welcome;
 
-            add1 (sidebar);
+            sidebar_revealer.transition_type = RevealerTransitionType.SLIDE_LEFT;
+            sidebar_revealer.reveal_child = false;
+            sidebar_revealer.add (sidebar);
+            sidebar_revealer.show_all ();
+
+            handler.changed.connect (() => {
+                if (handler.length == 0) {
+                    show_sidebar = false;
+                } else {
+                    show_sidebar = true;
+                }
+            });
+
+            add1 (sidebar_revealer);
             add2 (contact_stack);
         }
 
         public void initialize () {
             handler.initialize ();
+            if (handler.length != 0) sidebar_revealer.reveal_child = true;
         }
 
         public void add_contact (string name) {
             handler.add_contact (name);
+            sidebar_revealer.set_reveal_child (true);
         }
 
         public void search (string needle) {

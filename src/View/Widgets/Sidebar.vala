@@ -53,6 +53,9 @@ namespace View.Widgets {
         public LightStack stack { get; default = new LightStack (); }
         public ContactListHandler handler { get; construct; }
 
+        public VoidFunc show;
+        public VoidFunc hide;
+
         /**
          * The name of the currently visible Granite.SettingsPage
          */
@@ -94,17 +97,23 @@ namespace View.Widgets {
             add (listbox);
 
             on_sidebar_changed ();
-            handler.added_contact.connect (on_sidebar_changed);
-            handler.removed_contact.connect (on_sidebar_changed);
+            handler.changed.connect (on_sidebar_changed);
 
             stack.compare_func = (old_child, new_child) => {
                 return strcmp ((old_child as Contact).name, (new_child as Contact).name);
             };
 
-            listbox.row_selected.connect ((row) => {
+            listbox.row_selected.connect_after ((row) => {
                 var handler = ((SidebarRow) row).handler;
-                print ("HANDLER NAME: " + handler.name + "\n");
                 var contact = new Contact.from_handler (handler);
+                contact.removed.connect (() => {
+                    if (listbox.get_children ().length () != 0) {
+                        var next_row = listbox.get_row_at_index (0);
+                        listbox.select_row (next_row);
+                    } else {
+                        stack.show_default_widget ();
+                    }
+                });
                 stack.child = contact;
             });
         }
@@ -118,9 +127,11 @@ namespace View.Widgets {
                 listbox_child.destroy ();
             });
 
-            foreach (var contact_handler in handler) {
+            foreach (var contact_handler in handler)
                 listbox.add (new SidebarRow (contact_handler));
-            }
+
+            if (stack.child == stack.default_widget && listbox.get_children ().length () != 0)
+                listbox.select_row (listbox.get_row_at_index (0));
 
             listbox.show_all ();
         }
