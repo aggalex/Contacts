@@ -31,11 +31,16 @@ namespace DataHelper {
             return {street, city, state, zip, country};
         }
 
-        public string to_string () {
-            var output = new StringBuilder ("");
-            foreach (var str in to_string_array ())
-                output.append (str);
-            return output.str;
+        public static Address parse (string[] array) 
+                requires (array.length == 5) 
+        {
+            return Address () {
+                street  = array[0],
+                city    = array[1],
+                state   = array[2],
+                zip     = array[3],
+                country = array[4]
+            };
         }
     }
 }

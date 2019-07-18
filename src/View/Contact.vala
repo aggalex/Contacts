@@ -155,18 +155,20 @@ namespace View {
             flow_box.set_selection_mode (Gtk.SelectionMode.NONE);
             flow_box.set_activate_on_single_click (false);
 
-            var delete_button = new Gtk.Button ();
-            delete_button.set_label ("Delete Contact");
+            var delete_button = new Gtk.Button.with_label ("Delete Contact");
             delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             delete_button.clicked.connect (() => delete_contact());
 
-            var save_button = new Gtk.Button ();
-            save_button.set_label ("Save");
+            var save_button = new Gtk.Button.with_label ("Save");
             save_button.clicked.connect (() => handler.save());
 
+            var export_button = new Gtk.Button.with_label ("export");
+            export_button.clicked.connect (export);
+
             var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            bottom_box.pack_end (save_button, false, false, 0);
             bottom_box.pack_end (delete_button, false, false, 0);
+            bottom_box.pack_end (save_button, false, false, 0);
+            bottom_box.pack_end (export_button, false, false, 0);
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
@@ -180,10 +182,33 @@ namespace View {
             this.add (contents);
         }
 
+        public void export () {
+            var chooser = new Gtk.FileChooserNative (
+                "Where to save exported file",          // name: string
+                (Gtk.Window) this.get_toplevel (),      // transient parent: Gtk.Window
+                FileChooserAction.SAVE,                 // File chooser action: FileChooserAction
+                null,                                   // Accept label: string
+                null                                    // Cancel label: string
+            );
+
+            var filter = new Gtk.FileFilter ();
+            filter.set_name ("VCard contact file");
+            filter.add_mime_type ("text/x-vcard");
+
+            chooser.add_filter (filter);
+
+            if (chooser.run () == Gtk.ResponseType.ACCEPT) {
+                var filename = chooser.get_filename ();
+                filename = filename.has_suffix (".vcf")? filename : filename + ".vcf";
+                FileHelper.save_outside (filename, (handler.export ()));
+            }
+
+            chooser.destroy ();
+        }
+
         private void delete_contact () {
             handler.remove ();
             this.removed ();
-            //this.destroy ();
         }
 
         private void get_icon_from_file () throws FileChooserError {
@@ -201,14 +226,15 @@ namespace View {
 
             chooser.add_filter (filter);
 
+            string filename;
             if (chooser.run () == Gtk.ResponseType.ACCEPT) {
-                name = chooser.get_filename ();
+                filename = chooser.get_filename ();
             } else {
                 throw new FileChooserError.USER_CANCELED ("User canceled file choosing");
             }
 
             chooser.destroy ();
-            set_image_path (name);
+            set_image_path (filename);
             changed ();
         }
 
@@ -216,10 +242,9 @@ namespace View {
             try {
                 handler.icon =  new Gdk.Pixbuf.from_file_at_scale (path, 64, 64, true);
                 icon.pixbuf = handler.icon;
-                // ((Granite.Widgets.Avatar) display_widget).pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
                 has_icon (true);
             } catch (Error e) {
-                stderr.printf (e.message);
+                error (e.message);
             }
         }
 

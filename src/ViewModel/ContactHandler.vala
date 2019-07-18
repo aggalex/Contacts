@@ -325,6 +325,10 @@ namespace ViewModel {
             contact.remove ();
         }
 
+        public string export () {
+            return VCardHelper.build (contact);
+        }
+
     }
 
 }

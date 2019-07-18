@@ -100,6 +100,20 @@ namespace ViewModel {
             return contact;
         }
 
+        public string export () {
+            return VCardHelper.build_list (contact_list.data);
+        }
+
+        public void import (string path) {
+            var list = VCardHelper.parse (path);
+            foreach (var contact in list) {
+                contact.remove.connect (() => remove_contact (contact));
+
+                contact_list.data.insert_sorted (contact, compare_contacts);
+            }
+            changed ();
+        }
+
         public ContactListHandler iterator () {
             _i = 0;
             return this;

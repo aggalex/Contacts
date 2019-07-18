@@ -10,3 +10,7 @@
 .normal-background {
     background-color: @bg-color;
 }
+
+.white-background {
+    background-color: #FFF;
+}

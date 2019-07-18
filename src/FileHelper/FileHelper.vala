@@ -56,6 +56,10 @@ namespace FileHelper {
     public void save (string filename, string data, string path_suffix = "") throws IOError {
         var path = get_file_path (filename, path_suffix);
 
+        save_outside (path, data);
+    }
+
+    public void save_outside (string path, string data) throws IOError {
         File file = File.new_for_path (path);
 
         print (@"INSIDE SAVE: $path\n");
@@ -67,6 +71,10 @@ namespace FileHelper {
     public string read (string filename, string path_suffix = "") throws Error {
         var path = get_file_path (filename, path_suffix);
 
+        return read_outside (path);
+    }
+
+    public string read_outside (string path) throws Error {
         File file = File.new_for_path (path);
 
         var istream = new DataInputStream (file.read ());

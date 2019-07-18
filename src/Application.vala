@@ -43,12 +43,9 @@ namespace Contacts {
 
             var headerbar = new Headerbar ();
             window.set_titlebar (headerbar);
-            headerbar.changed_search.connect ((query) => {
-                contact_list.search (query);
-            });
-            headerbar.new_contact.connect ((name) => {
-                contact_list.add_contact (name);
-            });
+            headerbar.changed_search.connect ((query) => contact_list.search (query));
+            headerbar.new_contact.connect ((name) => contact_list.add_contact (name));
+            headerbar.export.connect (() => contact_list.export ());
 
             Css.apply ();
             window.title = "Contacts";

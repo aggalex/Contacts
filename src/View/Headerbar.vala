@@ -30,8 +30,6 @@ namespace View {
 
         private Gtk.Button add_entry_button = new Gtk.Button.from_icon_name ("contact-new", Gtk.IconSize.LARGE_TOOLBAR);
         private Gtk.SearchEntry Search = new Gtk.SearchEntry ();
-        private Gtk.Button export_button = new Gtk.Button.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
-        private Gtk.Button import_button = new Gtk.Button.from_icon_name ("document-import", Gtk.IconSize.LARGE_TOOLBAR);
 
         public signal void new_contact (string name);
         public signal void import ();
@@ -56,12 +54,8 @@ namespace View {
 
             Search.changed.connect(() => changed_search (Search.get_text()));
 
-            import_button.clicked.connect (() => import ());
-
             this.pack_start (add_entry_button);
             this.pack_start (Search);
-            this.pack_end (export_button);
-            this.pack_end (import_button);
             this.set_show_close_button (true);
         }
     }
