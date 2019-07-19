@@ -47,8 +47,6 @@ namespace VCardHelper {
                 set_contact_info(line, contact); // TODO: Make things break less. (BDAY 00000000 broke things (segfault))
             }
 
-            print (@"ENDING LINE $(line)\n");
-
             if (contact.name == "") continue;
 
             list.append (contact);

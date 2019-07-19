@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Contacts
+Comment=A simple contact manager
+GenericName=Contact Manager
+Exec=@EXEC_NAME@ %U
+Icon=com.github.aggalex.contacts
+Terminal=false
+Categories=Utility;GTK;
+Keywords=People

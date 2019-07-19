@@ -50,7 +50,7 @@ namespace View {
         public signal void changed ();
         private signal void has_icon (bool has);
 
-        private Granite.Widgets.Avatar icon = new Granite.Widgets.Avatar.from_file ("../data/icons/64/contacts-avatar-default.svg", 64);
+        private Granite.Widgets.Avatar icon = new Granite.Widgets.Avatar.from_file (Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg", 64);
         private bool icon_is_set = false;
 
         private EditableTitle name_label = new EditableTitle ("");
@@ -121,6 +121,8 @@ namespace View {
         }
 
         construct {
+            print (@"DEBUG**: icon dir: " + Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg");
+
             hscrollbar_policy = Gtk.PolicyType.NEVER;
 
             var icon_button = new Gtk.Button ();
