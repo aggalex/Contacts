@@ -15,12 +15,12 @@ add_project_arguments([
 # Include the translations module
 message('Include the translations module')
 
-# i18n = import('i18n') TODO
+i18n = import('i18n')
 
 # Set our translation domain
 message ('Set our translation domain')
 
-add_global_arguments('-DGETTEXT_PACKAGE=\"@0@\"'.format (meson.project_name()), language:'c')
+add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
 # Adding deps
 message ('Listing dependencies')
@@ -67,8 +67,6 @@ config_data.set('EXEC_NAME', meson.project_name())
 # Src build
 message ('Src build')
 
-message ('DEBUG**: datadir: ' + get_option ('datadir'))
-
 conf_data = configuration_data()
 conf_data.set_quoted('PROJECT_NAME', meson.project_name())
 conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
@@ -78,7 +76,7 @@ conf_data.set_quoted('PREFIX', get_option('prefix'))
 message ('Configuring desktop entry: ' + meson.project_name() + '.desktop')
 
 desktop_in_file = configure_file(
-    input: join_paths('data', meson.project_name() + '.desktop.in'),
+    input: join_paths('data', meson.project_name() + '.desktop.in.in'),
     output: '@BASENAME@',
     configuration: config_data
 )
@@ -89,22 +87,22 @@ config_file = configure_file(
     configuration: conf_data
 )
 
-# desktop_file = i18n.merge_file(  TODO
-#     input: desktop_in_file,
-#     output: meson.project_name() + '.desktop',
-#     po_dir: join_paths(meson.source_root(), 'po'),
-#     type: 'desktop',
-#     install: true,
-#     install_dir: join_paths(get_option('datadir'), 'applications')
-# )
+desktop_file = i18n.merge_file(
+    input: desktop_in_file,
+    output: meson.project_name() + '.desktop',
+    po_dir: join_paths(meson.source_root(), 'po'),
+    type: 'desktop',
+    install: true,
+    install_dir: join_paths(get_option('datadir'), 'applications')
+)
 
-# appstream_file = i18n.merge_file(  TODO
-#     input: join_paths (meson.source_root(), 'data', meson.project_name() + '.appdata.xml.in'),
-#     output: '@BASENAME@',
-#     po_dir: join_paths(meson.source_root(), 'po'),
-#     install: true,
-#     install_dir: join_paths(get_option('datadir'), 'metainfo')
-# )
+appstream_file = i18n.merge_file(
+    input: join_paths (meson.source_root(), 'data', meson.project_name() + '.appdata.xml.in'),
+    output: '@BASENAME@',
+    po_dir: join_paths(meson.source_root(), 'po'),
+    install: true,
+    install_dir: join_paths(get_option('datadir'), 'metainfo')
+)
 
 message ('Installing desktop entry: ' + meson.project_name() + '.desktop')
 
@@ -114,6 +112,8 @@ install_data(
 )
 
 message ('Adds files to build')
+
+subdir('po')
 
 code_files = files(
     join_paths ('build', '@0@'.format(config_file)),

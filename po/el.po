@@ -1,0 +1,106 @@
+# Greek translations for com.github.aggalex.contacts package.
+# Copyright (C) 2019 THE com.github.aggalex.contacts'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.aggalex.contacts package.
+# Automatically generated, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.aggalex.contacts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-19 13:37+0300\n"
+"PO-Revision-Date: 2019-07-19 13:37+0300\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/View/ContactList.vala:50
+msgid "No Contacts"
+msgstr "Καμία Επαφή"
+
+#: src/View/ContactList.vala:50
+msgid "Your contact list is empty."
+msgstr "Η λίστα των επαφών σας είναι κενή"
+
+#: src/View/ContactList.vala:51
+msgid "New Contact"
+msgstr "Νέα Επφαφή"
+
+#: src/View/ContactList.vala:51
+msgid "Create a new contact"
+msgstr "Δημιουργία νέας επαφής"
+
+#: src/View/ContactList.vala:52
+msgid "Import Contacts"
+msgstr "Εισαγωγή Επαφών"
+
+#: src/View/ContactList.vala:52
+msgid "Import contacts from external file"
+msgstr "Εισαγωγή επαφών από εξωτερικό αρχείο"
+
+#: src/View/ContactList.vala:135
+msgid "Select the contact file to import"
+msgstr "Επιλογή αρχείου επαφής για εισαγωγή"
+
+#: src/View/ContactList.vala:143 src/View/ContactList.vala:166
+msgid "VCard contact file"
+msgstr "Αρχείο επαφών VCard"
+
+#: src/View/ContactList.vala:158 src/View/Contact.vala:189
+msgid "Where to save exported file"
+msgstr "Σημείο αποθήκευσης αρχείου προς εξαγωγή"
+
+#: src/View/Contact.vala:58
+msgid "Phones"
+msgstr "Τηλέφωνα"
+
+#: src/View/Contact.vala:59
+msgid "Emails"
+msgstr "Ηλ. Ταχυδρομεία"
+
+#: src/View/Contact.vala:60
+msgid "Addresses"
+msgstr "Διευθύνσεις"
+
+#: src/View/Contact.vala:61
+msgid "Street"
+msgstr "Οδός"
+
+#: src/View/Contact.vala:62
+msgid "City"
+msgstr "Πόλη"
+
+#: src/View/Contact.vala:63
+msgid "State/Province"
+msgstr "Περιοχή"
+
+#: src/View/Contact.vala:64
+msgid "Zip/Postal Code"
+msgstr "Ταχ. Κώδικας"
+
+#: src/View/Contact.vala:65
+msgid "Country"
+msgstr "Χώρα"
+
+#: src/View/Contact.vala:67
+msgid "Miscellaneous"
+msgstr "Δίαφορα"
+
+#: src/View/Contact.vala:160
+msgid "Delete Contact"
+msgstr "Διαγραφή Επαφής"
+
+#: src/View/Contact.vala:164
+msgid "export"
+msgstr "εξαγωγή"
+
+#: src/View/Contact.vala:218
+msgid "Choose an image"
+msgstr "Επιλογή εικόνας"
+
+#: src/Application.vala:51
+msgid "Contacts"
+msgstr "Επαφές"

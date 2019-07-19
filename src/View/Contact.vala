@@ -55,16 +55,16 @@ namespace View {
 
         private EditableTitle name_label = new EditableTitle ("");
 
-        private InfoSection phone_info = new InfoSection ("Phones");
-        private InfoSection email_info = new InfoSection ("Emails");
-        private InfoSectionSegmented address_info = new InfoSectionSegmented ("Addresses", {
-            "Street",
-            "City",
-            "State/Province",
-            "Zip/Postal Code",
-            "Country"
+        private InfoSection phone_info = new InfoSection (_("Phones"));
+        private InfoSection email_info = new InfoSection (_("Emails"));
+        private InfoSectionSegmented address_info = new InfoSectionSegmented (_("Addresses"), {
+            _("Street"),
+            _("City"),
+            _("State/Province"),
+            _("Zip/Postal Code"),
+            _("Country")
         });
-        private InfoSectionMisc misc_info = new InfoSectionMisc ("Miscellaneous");
+        private InfoSectionMisc misc_info = new InfoSectionMisc (_("Miscellaneous"));
 
         private string title { get; set; }
 
@@ -157,15 +157,15 @@ namespace View {
             flow_box.set_selection_mode (Gtk.SelectionMode.NONE);
             flow_box.set_activate_on_single_click (false);
 
-            var delete_button = new Gtk.Button.with_label ("Delete Contact");
+            var delete_button = new Gtk.Button.with_label (_("Delete Contact"));
             delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             delete_button.clicked.connect (() => delete_contact());
 
-            var save_button = new Gtk.Button.with_label ("Save");
-            save_button.clicked.connect (() => handler.save());
-
-            var export_button = new Gtk.Button.with_label ("export");
+            var export_button = new Gtk.Button.with_label (_("export"));
             export_button.clicked.connect (export);
+
+            var save_button = new Gtk.Button.with_label ("Save");   // TODO: Make this redundant
+            save_button.clicked.connect (() => handler.save());
 
             var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             bottom_box.pack_end (delete_button, false, false, 0);
@@ -186,7 +186,7 @@ namespace View {
 
         public void export () {
             var chooser = new Gtk.FileChooserNative (
-                "Where to save exported file",          // name: string
+                _("Where to save exported file"),          // name: string
                 (Gtk.Window) this.get_toplevel (),      // transient parent: Gtk.Window
                 FileChooserAction.SAVE,                 // File chooser action: FileChooserAction
                 null,                                   // Accept label: string
@@ -215,7 +215,7 @@ namespace View {
 
         private void get_icon_from_file () throws FileChooserError {
             var chooser = new Gtk.FileChooserNative (
-                "Choose an image",                      // name: string
+                _("Choose an image"),                      // name: string
                 (Gtk.Window) this.get_toplevel (),      // transient parent: Gtk.Window
                 FileChooserAction.OPEN,                 // File chooser action: FileChooserAction
                 null,                                   // Accept label: string

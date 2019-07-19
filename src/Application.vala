@@ -48,7 +48,7 @@ namespace Contacts {
             headerbar.export.connect (() => contact_list.export ());
 
             Css.apply ();
-            window.title = "Contacts";
+            window.title = _("Contacts");
             window.set_default_size (900, 640);
             window.show_all ();
 

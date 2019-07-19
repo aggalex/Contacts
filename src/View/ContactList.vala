@@ -47,8 +47,9 @@ namespace View {
         construct {
             sidebar = new Sidebar (handler);
 
-            var welcome = new Granite.Widgets.Welcome ("No contacts", "Your contact list is empty.");
-            welcome.append ("address-book-new", "New contact", "Create a new contact");
+            var welcome = new Granite.Widgets.Welcome (_("No Contacts"), _("Your contact list is empty."));
+            welcome.append ("address-book-new", _("New Contact"), _("Create a new contact"));
+            welcome.append ("document-import", _("Import Contacts"), _("Import contacts from external file"));
             welcome.get_style_context ().add_class ("normal-background");
 
             var welcome_button = welcome.get_button_from_index (0);
@@ -60,8 +61,15 @@ namespace View {
             });
 
             welcome.activated.connect ((index) => {
-                popover.popup ();
-                popover.show_all ();
+                switch (index) {
+                    case 0:
+                        popover.popup ();
+                        popover.show_all ();
+                        break;
+                    case 1:
+                        import ();
+                        break;
+                }
             });
 
             contact_stack = sidebar.stack;
@@ -124,7 +132,7 @@ namespace View {
 
         public void import () {
             var chooser = new Gtk.FileChooserNative (
-                "Select the contact file to import",    // name: string
+                _("Select the contact file to import"),    // name: string
                 (Gtk.Window) this.get_toplevel (),      // transient parent: Gtk.Window
                 FileChooserAction.OPEN,                 // File chooser action: FileChooserAction
                 null,                                   // Accept label: string
@@ -132,7 +140,7 @@ namespace View {
             );
 
             var filter = new Gtk.FileFilter ();
-            filter.set_name ("VCard contact file");
+            filter.set_name (_("VCard contact file"));
             filter.add_mime_type ("text/x-vcard");
 
             chooser.add_filter (filter);
@@ -147,7 +155,7 @@ namespace View {
 
         public void export () {
             var chooser = new Gtk.FileChooserNative (
-                "Where to save exported file",          // name: string
+                _("Where to save exported file"),          // name: string
                 (Gtk.Window) this.get_toplevel (),      // transient parent: Gtk.Window
                 FileChooserAction.SAVE,                 // File chooser action: FileChooserAction
                 null,                                   // Accept label: string
@@ -155,7 +163,7 @@ namespace View {
             );
 
             var filter = new Gtk.FileFilter ();
-            filter.set_name ("VCard contact file");
+            filter.set_name (_("VCard contact file"));
             filter.add_mime_type ("text/x-vcard");
 
             chooser.add_filter (filter);
