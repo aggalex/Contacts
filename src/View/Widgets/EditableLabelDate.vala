@@ -49,13 +49,7 @@ namespace View.Widgets {
         public DataHelper.Type data_type {get; private set;}
         public string text {
             owned get {
-                var month = (calendar.month + 1).to_string ();
-                if (month.length == 1) month = "0" + month;
-
-                var day = calendar.day.to_string ();
-                if (day.length == 1) day = "0" + day;
-
-                return (calendar.year.to_string () + month + day).to_string ();
+                return extract_label_text ();
             }
         }
 
@@ -76,8 +70,15 @@ namespace View.Widgets {
         }
 
         private string extract_label_text () {
-            string[] month_names = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-            return calendar.day.to_string () + " of " + month_names[calendar.month] + ", " + calendar.year.to_string ();
+            var month = calendar.month + 1;
+            var day = calendar.day;
+            var year = calendar.year;
+
+            print (@"DATE: $year, $month, $day");
+
+            var date_time = new GLib.DateTime.local (year, month, day, 0, 0, 0);
+
+            return date_time.format (Granite.DateTime.get_default_date_format ());
         }
 
         construct {

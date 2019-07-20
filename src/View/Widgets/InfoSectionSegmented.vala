@@ -46,7 +46,7 @@ namespace View.Widgets {
         public InfoSectionSegmented (string title, string[] placeholders, string[] format_strings) {
             base (title);
             this.placeholders = placeholders;
-            this.format_strings = Address.get_localized_address_for_label (format_strings);
+            this.format_strings = format_strings;
         }
 
         protected override void add_button_action () {
