@@ -127,6 +127,10 @@ namespace View.Widgets {
             entry_revealer.set_reveal_child (true);
         }
 
+        protected ListIterator<Widget> iterator () {
+            return new ListIterator<Widget> (list_box.get_children ());
+        }
+
         protected virtual void handler_new_entry (EditableWidget widget) {
             handler.add (widget.text, widget.data_type);
         }
@@ -144,6 +148,27 @@ namespace View.Widgets {
 
         protected virtual void handler_remove_entry (int index, DataHelper.Type? type) {
             handler.remove (index);
+        }
+    }
+
+    public class ListIterator<G> {
+        public int i = 0;
+        public unowned List<G> list;
+
+        public ListIterator (List<G> list) {
+            this.list = list;
+        }
+
+        public ListIterator<G> iterator () {
+            return this;
+        }
+
+        public G @get () {
+            return list.nth_data (i++);
+        }
+
+        public bool next () {
+            return list.length () > i;
         }
     }
 }

@@ -63,6 +63,13 @@ namespace View {
             _("State/Province"),
             _("Zip/Postal Code"),
             _("Country")
+        },
+        {
+            _("$0, "),
+            _("$1, "),
+            _("$2, "),
+            _("$3, "),
+            _("$4, ")
         });
         private InfoSectionMisc misc_info = new InfoSectionMisc (_("Miscellaneous"));
 
@@ -121,8 +128,6 @@ namespace View {
         }
 
         construct {
-            print (@"DEBUG**: icon dir: " + Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg");
-
             hscrollbar_policy = Gtk.PolicyType.NEVER;
 
             var icon_button = new Gtk.Button ();

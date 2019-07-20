@@ -40,11 +40,13 @@ namespace View.Widgets {
 
         internal new HandlerInterfaceSegmented handler = new HandlerInterfaceSegmented ();
 
+        private string[] format_strings;
         private string[] placeholders;
 
-        public InfoSectionSegmented (string title, string[] placeholders) {
+        public InfoSectionSegmented (string title, string[] placeholders, string[] format_strings) {
             base (title);
             this.placeholders = placeholders;
+            this.format_strings = Address.get_localized_address_for_label (format_strings);
         }
 
         protected override void add_button_action () {
@@ -57,6 +59,7 @@ namespace View.Widgets {
                 entry = new EditableLabelSegmented.empty (placeholders, type);
             else
                 entry = new EditableLabelSegmented (data, placeholders, type);
+            entry.format (format_strings);
             _new_entry (entry);
         }
 

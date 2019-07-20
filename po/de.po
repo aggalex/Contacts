@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-20 13:48+0300\n"
+"POT-Creation-Date: 2019-07-21 01:34+0300\n"
 "PO-Revision-Date: 2019-07-19 13:37+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -49,7 +49,7 @@ msgstr ""
 msgid "VCard contact file"
 msgstr ""
 
-#: src/View/ContactList.vala:158 src/View/Contact.vala:189
+#: src/View/ContactList.vala:158 src/View/Contact.vala:194
 msgid "Where to save exported file"
 msgstr ""
 
@@ -101,19 +101,39 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: src/View/Contact.vala:67
+#: src/View/Contact.vala:68
+msgid "$0, "
+msgstr ""
+
+#: src/View/Contact.vala:69
+msgid "$1, "
+msgstr ""
+
+#: src/View/Contact.vala:70
+msgid "$2, "
+msgstr ""
+
+#: src/View/Contact.vala:71
+msgid "$3, "
+msgstr ""
+
+#: src/View/Contact.vala:72
+msgid "$4, "
+msgstr ""
+
+#: src/View/Contact.vala:74
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/View/Contact.vala:160
+#: src/View/Contact.vala:165
 msgid "Delete Contact"
 msgstr ""
 
-#: src/View/Contact.vala:164
+#: src/View/Contact.vala:169
 msgid "export"
 msgstr ""
 
-#: src/View/Contact.vala:218
+#: src/View/Contact.vala:223
 msgid "Choose an image"
 msgstr ""
 

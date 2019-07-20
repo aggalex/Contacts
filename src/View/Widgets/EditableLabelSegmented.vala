@@ -29,25 +29,49 @@ namespace View.Widgets {
 
         private Gtk.Label label = new Gtk.Label ("");
         private List<Gtk.Entry> entries = new List<Gtk.Entry> ();
+        private Gtk.Box entry_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         private Gtk.Button delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
         private SimpleMenu type_list = new SimpleMenu (null);
         private Gtk.Revealer entry_revealer = new Gtk.Revealer ();
+
+        private Gtk.Box button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        private Gtk.Box label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+
+        private string[]? format_strings = null;
 
         internal List<string> text_array = new List<string> ();
 
         public DataHelper.Type data_type {get; protected set;}
         public string text {
             owned get {
-                var output = new StringBuilder ();
-                foreach (Gtk.Entry entry in entries) {
-                    var text = entry.get_text ();
-                    if (text != "") {
-                        if (output.len != 0)
-                            output.append (", ");
-                        output.append (text);
+                if (format_strings == null) {
+                    var output = new StringBuilder ();
+                    foreach (Gtk.Widget entry in entry_box.get_children ()) {
+                        var text = ((Entry) entry).get_text ();
+                        if (text != "") {
+                            if (output.len != 0)
+                                output.append (", ");
+                            output.append (text);
+                        }
                     }
+                    return output.str;
+                } else {
+                    var output = new StringBuilder ();
+                    foreach (var format_string in format_strings) {
+                        var regex = new Regex ("^\\d+");
+                        var occurences = format_string.split ("$");
+                        string section = format_string;
+                        if (regex.match (occurences[1])) {
+                            var data = entries.nth_data (int.parse (occurences[1])).get_text ();
+                            if (data != "")
+                                section = section.replace ("$" + occurences[1], regex.replace (occurences[1], occurences[1].len (), 0, data));
+                            else
+                                section = "";
+                        }
+                        output.append (section);
+                    }
+                    return output.str;
                 }
-                return output.str;
             }
         }
 
@@ -61,7 +85,6 @@ namespace View.Widgets {
             }
 
             this.data_type = type;
-            label.label = text;
             construct_this ();
         }
 
@@ -76,7 +99,6 @@ namespace View.Widgets {
             }
 
             this.data_type = type;
-            label.label = text;
             construct_this ();
         }
 
@@ -112,28 +134,18 @@ namespace View.Widgets {
                 changed ();
             });
 
-            var button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+
             button_box.pack_start (delete_button, false, false, 0);
             button_box.pack_start (edit_button, false, false, 0);
 
-            var label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             label_box.pack_start (type_button, false, false, 0);
             label_box.pack_start (label, false, false, 0);
-
-            if (get_lines () >= 2) {
-                button_box.set_orientation (Gtk.Orientation.VERTICAL);
-                label_box.set_orientation (Gtk.Orientation.VERTICAL);
-            } else {
-                button_box.set_orientation (Gtk.Orientation.HORIZONTAL);
-                label_box.set_orientation (Gtk.Orientation.HORIZONTAL);
-            }
 
             var wrapping_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             wrapping_box.pack_start (button_box, false, true, 0);
             wrapping_box.pack_start (label_box, false, true, 0);
             wrapping_box.margin = 6;
 
-            var entry_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             foreach (Gtk.Entry entry in entries) {
                 entry_box.pack_start (entry, true, true, 0);
             }
@@ -166,15 +178,7 @@ namespace View.Widgets {
                     foreach (var s_entry in entries)
                         text_array.nth (i++).data = s_entry.text;
 
-                    label.set_text (text);
-
-                    if (get_lines () >= 2) {
-                        button_box.set_orientation (Gtk.Orientation.VERTICAL);
-                        label_box.set_orientation (Gtk.Orientation.VERTICAL);
-                    } else {
-                        button_box.set_orientation (Gtk.Orientation.HORIZONTAL);
-                        label_box.set_orientation (Gtk.Orientation.HORIZONTAL);
-                    }
+                    set_label_text ();
 
                     changed ();
                 });
@@ -189,6 +193,7 @@ namespace View.Widgets {
                 return true;
             });
 
+            set_label_text ();
             this.show_all();
             this.set_visible_child_name ("label");
             this.set_homogeneous (false);
@@ -206,6 +211,23 @@ namespace View.Widgets {
         public async void revealer_pause () {
             entry_revealer.set_reveal_child (false);
             yield nap ((int) entry_revealer.get_transition_duration () - 150);
+        }
+
+        public void format (string[] format_strings) {
+            this.format_strings = format_strings;
+            set_label_text ();
+        }
+
+        private void set_label_text () {
+            label.set_text (text);
+
+            if (get_lines () >= 2) {
+                button_box.set_orientation (Gtk.Orientation.VERTICAL);
+                label_box.set_orientation (Gtk.Orientation.VERTICAL);
+            } else {
+                button_box.set_orientation (Gtk.Orientation.HORIZONTAL);
+                label_box.set_orientation (Gtk.Orientation.HORIZONTAL);
+            }
         }
 
         private int get_lines () {
