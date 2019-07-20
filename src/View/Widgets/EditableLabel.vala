@@ -43,7 +43,7 @@ namespace View.Widgets {
         public EditableLabel (string text = "", DataHelper.Type type){
             label.set_text (text);
             data_type = type;
-            type_button.set_label (@"$data_type:");
+            type_button.set_label (@"$(data_type.to_string_translated ()):");
         }
 
         //Making the UI
@@ -59,16 +59,16 @@ namespace View.Widgets {
             type_button.get_style_context ().add_class ("bold");
             type_list.set_relative_to (type_button);
             foreach (var data_type in DataHelper.Type.ALL)
-                type_list.append (data_type.to_string ());
+                type_list.append (data_type.to_string_translated ());
 
             type_button.clicked.connect (() => {
                 type_list.popup ();
                 type_list.show_all ();
             });
 
-            type_list.poped_down.connect ((text) => {
-                type_button.set_label (text + ":");
-                this.data_type = DataHelper.Type.parse (text);
+            type_list.poped_down.connect ((index) => {
+                this.data_type = DataHelper.Type.parse_int (index);
+                type_button.set_label (this.data_type.to_string_translated () + ":");
                 changed ();
             });
 

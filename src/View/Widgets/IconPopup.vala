@@ -48,14 +48,14 @@ namespace View.Widgets {
             });
 
             var change_button = new Gtk.Button ();
-            change_button.set_label ("Set from File...");
+            change_button.set_label (_("Set from File..."));
             change_button.get_style_context ().add_class ("suggested-action");
             change_button.clicked.connect (() => {
                 this.popdown ();
                 change_image ();
             });
 
-            delete_button.set_label ("Delete");
+            delete_button.set_label (_("Delete"));
             delete_button.get_style_context ().add_class ("destructive-action");
             delete_button.set_sensitive (false);
             delete_button.clicked.connect (() => {

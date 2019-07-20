@@ -102,10 +102,11 @@ namespace View.Widgets {
         construct {
             menu = new SimpleMenu (add_button);
             foreach (var data in DataHelper.Type.MISC) {
-                menu.append (data.to_string ());
+                menu.append (data.to_string_translated ());
             }
-            menu.poped_down.connect ((data) => {
-                var parsed_data = DataHelper.Type.parse (data);
+            menu.poped_down.connect ((index) => {
+                print (@"POPED DOWN: $index\n");
+                var parsed_data = DataHelper.Type.parse_int (index + 3);
                 switch (parsed_data) {
                     case NOTES:
                         new_entry_note ("");

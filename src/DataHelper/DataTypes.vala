@@ -46,6 +46,19 @@ namespace DataHelper {
             }
         }
 
+        public string to_string_translated () {
+            switch (this) {
+                case HOME: return _("Home");
+                case WORK: return _("Work");
+                case OTHER: return _("Other");
+                case WEBSITE: return _("Website");
+                case NICKNAME: return _("Nickname");
+                case BIRTHDAY: return _("Birthday");
+                case NOTES: return _("Notes");
+                default: return DEFAULT.to_string_translated ();
+            }
+        }
+
         public static Type parse (string str) {
             switch (str) {
                 case "Home": return HOME;
@@ -55,6 +68,20 @@ namespace DataHelper {
                 case "Nickname": return NICKNAME;
                 case "Birthday": return BIRTHDAY;
                 case "Notes": return NOTES;
+                default: return DEFAULT;
+            }
+        }
+
+        public static Type parse_int (int i) {
+            print (@"INSIDE PARSE_INT: $i\n");
+            switch (i) {
+                case 0: return HOME;
+                case 1: return WORK;
+                case 2: return OTHER;
+                case 3: return WEBSITE;
+                case 4: return NICKNAME;
+                case 5: return BIRTHDAY;
+                case 6: return NOTES;
                 default: return DEFAULT;
             }
         }

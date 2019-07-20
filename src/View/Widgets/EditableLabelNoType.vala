@@ -45,7 +45,7 @@ namespace View.Widgets {
 
             label.set_text (text);
             data_type = label_text;
-            explaining_label.label = @"$data_type:";
+            explaining_label.label = @"$(data_type.to_string_translated ()):";
         }
 
         construct {

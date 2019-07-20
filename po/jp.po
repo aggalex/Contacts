@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-19 13:37+0300\n"
+"POT-Creation-Date: 2019-07-20 13:48+0300\n"
 "PO-Revision-Date: 2019-07-19 13:37+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -50,6 +50,22 @@ msgstr ""
 
 #: src/View/ContactList.vala:158 src/View/Contact.vala:189
 msgid "Where to save exported file"
+msgstr ""
+
+#: src/View/Headerbar.vala:39
+msgid "Create new contact"
+msgstr ""
+
+#: src/View/Headerbar.vala:53
+msgid "Search Contacts"
+msgstr ""
+
+#: src/View/Widgets/IconPopup.vala:51
+msgid "Set from File..."
+msgstr ""
+
+#: src/View/Widgets/IconPopup.vala:58
+msgid "Delete"
 msgstr ""
 
 #: src/View/Contact.vala:58
@@ -98,6 +114,34 @@ msgstr ""
 
 #: src/View/Contact.vala:218
 msgid "Choose an image"
+msgstr ""
+
+#: src/DataHelper/DataTypes.vala:51
+msgid "Home"
+msgstr ""
+
+#: src/DataHelper/DataTypes.vala:52
+msgid "Work"
+msgstr ""
+
+#: src/DataHelper/DataTypes.vala:53
+msgid "Other"
+msgstr ""
+
+#: src/DataHelper/DataTypes.vala:54
+msgid "Website"
+msgstr ""
+
+#: src/DataHelper/DataTypes.vala:55
+msgid "Nickname"
+msgstr ""
+
+#: src/DataHelper/DataTypes.vala:56
+msgid "Birthday"
+msgstr ""
+
+#: src/DataHelper/DataTypes.vala:57
+msgid "Notes"
 msgstr ""
 
 #: src/Application.vala:51

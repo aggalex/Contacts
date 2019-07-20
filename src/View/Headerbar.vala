@@ -36,7 +36,7 @@ namespace View {
         public signal void export ();
 
         public Headerbar () {
-            add_entry_button.set_tooltip_text ("Create new contact");
+            add_entry_button.set_tooltip_text (_("Create new contact"));
 
             var popover = new Popover (add_entry_button);
 
@@ -50,7 +50,7 @@ namespace View {
             });
 
             Search.valign = Gtk.Align.CENTER;
-            Search.set_placeholder_text ("Search Contacts");
+            Search.set_placeholder_text (_("Search Contacts"));
 
             Search.changed.connect(() => changed_search (Search.get_text()));
 

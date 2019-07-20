@@ -100,15 +100,15 @@ namespace View.Widgets {
             type_list.set_relative_to (type_button);
 
             foreach (var data_type in DataHelper.Type.ALL) {
-                type_list.append (data_type.to_string ());
+                type_list.append (data_type.to_string_translated ());
             }
             type_button.clicked.connect (() => {
                 type_list.popup ();
                 type_list.show_all ();
             });
-            type_list.poped_down.connect ((text) => {
-                this.data_type = DataHelper.Type.parse (text);
-                type_button.set_label (text + ":");
+            type_list.poped_down.connect ((text, index) => {
+                this.data_type = DataHelper.Type.parse_int (index);
+                type_button.set_label (this.data_type.to_string_translated () + ":");
                 changed ();
             });
 

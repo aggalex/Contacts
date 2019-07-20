@@ -72,7 +72,7 @@ namespace View.Widgets {
             } else {
                 label.set_text ("");
             }
-            explaining_label.label = @"$data_type:";
+            explaining_label.label = @"$(data_type.to_string_translated ()):";
         }
 
         private string extract_label_text () {

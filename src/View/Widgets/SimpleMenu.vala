@@ -26,7 +26,10 @@ namespace View.Widgets {
 
     public class SimpleMenu : Gtk.Popover {
 
-        public signal void poped_down (string text);
+        public signal void poped_down (int index);
+
+        public int length {get; set; default = 0;}
+
         private ListBox list_box = new Gtk.ListBox ();
         private List<Gtk.Button> list = new List<Gtk.Button> ();
 
@@ -42,11 +45,13 @@ namespace View.Widgets {
         }
 
         public void append (string text) {
+            var index = length++;
+
             var button = new Gtk.Button ();
             button.set_label (text);
             button.get_style_context ().add_class ("flat");
             button.clicked.connect (() => {
-                poped_down (button.get_label ());
+                poped_down (index);
                 this.popdown ();
             });
             button.margin = 6;
