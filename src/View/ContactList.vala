@@ -87,8 +87,8 @@ namespace View {
             action_box.margin = 6;
             action_box.margin_top = 8;
             action_box.margin_bottom = 8;
-            action_box.pack_start (export_button, true, true, 0);
             action_box.pack_start (import_button, true, true, 0);
+            action_box.pack_start (export_button, true, true, 0);
 
             var sidebar_box = new Gtk.Box (Orientation.VERTICAL, 0);
             sidebar_box.get_style_context ().add_class ("white-background");
