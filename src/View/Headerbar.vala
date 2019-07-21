@@ -31,22 +31,12 @@ namespace View {
         private Gtk.Button add_entry_button = new Gtk.Button.from_icon_name ("contact-new", Gtk.IconSize.LARGE_TOOLBAR);
         private Gtk.SearchEntry Search = new Gtk.SearchEntry ();
 
-        public signal void new_contact (string name);
-        public signal void import ();
-        public signal void export ();
+        public signal void new_contact ();
 
         public Headerbar () {
             add_entry_button.set_tooltip_text (_("Create new contact"));
-
-            var popover = new Popover (add_entry_button);
-
             add_entry_button.clicked.connect (() => {
-                popover.popup ();
-                popover.show_all ();
-            });
-
-            popover.activated.connect (() => {
-                new_contact (popover.text);
+                new_contact ();
             });
 
             Search.valign = Gtk.Align.CENTER;

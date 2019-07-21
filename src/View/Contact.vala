@@ -49,6 +49,7 @@ namespace View {
         public signal void name_changed ();
         public signal void changed ();
         private signal void has_icon (bool has);
+        private signal void make_bottom_section_unavailable (bool not_available);
 
         private Granite.Widgets.Avatar icon = new Granite.Widgets.Avatar.from_file (Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg", 64);
         private bool icon_is_set = false;
@@ -175,6 +176,12 @@ namespace View {
             var save_button = new Gtk.Button.with_label ("Save");   // TODO: Make this redundant
             save_button.clicked.connect (() => handler.save());
 
+            make_bottom_section_unavailable.connect ((not_available) => {
+                delete_button.set_sensitive (!not_available);
+                export_button.set_sensitive (!not_available);
+                save_button.set_sensitive (!not_available);
+            });
+
             var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             bottom_box.pack_end (delete_button, false, false, 0);
             bottom_box.pack_end (save_button, false, false, 0);
@@ -246,6 +253,20 @@ namespace View {
             chooser.destroy ();
             set_image_path (filename);
             changed ();
+        }
+
+        public void require_name () {
+            make_bottom_section_unavailable (true);
+            name_label.clicked ();
+            name_label.focus_on_entry ();
+            name_changed.connect (() => {
+                if (name_label.text == "") {
+                    name_label.clicked ();
+                    return;
+                }
+
+                make_bottom_section_unavailable (false);
+            });
         }
 
         public void set_image_path (string path) {

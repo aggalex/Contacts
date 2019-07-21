@@ -29,7 +29,7 @@ namespace ViewModel {
     public class ContactHandler {
 
         public signal void changed ();
-        private Contact contact;
+        internal Contact contact;
 
         public string name {
             get {

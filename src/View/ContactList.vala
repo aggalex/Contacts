@@ -54,17 +54,10 @@ namespace View {
 
             var welcome_button = welcome.get_button_from_index (0);
 
-            var popover = new Widgets.Popover (welcome_button);
-            popover.set_position (PositionType.BOTTOM);
-            popover.activated.connect (() => {
-                add_contact (popover.text);
-            });
-
             welcome.activated.connect ((index) => {
                 switch (index) {
                     case 0:
-                        popover.popup ();
-                        popover.show_all ();
+                        add_empty_contact ();
                         break;
                     case 1:
                         import ();
@@ -123,11 +116,16 @@ namespace View {
         public void initialize () {
             handler.initialize ();
             if (handler.length != 0) sidebar_revealer.reveal_child = true;
+            sidebar.select_row (0);
         }
 
         public void add_contact (string name) {
             handler.add_contact (name);
             sidebar_revealer.set_reveal_child (true);
+        }
+
+        public void add_empty_contact () {
+            sidebar.add_empty_contact ();
         }
 
         public void import () {

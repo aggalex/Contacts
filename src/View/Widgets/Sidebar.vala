@@ -130,9 +130,6 @@ namespace View.Widgets {
             foreach (var contact_handler in handler)
                 listbox.add (new SidebarRow (contact_handler));
 
-            if (stack.child == stack.default_widget && listbox.get_children ().length () != 0)
-                listbox.select_row (listbox.get_row_at_index (0));
-
             listbox.show_all ();
         }
 
@@ -160,6 +157,35 @@ namespace View.Widgets {
             if (widget == null) return false;
 
             return set_visibility (widget, true);
+        }
+
+        public bool select_row (uint index) {
+            var widget = listbox.get_row_at_index ((int) index);
+            if (widget == null) return false;
+
+            listbox.select_row (widget);
+            return true;
+        }
+
+        public void add_empty_contact () {
+            var handler = new ContactHandler ("");
+            var contact = new Contact.from_handler (handler);
+            contact.require_name ();
+            contact.name_changed.connect (() => {
+                if (handler.name != "") {
+                    this.handler.add_contact_by_handler (handler);
+                    contact.removed.connect (() => {
+                        if (listbox.get_children ().length () != 0) {
+                            var next_row = listbox.get_row_at_index (0);
+                            listbox.select_row (next_row);
+                        } else {
+                            stack.show_default_widget ();
+                        }
+                    });
+                }
+            });
+
+            stack.child = contact;
         }
 
         public bool set_visibility (ListBoxRow widget, bool new_visible) {

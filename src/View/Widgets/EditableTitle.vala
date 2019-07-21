@@ -30,6 +30,8 @@ namespace View.Widgets {
         private Gtk.Label label = new Gtk.Label ("");
         private Gtk.Entry entry = new Gtk.Entry ();
 
+        private Gtk.Button label_button = new Gtk.Button ();
+
         public string text {
             get {
                 return entry.get_text ();
@@ -51,10 +53,17 @@ namespace View.Widgets {
             label.set_text (text);
         }
 
+        public void clicked () {
+            label_button.clicked ();
+        }
+
+        public void focus_on_entry () {
+            entry.grab_focus ();
+        }
+
         construct {
             label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
 
-            var label_button = new Gtk.Button ();
             label_button.set_tooltip_text (_("Edit the name"));
             label_button.get_style_context ().add_class ("flat");
             label_button.add (label);

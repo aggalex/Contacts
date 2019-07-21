@@ -68,6 +68,14 @@ namespace ViewModel {
             changed ();
         }
 
+        public void add_contact_by_handler (ContactHandler handler) {
+            var contact = handler.contact;
+            contact.remove.connect (() => remove_contact (contact));
+
+            contact_list.data.insert_sorted (contact, compare_contacts);
+            changed ();
+        }
+
         public bool remove_contact (Contact contact) {
             if (!contains (contact)) return false;
 
