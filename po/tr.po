@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-21 18:52+0300\n"
-"PO-Revision-Date: 2019-07-21 14:04+0100\n"
+"PO-Revision-Date: 2019-07-21 18:07+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: it\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,63 +20,61 @@ msgstr ""
 
 #: src/View/ContactList.vala:50
 msgid "No Contacts"
-msgstr "Nessun Contatto"
+msgstr "Hiçbir Kişi Bulunamadı"
 
 #: src/View/ContactList.vala:50
 msgid "Your contact list is empty."
-msgstr "L'elenco dei contatti è vuoto."
+msgstr "Kişi listeniz boş."
 
 #: src/View/ContactList.vala:51
 msgid "New Contact"
-msgstr "Nuovo Contatto"
+msgstr "Yeni Kişi"
 
 #: src/View/ContactList.vala:51
 msgid "Create a new contact"
-msgstr "Crea un nuovo contatto"
+msgstr "Yeni bir kişi oluştur"
 
 #: src/View/ContactList.vala:52
 msgid "Import Contacts"
-msgstr "Importa Contatti"
+msgstr "Kişileri İçe Aktar"
 
 #: src/View/ContactList.vala:52
 msgid "Import contacts from external file"
-msgstr "Importa contatti da un file esterno"
+msgstr "Harici bir dosyadan içe aktar"
 
 #: src/View/ContactList.vala:84
-#, fuzzy
 msgid "Export all contacts to a file"
-msgstr "Importa contatti da un file esterno"
+msgstr "Tüm kişileri bir dosyaya aktar"
 
 #: src/View/ContactList.vala:89
-#, fuzzy
 msgid "Import contacts from a file"
-msgstr "Importa contatti da un file esterno"
+msgstr "Bir dosyadan içe aktar"
 
 #: src/View/ContactList.vala:135
 msgid "Select the contact file to import"
-msgstr "Seleziona il file contatti da importare"
+msgstr "İçe aktarılacak kişi dosyasını seçin"
 
 #: src/View/ContactList.vala:143 src/View/ContactList.vala:166
 msgid "VCard contact file"
-msgstr "File VCard"
+msgstr "VCard kişi dosyası"
 
 #: src/View/ContactList.vala:158 src/View/Contact.vala:197
 msgid "Where to save exported file"
-msgstr "Dove salvare il file esportato"
+msgstr "Dışa aktarılacak dosya nereye kaydedilsin"
 
 #: src/View/Headerbar.vala:39
 msgid "Create new contact"
-msgstr "Crea nuovo contatto"
+msgstr "Yeni kişi oluştur"
 
 #: src/View/Headerbar.vala:53
 msgid "Search Contacts"
-msgstr "Cerca Contatti"
+msgstr "Kişilerde Ara"
 
 #: src/View/Widgets/EditableLabelDate.vala:88
 #: src/View/Widgets/EditableLabel.vala:52
 #: src/View/Widgets/EditableLabelSegmented.vala:109
 msgid "Delete this entry"
-msgstr ""
+msgstr "Bu girdiyi sil"
 
 #: src/View/Widgets/EditableLabelDate.vala:92
 #: src/View/Widgets/EditableLabel.vala:57
@@ -84,134 +82,132 @@ msgstr ""
 #: src/View/Widgets/EditableLabelNoType.vala:57
 #: src/View/Widgets/EditableLabelSegmented.vala:113
 msgid "Edit this entry"
-msgstr ""
+msgstr "Bu girdiyi düzenle"
 
 #: src/View/Widgets/EditableTitle.vala:58
 msgid "Edit the name"
-msgstr ""
+msgstr "İsmi düzenle"
 
 #: src/View/Widgets/InfoSection.vala:70
 msgid "Add a new empty entry"
-msgstr ""
+msgstr "Boş bir girdi ekle"
 
 #: src/View/Widgets/IconPopup.vala:51
 msgid "Set from File..."
-msgstr "Imposta da un File..."
+msgstr "Bir Dosyadan Ayarla..."
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"
-msgstr "Elimina"
+msgstr "Sil"
 
 #: src/View/Contact.vala:58
 msgid "Phones"
-msgstr "Numeri di Telefono"
+msgstr "Telefonlar"
 
 #: src/View/Contact.vala:59
 msgid "Emails"
-msgstr "Email"
+msgstr "Epostalar"
 
 #: src/View/Contact.vala:60
 msgid "Addresses"
-msgstr "Indirizzi"
+msgstr "Adresler"
 
 #: src/View/Contact.vala:61
 msgid "Street"
-msgstr "Strada"
+msgstr "Sokak"
 
 #: src/View/Contact.vala:62
 msgid "City"
-msgstr "Città"
+msgstr "İlçe"
 
 #: src/View/Contact.vala:63
 msgid "State/Province"
-msgstr "Stato/Provincia"
+msgstr "İl"
 
 #: src/View/Contact.vala:64
 msgid "Zip/Postal Code"
-msgstr "Codice Postale"
+msgstr "Posta Kodu"
 
 #: src/View/Contact.vala:65
 msgid "Country"
-msgstr "Nazione"
+msgstr "Ülke"
 
 #: src/View/Contact.vala:68
 msgid "$0, "
-msgstr "$0, "
+msgstr ""
 
 #: src/View/Contact.vala:69
 msgid "$1, "
-msgstr "$1, "
+msgstr ""
 
 #: src/View/Contact.vala:70
 msgid "$2, "
-msgstr "$2, "
+msgstr ""
 
 #: src/View/Contact.vala:71
 msgid "$3, "
-msgstr "$3, "
+msgstr ""
 
 #: src/View/Contact.vala:72
 msgid "$4"
-msgstr "$4"
+msgstr ""
 
 #: src/View/Contact.vala:74
 msgid "Miscellaneous"
-msgstr "Varie"
+msgstr "Çeşitli"
 
 #: src/View/Contact.vala:134
 msgid "Change the icon"
-msgstr ""
+msgstr "Simgeyi değiştir"
 
 #: src/View/Contact.vala:166
 msgid "Delete Contact"
-msgstr "Elimina Contatto"
+msgstr "Kişiyi Sil"
 
 #: src/View/Contact.vala:167
 msgid "Delete this contact permanently"
-msgstr ""
+msgstr "Bu kişiyi kalıcı olarak sil"
 
 #: src/View/Contact.vala:171
-#, fuzzy
 msgid "Export"
-msgstr "esporta"
+msgstr "Dışa Aktar"
 
 #: src/View/Contact.vala:172
-#, fuzzy
 msgid "Export this contact to a file"
-msgstr "Importa contatti da un file esterno"
+msgstr "Bu kişiyi bir dosyaya aktar"
 
 #: src/View/Contact.vala:226
 msgid "Choose an image"
-msgstr "Scegli un'immagine"
+msgstr "Bir resim seç"
 
 #: src/DataHelper/DataTypes.vala:51
 msgid "Home"
-msgstr "Casa"
+msgstr "Ev"
 
 #: src/DataHelper/DataTypes.vala:52
 msgid "Work"
-msgstr "Lavoro"
+msgstr "İş"
 
 #: src/DataHelper/DataTypes.vala:53
 msgid "Other"
-msgstr "Altro"
+msgstr "Diğer"
 
 #: src/DataHelper/DataTypes.vala:54
 msgid "Website"
-msgstr "Sito Web"
+msgstr "Website"
 
 #: src/DataHelper/DataTypes.vala:55
 msgid "Nickname"
-msgstr "Soprannome"
+msgstr "Lakap"
 
 #: src/DataHelper/DataTypes.vala:56
 msgid "Birthday"
-msgstr "Compleanno"
+msgstr "Doğum Günü"
 
 #: src/DataHelper/DataTypes.vala:57
 msgid "Notes"
-msgstr "Note"
+msgstr "Notlar"
 
 #: src/Application.vala:51
 msgid "Contacts"
-msgstr "Contatti"
+msgstr "Kişiler"
