@@ -1,0 +1,172 @@
+# Spanish translations for com.github.aggalex.contacts package.
+# Copyright (C) 2019 THE com.github.aggalex.contacts'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.aggalex.contacts package.
+# Automatically generated, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.aggalex.contacts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-21 01:34+0300\n"
+"PO-Revision-Date: 2019-07-21 13:39+0100\n"
+"Last-Translator: Nicola Gigante <nicolagigante@outlook.com>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#: src/View/ContactList.vala:50
+msgid "No Contacts"
+msgstr "Nessun Contatto"
+
+#: src/View/ContactList.vala:50
+msgid "Your contact list is empty."
+msgstr "La tua lista contatti è vuota."
+
+#: src/View/ContactList.vala:51
+msgid "New Contact"
+msgstr "Nuovo Contatto"
+
+#: src/View/ContactList.vala:51
+msgid "Create a new contact"
+msgstr "Crea un nuovo contatto"
+
+#: src/View/ContactList.vala:52
+msgid "Import Contacts"
+msgstr "Importa Contatti"
+
+#: src/View/ContactList.vala:52
+msgid "Import contacts from external file"
+msgstr "Importa i contatti da un file esterno"
+
+#: src/View/ContactList.vala:135
+msgid "Select the contact file to import"
+msgstr "Seleziona il file contatti da importare"
+
+#: src/View/ContactList.vala:143 src/View/ContactList.vala:166
+msgid "VCard contact file"
+msgstr "File VCard"
+
+#: src/View/ContactList.vala:158 src/View/Contact.vala:194
+msgid "Where to save exported file"
+msgstr "Dove salvare il file esportato"
+
+#: src/View/Headerbar.vala:39
+msgid "Create new contact"
+msgstr "Crea un nuovo contatto"
+
+#: src/View/Headerbar.vala:53
+msgid "Search Contacts"
+msgstr "Cerca Contatti"
+
+#: src/View/Widgets/IconPopup.vala:51
+msgid "Set from File..."
+msgstr "Importa da File..."
+
+#: src/View/Widgets/IconPopup.vala:58
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/View/Contact.vala:58
+msgid "Phones"
+msgstr "Numeri di Telefono"
+
+#: src/View/Contact.vala:59
+msgid "Emails"
+msgstr "Email"
+
+#: src/View/Contact.vala:60
+msgid "Addresses"
+msgstr "Indirizzi"
+
+#: src/View/Contact.vala:61
+msgid "Street"
+msgstr "Strada"
+
+#: src/View/Contact.vala:62
+msgid "City"
+msgstr "Città"
+
+#: src/View/Contact.vala:63
+msgid "State/Province"
+msgstr "Stato/Provincia"
+
+#: src/View/Contact.vala:64
+msgid "Zip/Postal Code"
+msgstr "Zip/CAP"
+
+#: src/View/Contact.vala:65
+msgid "Country"
+msgstr "Nazione"
+
+#: src/View/Contact.vala:68
+msgid "$0, "
+msgstr "$0, "
+
+#: src/View/Contact.vala:69
+msgid "$1, "
+msgstr "$1, "
+
+#: src/View/Contact.vala:70
+msgid "$2, "
+msgstr "$2, "
+
+#: src/View/Contact.vala:71
+msgid "$3, "
+msgstr "$3, "
+
+#: src/View/Contact.vala:72
+msgid "$4, "
+msgstr "$4, "
+
+#: src/View/Contact.vala:74
+msgid "Miscellaneous"
+msgstr "Varie"
+
+#: src/View/Contact.vala:165
+msgid "Delete Contact"
+msgstr "Elimina Contatto"
+
+#: src/View/Contact.vala:169
+msgid "export"
+msgstr "Esporta"
+
+#: src/View/Contact.vala:223
+msgid "Choose an image"
+msgstr "Scegli un'immagine"
+
+#: src/DataHelper/DataTypes.vala:51
+msgid "Home"
+msgstr "Casa"
+
+#: src/DataHelper/DataTypes.vala:52
+msgid "Work"
+msgstr "Lavoro"
+
+#: src/DataHelper/DataTypes.vala:53
+msgid "Other"
+msgstr "Altro"
+
+#: src/DataHelper/DataTypes.vala:54
+msgid "Website"
+msgstr "Sito Web"
+
+#: src/DataHelper/DataTypes.vala:55
+msgid "Nickname"
+msgstr "Soprannome"
+
+#: src/DataHelper/DataTypes.vala:56
+msgid "Birthday"
+msgstr "Compleanno"
+
+#: src/DataHelper/DataTypes.vala:57
+msgid "Notes"
+msgstr "Note"
+
+#: src/Application.vala:51
+msgid "Contacts"
+msgstr "Contatti"
+
