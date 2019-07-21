@@ -20,6 +20,7 @@ sudo ninja install
 - Hardening stability
 - proper error handling
 - options menu
+- tooltips
 - autosaving
 - defensive importing/exporting
 

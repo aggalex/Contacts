@@ -113,7 +113,7 @@ namespace View.Widgets {
             edit_button.get_style_context ().add_class ("flat");
 
             var type_button = new Gtk.Button ();
-            type_button.set_label (@"$data_type: ");
+            type_button.set_label (@"$(data_type.to_string_translated ()): ");
             type_button.get_style_context ().add_class ("flat");
             type_button.get_style_context ().add_class ("bold");
             type_button.set_hexpand (false);
