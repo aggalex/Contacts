@@ -67,7 +67,7 @@ msgstr "Créer un nouveau contact"
 
 #: src/View/Headerbar.vala:53
 msgid "Search Contacts"
-msgstr "SearchRechercher des contacts"
+msgstr "Rechercher des contacts"
 
 #: src/View/Widgets/EditableLabelDate.vala:88
 #: src/View/Widgets/EditableLabel.vala:52
