@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-21 18:52+0300\n"
-"PO-Revision-Date: 2019-07-21 00:29+0900\n"
+"POT-Creation-Date: 2019-07-22 00:06+0900\n"
+"PO-Revision-Date: 2019-07-22 00:12+0900\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: none\n"
 "Language: ja\n"
@@ -43,14 +43,12 @@ msgid "Import contacts from external file"
 msgstr "外部ファイルから連絡先をインポートします"
 
 #: src/View/ContactList.vala:84
-#, fuzzy
 msgid "Export all contacts to a file"
-msgstr "外部ファイルから連絡先をインポートします"
+msgstr "すべての連絡先をファイルにエクスポートします"
 
 #: src/View/ContactList.vala:89
-#, fuzzy
 msgid "Import contacts from a file"
-msgstr "外部ファイルから連絡先をインポートします"
+msgstr "ファイルから連絡先をインポートします"
 
 #: src/View/ContactList.vala:135
 msgid "Select the contact file to import"
@@ -66,7 +64,7 @@ msgstr "エクスポートしたファイルの保存先"
 
 #: src/View/Headerbar.vala:39
 msgid "Create new contact"
-msgstr "新しい連絡先を作成"
+msgstr "新しい連絡先を作成します"
 
 #: src/View/Headerbar.vala:53
 msgid "Search Contacts"
@@ -76,7 +74,7 @@ msgstr "連絡先を検索"
 #: src/View/Widgets/EditableLabel.vala:52
 #: src/View/Widgets/EditableLabelSegmented.vala:109
 msgid "Delete this entry"
-msgstr ""
+msgstr "このエントリーを削除します"
 
 #: src/View/Widgets/EditableLabelDate.vala:92
 #: src/View/Widgets/EditableLabel.vala:57
@@ -84,15 +82,15 @@ msgstr ""
 #: src/View/Widgets/EditableLabelNoType.vala:57
 #: src/View/Widgets/EditableLabelSegmented.vala:113
 msgid "Edit this entry"
-msgstr ""
+msgstr "このエントリーを編集します"
 
 #: src/View/Widgets/EditableTitle.vala:58
 msgid "Edit the name"
-msgstr ""
+msgstr "名前を編集します"
 
 #: src/View/Widgets/InfoSection.vala:70
 msgid "Add a new empty entry"
-msgstr ""
+msgstr "新しい空のエントリーを追加します"
 
 #: src/View/Widgets/IconPopup.vala:51
 msgid "Set from File..."
@@ -160,7 +158,7 @@ msgstr "その他"
 
 #: src/View/Contact.vala:134
 msgid "Change the icon"
-msgstr ""
+msgstr "アイコンを変更します"
 
 #: src/View/Contact.vala:166
 msgid "Delete Contact"
@@ -168,17 +166,15 @@ msgstr "連絡先を削除"
 
 #: src/View/Contact.vala:167
 msgid "Delete this contact permanently"
-msgstr ""
+msgstr "この連絡先を完全に削除します"
 
 #: src/View/Contact.vala:171
-#, fuzzy
 msgid "Export"
 msgstr "エクスポート"
 
 #: src/View/Contact.vala:172
-#, fuzzy
 msgid "Export this contact to a file"
-msgstr "外部ファイルから連絡先をインポートします"
+msgstr "この連絡先をファイルにエクスポートします"
 
 #: src/View/Contact.vala:226
 msgid "Choose an image"
