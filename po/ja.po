@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-21 01:34+0300\n"
+"POT-Creation-Date: 2019-07-21 16:58+0300\n"
 "PO-Revision-Date: 2019-07-21 00:29+0900\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: none\n"
@@ -119,7 +119,7 @@ msgid "$3, "
 msgstr "$0"
 
 #: src/View/Contact.vala:72
-msgid "$4, "
+msgid "$4"
 msgstr ", $4"
 
 #: src/View/Contact.vala:74

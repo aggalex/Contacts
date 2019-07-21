@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-21 01:34+0300\n"
+"POT-Creation-Date: 2019-07-21 16:58+0300\n"
 "PO-Revision-Date: 2019-07-19 13:37+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -103,23 +103,23 @@ msgstr "Χώρα"
 
 #: src/View/Contact.vala:68
 msgid "$0, "
-msgstr ""
+msgstr "$0, "
 
 #: src/View/Contact.vala:69
 msgid "$1, "
-msgstr ""
+msgstr "$1, "
 
 #: src/View/Contact.vala:70
 msgid "$2, "
-msgstr ""
+msgstr "$2, "
 
 #: src/View/Contact.vala:71
 msgid "$3, "
-msgstr ""
+msgstr "$3, "
 
 #: src/View/Contact.vala:72
-msgid "$4, "
-msgstr ""
+msgid "$4"
+msgstr "$4"
 
 #: src/View/Contact.vala:74
 msgid "Miscellaneous"

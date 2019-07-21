@@ -69,7 +69,7 @@ namespace View {
             _("$1, "),
             _("$2, "),
             _("$3, "),
-            _("$4, ")
+            _("$4")
         });
         private InfoSectionMisc misc_info = new InfoSectionMisc (_("Miscellaneous"));
 
