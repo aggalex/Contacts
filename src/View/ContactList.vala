@@ -76,17 +76,17 @@ namespace View {
             contact_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
             contact_stack.default_widget = welcome;
 
-            // TODO: Add export button to the bottom of the contact page.
-
             var separator = new Separator (Orientation.HORIZONTAL);
             separator.margin_start = 6;
             separator.margin_end = 6;
 
             var export_button = new Gtk.Button.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
+            export_button.set_tooltip_text (_("Export all contacts to a file"));
             export_button.get_style_context ().add_class (STYLE_CLASS_FLAT);
             export_button.clicked.connect (export);
 
             var import_button = new Gtk.Button.from_icon_name ("document-import", Gtk.IconSize.LARGE_TOOLBAR);
+            import_button.set_tooltip_text (_("Import contacts from a file"));
             import_button.get_style_context ().add_class (STYLE_CLASS_FLAT);
             import_button.clicked.connect (import);
 

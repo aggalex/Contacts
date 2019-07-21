@@ -55,6 +55,7 @@ namespace View.Widgets {
             label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
 
             var label_button = new Gtk.Button ();
+            label_button.set_tooltip_text (_("Edit the name"));
             label_button.get_style_context ().add_class ("flat");
             label_button.add (label);
 
