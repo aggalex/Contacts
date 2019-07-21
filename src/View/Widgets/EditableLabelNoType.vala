@@ -50,9 +50,11 @@ namespace View.Widgets {
 
         construct {
             var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
+            delete_button.set_tooltip_text (_("Edit this entry"));
             delete_button.get_style_context ().add_class ("flat");
 
             var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic", Gtk.IconSize.BUTTON);
+            edit_button.set_tooltip_text (_("Edit this entry"));
             edit_button.get_style_context ().add_class ("flat");
 
             explaining_label.get_style_context ().add_class ("bold");

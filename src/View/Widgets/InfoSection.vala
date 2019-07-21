@@ -67,6 +67,7 @@ namespace View.Widgets {
             title_label_context.add_class ("bold");
 
             add_button.margin = 6;
+            add_button.set_tooltip_text (_("Add a new empty entry"));
 
             var label_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             label_box.pack_start (add_button, false, false, 0);

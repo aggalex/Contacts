@@ -69,7 +69,7 @@ namespace View {
             _("$1, "),
             _("$2, "),
             _("$3, "),
-            _("$4, ")
+            _("$4")
         });
         private InfoSectionMisc misc_info = new InfoSectionMisc (_("Miscellaneous"));
 
@@ -131,6 +131,7 @@ namespace View {
             hscrollbar_policy = Gtk.PolicyType.NEVER;
 
             var icon_button = new Gtk.Button ();
+            icon_button.set_tooltip_text (_("Change the icon"));
             icon_button.get_style_context ().add_class ("flat");
             icon_button.add (icon);
 
@@ -163,10 +164,12 @@ namespace View {
             flow_box.set_activate_on_single_click (false);
 
             var delete_button = new Gtk.Button.with_label (_("Delete Contact"));
+            delete_button.set_tooltip_text (_("Delete this contact permanently"));
             delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             delete_button.clicked.connect (() => delete_contact());
 
-            var export_button = new Gtk.Button.with_label (_("export"));
+            var export_button = new Gtk.Button.with_label (_("Export"));
+            export_button.set_tooltip_text (_("Export this contact to a file"));
             export_button.clicked.connect (export);
 
             var save_button = new Gtk.Button.with_label ("Save");   // TODO: Make this redundant

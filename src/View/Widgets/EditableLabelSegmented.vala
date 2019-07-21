@@ -106,14 +106,15 @@ namespace View.Widgets {
             label.set_max_width_chars (40);
 
             delete_button.get_style_context ().add_class ("flat");
-
+            delete_button.set_tooltip_text (_("Delete this entry"));
             delete_button.clicked.connect (() => deleted ());
 
             var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic", Gtk.IconSize.BUTTON);
+            edit_button.set_tooltip_text (_("Edit this entry"));
             edit_button.get_style_context ().add_class ("flat");
 
             var type_button = new Gtk.Button ();
-            type_button.set_label (@"$data_type: ");
+            type_button.set_label (@"$(data_type.to_string_translated ()): ");
             type_button.get_style_context ().add_class ("flat");
             type_button.get_style_context ().add_class ("bold");
             type_button.set_hexpand (false);

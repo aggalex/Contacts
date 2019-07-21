@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-21 01:34+0300\n"
+"POT-Creation-Date: 2019-07-21 18:52+0300\n"
 "PO-Revision-Date: 2019-07-19 13:37+0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -41,6 +41,14 @@ msgstr ""
 msgid "Import contacts from external file"
 msgstr ""
 
+#: src/View/ContactList.vala:84
+msgid "Export all contacts to a file"
+msgstr ""
+
+#: src/View/ContactList.vala:89
+msgid "Import contacts from a file"
+msgstr ""
+
 #: src/View/ContactList.vala:135
 msgid "Select the contact file to import"
 msgstr ""
@@ -49,7 +57,7 @@ msgstr ""
 msgid "VCard contact file"
 msgstr ""
 
-#: src/View/ContactList.vala:158 src/View/Contact.vala:194
+#: src/View/ContactList.vala:158 src/View/Contact.vala:197
 msgid "Where to save exported file"
 msgstr ""
 
@@ -59,6 +67,28 @@ msgstr ""
 
 #: src/View/Headerbar.vala:53
 msgid "Search Contacts"
+msgstr ""
+
+#: src/View/Widgets/EditableLabelDate.vala:88
+#: src/View/Widgets/EditableLabel.vala:52
+#: src/View/Widgets/EditableLabelSegmented.vala:109
+msgid "Delete this entry"
+msgstr ""
+
+#: src/View/Widgets/EditableLabelDate.vala:92
+#: src/View/Widgets/EditableLabel.vala:57
+#: src/View/Widgets/EditableLabelNoType.vala:53
+#: src/View/Widgets/EditableLabelNoType.vala:57
+#: src/View/Widgets/EditableLabelSegmented.vala:113
+msgid "Edit this entry"
+msgstr ""
+
+#: src/View/Widgets/EditableTitle.vala:58
+msgid "Edit the name"
+msgstr ""
+
+#: src/View/Widgets/InfoSection.vala:70
+msgid "Add a new empty entry"
 msgstr ""
 
 #: src/View/Widgets/IconPopup.vala:51
@@ -118,22 +148,34 @@ msgid "$3, "
 msgstr ""
 
 #: src/View/Contact.vala:72
-msgid "$4, "
+msgid "$4"
 msgstr ""
 
 #: src/View/Contact.vala:74
 msgid "Miscellaneous"
 msgstr ""
 
-#: src/View/Contact.vala:165
+#: src/View/Contact.vala:134
+msgid "Change the icon"
+msgstr ""
+
+#: src/View/Contact.vala:166
 msgid "Delete Contact"
 msgstr ""
 
-#: src/View/Contact.vala:169
-msgid "export"
+#: src/View/Contact.vala:167
+msgid "Delete this contact permanently"
 msgstr ""
 
-#: src/View/Contact.vala:223
+#: src/View/Contact.vala:171
+msgid "Export"
+msgstr ""
+
+#: src/View/Contact.vala:172
+msgid "Export this contact to a file"
+msgstr ""
+
+#: src/View/Contact.vala:226
 msgid "Choose an image"
 msgstr ""
 

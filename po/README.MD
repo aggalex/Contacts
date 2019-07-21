@@ -1,6 +1,6 @@
 # *ATTENTION*
 
-### The 5 "$<nuber>, " strings SHOULD NOT BE TRANSLATED NORMALY
+### The 5 "$\<number\>, " strings SHOULD NOT BE TRANSLATED NORMALY
 
 The following 5 strings represent the localized way of
 how an address is represented in the language you are
