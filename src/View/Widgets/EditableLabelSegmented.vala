@@ -60,13 +60,11 @@ namespace View.Widgets {
                     foreach (var format_string in format_strings) {
                         var regex = new Regex ("^\\d+");
                         var occurences = format_string.split ("$");
-                        string section = format_string;
+                        string section = "";
                         if (regex.match (occurences[1])) {
                             var data = entries.nth_data (int.parse (occurences[1])).get_text ();
                             if (data != "")
-                                section = section.replace ("$" + occurences[1], regex.replace (occurences[1], occurences[1].len (), 0, data));
-                            else
-                                section = "";
+                                section = format_string.replace ("$" + occurences[1], regex.replace (occurences[1], occurences[1].len (), 0, data));
                         }
                         output.append (section);
                     }
@@ -236,13 +234,16 @@ namespace View.Widgets {
             while (text.len > 40) {
                 i++;
                 j = 40;
+                bool changed = false;
                 do {
                     if (text.str.index_of_char (' ') < 0) break;
+                    changed = true;
                     j = j - text.str.index_of_char (' ') - 1;
                     text.erase (0, text.str.index_of_char (' ')+1);
                 } while (text.str.index_of_char (' ')+1 < j);
+                if (!changed) break;
             }
             return i;
         }
     }
-}       
+}
