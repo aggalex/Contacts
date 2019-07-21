@@ -12,5 +12,5 @@
 }
 
 .white-background {
-    background-color: #FFF;
+    background-color: @base_color;
 }
