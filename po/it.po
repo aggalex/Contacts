@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-21 18:52+0300\n"
-"PO-Revision-Date: 2019-07-21 14:04+0100\n"
+"PO-Revision-Date: 2019-07-21 17:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -43,14 +43,12 @@ msgid "Import contacts from external file"
 msgstr "Importa contatti da un file esterno"
 
 #: src/View/ContactList.vala:84
-#, fuzzy
 msgid "Export all contacts to a file"
-msgstr "Importa contatti da un file esterno"
+msgstr "Esporta tutti i contatti in un file"
 
 #: src/View/ContactList.vala:89
-#, fuzzy
 msgid "Import contacts from a file"
-msgstr "Importa contatti da un file esterno"
+msgstr "Importa contatti da un file"
 
 #: src/View/ContactList.vala:135
 msgid "Select the contact file to import"
@@ -76,7 +74,7 @@ msgstr "Cerca Contatti"
 #: src/View/Widgets/EditableLabel.vala:52
 #: src/View/Widgets/EditableLabelSegmented.vala:109
 msgid "Delete this entry"
-msgstr ""
+msgstr "Elimina questa voce"
 
 #: src/View/Widgets/EditableLabelDate.vala:92
 #: src/View/Widgets/EditableLabel.vala:57
@@ -84,15 +82,15 @@ msgstr ""
 #: src/View/Widgets/EditableLabelNoType.vala:57
 #: src/View/Widgets/EditableLabelSegmented.vala:113
 msgid "Edit this entry"
-msgstr ""
+msgstr "Modifica questa voce"
 
 #: src/View/Widgets/EditableTitle.vala:58
 msgid "Edit the name"
-msgstr ""
+msgstr "Modifica nome"
 
 #: src/View/Widgets/InfoSection.vala:70
 msgid "Add a new empty entry"
-msgstr ""
+msgstr "Aggiungi una nuova voce vuota"
 
 #: src/View/Widgets/IconPopup.vala:51
 msgid "Set from File..."
@@ -160,7 +158,7 @@ msgstr "Varie"
 
 #: src/View/Contact.vala:134
 msgid "Change the icon"
-msgstr ""
+msgstr "Cambia icona"
 
 #: src/View/Contact.vala:166
 msgid "Delete Contact"
@@ -168,17 +166,15 @@ msgstr "Elimina Contatto"
 
 #: src/View/Contact.vala:167
 msgid "Delete this contact permanently"
-msgstr ""
+msgstr "Elimina questo contatto definitivamente"
 
 #: src/View/Contact.vala:171
-#, fuzzy
 msgid "Export"
-msgstr "esporta"
+msgstr "Esporta"
 
 #: src/View/Contact.vala:172
-#, fuzzy
 msgid "Export this contact to a file"
-msgstr "Importa contatti da un file esterno"
+msgstr "Esporta questo contatto in un file"
 
 #: src/View/Contact.vala:226
 msgid "Choose an image"
