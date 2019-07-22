@@ -41,11 +41,11 @@ namespace ViewModel {
             var paths = FileHelper.get_contact_files ();
             if (paths.length () == 0) return;
 
-            foreach (var path in paths) {
-                var contact = load (path);
+            List<Contact> folks_list = new List<Contact> ();
+            FolksHelper.load.begin ((contact) => {
                 contact.remove.connect (() => remove_contact (contact));
                 contact_list.data.insert_sorted (contact, compare_contacts);
-            }
+            });
 
             changed ();
         }
