@@ -149,6 +149,7 @@ code_files = files(
     'src/View/Widgets/EditableLabelDate.vala',
     'src/View/Widgets/SidebarRow.vala',
     'src/View/Widgets/EditableTitle.vala',
+    'src/View/Widgets/ErrorBar.vala',
     'src/View/Widgets/EditableLabel.vala',
     'src/View/Widgets/SimpleMenu.vala',
     'src/View/Widgets/EditableLabelNoType.vala',

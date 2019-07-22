@@ -317,7 +317,7 @@ namespace ViewModel {
 
 
 
-        public void save () {
+        public void save () throws Error{
             contact.save ();
         }
 

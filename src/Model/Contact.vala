@@ -59,7 +59,7 @@ namespace Model {
             file_name = name;
         }
 
-        public void save () {
+        public void save () throws IOError, Error {
             var builder = new Json.Builder ();
             builder.begin_object ();
 
@@ -68,9 +68,13 @@ namespace Model {
 
             builder.set_member_name ("icon");
             if (icon != null) {
-                uint8[] buffer;
-                icon.save_to_buffer (out buffer, "jpeg");
-                builder.add_string_value (Base64.encode (buffer));
+                try {
+                    uint8[] buffer;
+                    icon.save_to_buffer (out buffer, "jpeg");
+                    builder.add_string_value (Base64.encode (buffer));
+                } catch (Error e) {
+                    error (e.message);
+                }
             } else
                 builder.add_string_value ("");
 

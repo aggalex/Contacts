@@ -24,13 +24,18 @@ using DataHelper;
 
 namespace VCardHelper {
 
-    public string build (Contact contact) {
+    public string build (Contact contact, out bool could_build_icon = null) {
         var builder = new StringBuilder ("BEGIN:VCARD\nVERSION:3.0\n");
 
         builder.append (build_name (contact.name));
 
         if (contact.birthday != null) builder.append (build_birthday (contact.birthday));
-        if (contact.icon != null) builder.append (build_icon (contact.icon));
+        try {
+            if (contact.icon != null) builder.append (build_icon (contact.icon));
+            could_build_icon = true;
+        } catch (Error e) {
+            could_build_icon = false;
+        }
 
         foreach (var phone in contact.phones)
             builder.append (build_phone (phone));
@@ -68,7 +73,7 @@ namespace VCardHelper {
         return builder.str;
     }
 
-    private string build_icon (Gdk.Pixbuf icon) {
+    private string build_icon (Gdk.Pixbuf icon) throws Error {
         uint8[] buffer;
         icon.save_to_buffer (out buffer, "jpeg");
         string buffer_b64 = Base64.encode (buffer);

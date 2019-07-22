@@ -35,6 +35,8 @@ namespace View {
         private Sidebar sidebar;
         private Revealer sidebar_revealer = new Gtk.Revealer ();
 
+        private ErrorBar error_bar = new ErrorBar ();
+
         public bool show_sidebar {
             get {
                 return sidebar_revealer.child_revealed;
@@ -65,9 +67,24 @@ namespace View {
                 }
             });
 
+            //right
+
+            error_bar.show_all ();
+
             contact_stack = sidebar.stack;
             contact_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
             contact_stack.default_widget = welcome;
+            contact_stack.changed.connect (() => {
+                var contact = contact_stack.child as Contact;
+                if (contact != null)
+                    contact.show_error.connect (show_error);
+            });
+
+            var contact_stack_box = new Box (Orientation.VERTICAL, 0);
+            contact_stack_box.pack_start (error_bar, false, false, 0);
+            contact_stack_box.pack_end (contact_stack, true, true, 0);
+
+            //left
 
             var separator = new Separator (Orientation.HORIZONTAL);
             separator.margin_start = 6;
@@ -110,11 +127,15 @@ namespace View {
             });
 
             add1 (sidebar_revealer);
-            add2 (contact_stack);
+            add2 (contact_stack_box);
         }
 
         public void initialize () {
-            handler.initialize ();
+            try {
+                handler.initialize ();
+            } catch (Error e) {
+                show_error (e.message);
+            }
             if (handler.length != 0) sidebar_revealer.reveal_child = true;
             sidebar.select_row (0);
         }
@@ -145,7 +166,11 @@ namespace View {
 
             if (chooser.run () == Gtk.ResponseType.ACCEPT) {
                 var filename = chooser.get_filename ();
-                handler.import (filename);
+                try {
+                    handler.import (filename);
+                } catch (Error e) {
+                    show_error (e.message);
+                }
             }
 
             chooser.destroy ();
@@ -169,10 +194,18 @@ namespace View {
             if (chooser.run () == Gtk.ResponseType.ACCEPT) {
                 var filename = chooser.get_filename ();
                 filename = filename.has_suffix (".vcf")? filename : filename + ".vcf";
-                FileHelper.save_outside (filename, (handler.export ()));
+                try {
+                    FileHelper.save_outside (filename, (handler.export ()));
+                } catch (Error e) {
+                    show_error (e.message);
+                }
             }
 
             chooser.destroy ();
+        }
+
+        public void show_error (string error_message) {
+            error_bar.show_message (error_message);
         }
 
         public void search (string needle) {
@@ -181,7 +214,7 @@ namespace View {
                 return;
             }
 
-            var indexes = handler.search (needle);
+            var indexes = handler.search (needle); 
 
             if (indexes.length () == 0) {
                 sidebar.hide_all_rows ();

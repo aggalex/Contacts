@@ -105,7 +105,7 @@ namespace JsonHelper {
         }
     }
 
-    public Contact? parse (string json)
+    public Contact? parse (string json) throws Error
         requires (json != null)
     {
         print (json + "\n");

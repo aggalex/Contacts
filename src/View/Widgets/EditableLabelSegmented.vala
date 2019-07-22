@@ -58,13 +58,22 @@ namespace View.Widgets {
                 } else {
                     var output = new StringBuilder ();
                     foreach (var format_string in format_strings) {
-                        var regex = new Regex ("^\\d+");
+                        Regex regex;
+                        try {
+                            regex = new Regex ("^\\d+");
+                        } catch (RegexError e) {
+                            assert_not_reached ();
+                        }
                         var occurences = format_string.split ("$");
                         string section = "";
                         if (regex.match (occurences[1])) {
                             var data = entries.nth_data (int.parse (occurences[1])).get_text ();
                             if (data != "")
-                                section = format_string.replace ("$" + occurences[1], regex.replace (occurences[1], occurences[1].len (), 0, data));
+                                try {
+                                    section = format_string.replace ("$" + occurences[1], regex.replace (occurences[1], occurences[1].length, 0, data));
+                                } catch (RegexError e) {
+                                    assert_not_reached ();
+                                }
                         }
                         output.append (section);
                     }

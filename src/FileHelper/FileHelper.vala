@@ -21,7 +21,7 @@
 
 namespace FileHelper {
 
-    private string get_data_folder () {
+    private string get_data_folder () throws Error {
         var data_folder = Granite.Services.Paths.xdg_data_home_folder.get_path ();
 
         if (!(data_folder.has_suffix ("Contacts"))) {
@@ -35,7 +35,7 @@ namespace FileHelper {
         return data_folder + "/contacts";
     }
 
-    private string get_file_path (string filename, string path_suffix) {
+    private string get_file_path (string filename, string path_suffix) throws Error{
         var data_folder = get_data_folder ();
 
         var path_builder = new StringBuilder (data_folder);
@@ -46,20 +46,20 @@ namespace FileHelper {
         return path_builder.str;
     }
 
-    public void rename (string old_name, string new_name, string path_suffix = "") {
+    public void rename (string old_name, string new_name, string path_suffix = "") throws Error{
         var old_path = get_file_path (old_name, path_suffix);
         var new_path = get_file_path (new_name, path_suffix);
 
         FileUtils.rename (old_path, new_path);
     }
 
-    public void save (string filename, string data, string path_suffix = "") throws IOError {
+    public void save (string filename, string data, string path_suffix = "") throws IOError, Error {
         var path = get_file_path (filename, path_suffix);
 
         save_outside (path, data);
     }
 
-    public void save_outside (string path, string data) throws IOError {
+    public void save_outside (string path, string data) throws IOError, Error {
         File file = File.new_for_path (path);
 
         print (@"INSIDE SAVE: $path\n");
@@ -87,7 +87,7 @@ namespace FileHelper {
         return builder.str;
     }
 
-    public List<string> get_contact_files () throws FileError {
+    public List<string> get_contact_files () throws FileError, Error {
         var directory = get_file_path ("", "");
 
         var file_list = new List<string> ();

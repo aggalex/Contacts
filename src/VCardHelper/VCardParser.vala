@@ -25,7 +25,7 @@ using QuotedPrintableHelper;
 
 namespace VCardHelper {
 
-    public List<Contact> parse (string path) {
+    public List<Contact> parse (string path) throws Error, IOError {
         File file = File.new_for_path (path);
         var dis = new DataInputStream (file.read ());
         var list = new List<Contact> ();
@@ -75,7 +75,6 @@ namespace VCardHelper {
     }
 
     private void set_contact_info(string line, Contact contact) {
-        var home = Environment.get_home_dir();
         if (line.has_prefix ("FN")){
 
             var needle = parse_needle (line);

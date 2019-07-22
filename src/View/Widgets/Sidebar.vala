@@ -53,8 +53,8 @@ namespace View.Widgets {
         public LightStack stack { get; default = new LightStack (); }
         public ContactListHandler handler { get; construct; }
 
-        public VoidFunc show;
-        public VoidFunc hide;
+        public new VoidFunc show;
+        public new VoidFunc hide;
 
         /**
          * The name of the currently visible Granite.SettingsPage
@@ -116,10 +116,6 @@ namespace View.Widgets {
                 });
                 stack.child = contact;
             });
-        }
-
-        private int get_index (unichar c) {
-            return ((int) c) - 65;
         }
 
         public void on_sidebar_changed () {

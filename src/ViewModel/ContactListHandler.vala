@@ -37,7 +37,7 @@ namespace ViewModel {
             }
         }
 
-        public void initialize () {
+        public void initialize () throws Error {
             var paths = FileHelper.get_contact_files ();
             if (paths.length () == 0) return;
 
@@ -103,7 +103,7 @@ namespace ViewModel {
             return false;
         }
 
-        public Contact load (string path) {
+        public Contact load (string path) throws Error {
             var contact = JsonHelper.parse (FileHelper.read (path));
             return contact;
         }
@@ -112,7 +112,7 @@ namespace ViewModel {
             return VCardHelper.build_list (contact_list.data);
         }
 
-        public void import (string path) {
+        public void import (string path) throws Error {
             var list = VCardHelper.parse (path);
             foreach (var contact in list) {
                 contact.remove.connect (() => remove_contact (contact));

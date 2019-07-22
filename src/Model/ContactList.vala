@@ -28,7 +28,7 @@ namespace Model {
 
         public List<Contact> data = new List<Contact> ();
 
-        public void save_all () {
+        public void save_all () throws Error {
             foreach (var contact in data) {
                 contact.save ();
             }

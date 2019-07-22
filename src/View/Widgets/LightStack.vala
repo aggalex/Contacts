@@ -31,6 +31,8 @@ namespace View.Widgets {
     */
     public class LightStack : Gtk.Bin {
 
+        public signal void changed ();
+
         public delegate int CompareFunc (Widget a, Widget b);
 
         public CompareFunc compare_func = (a, b) => {
@@ -41,7 +43,7 @@ namespace View.Widgets {
         private Gtk.Stack stack = new Gtk.Stack ();
         private Widget _child;
 
-        public Widget child {
+        public new Widget child {
             get {
                 return _child;
             }
@@ -105,6 +107,8 @@ namespace View.Widgets {
             });
             loop.run ();
 
+            changed ();
+
             wait_and_destroy.begin (old_child);
 
             return;
@@ -121,7 +125,7 @@ namespace View.Widgets {
                 Idle.add((owned) callback);
                 return true;
             };
-            var thread = new Thread<bool> ("garbage-handling-thread", action);
+            new Thread<bool> ("garbage-handling-thread", action);
 
             yield;
         }

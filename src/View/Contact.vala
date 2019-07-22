@@ -48,6 +48,7 @@ namespace View {
         public signal void removed ();
         public signal void name_changed ();
         public signal void changed ();
+        public signal void show_error (string error);
         private signal void has_icon (bool has);
         private signal void make_bottom_section_unavailable (bool not_available);
 
@@ -76,7 +77,7 @@ namespace View {
 
         private string title { get; set; }
 
-        public string name {
+        public new string name {
             get {
                 return title;
             }
@@ -174,7 +175,13 @@ namespace View {
             export_button.clicked.connect (export);
 
             var save_button = new Gtk.Button.with_label ("Save");   // TODO: Make this redundant
-            save_button.clicked.connect (() => handler.save());
+            save_button.clicked.connect (() => {
+                try {
+                    handler.save();
+                } catch (Error e) {
+                    show_error (e.message);
+                }
+            });
 
             make_bottom_section_unavailable.connect ((not_available) => {
                 delete_button.set_sensitive (!not_available);
@@ -217,7 +224,11 @@ namespace View {
             if (chooser.run () == Gtk.ResponseType.ACCEPT) {
                 var filename = chooser.get_filename ();
                 filename = filename.has_suffix (".vcf")? filename : filename + ".vcf";
-                FileHelper.save_outside (filename, (handler.export ()));
+                try {
+                    FileHelper.save_outside (filename, (handler.export ()));
+                } catch (Error e) {
+                    show_error (e.message);
+                }
             }
 
             chooser.destroy ();
