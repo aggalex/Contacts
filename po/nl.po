@@ -1,0 +1,212 @@
+# Japanese translations for com.github.aggalex.contacts package.
+# Copyright (C) 2019 THE com.github.aggalex.contacts'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.aggalex.contacts package.
+# Automatically generated, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.aggalex.contacts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-22 00:06+0900\n"
+"PO-Revision-Date: 2019-07-22 00:12+0900\n"
+"Last-Translator: Martin Stork <martin.stork95@gmail.com>\n"
+"Language-Team: none\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/View/ContactList.vala:50
+msgid "No Contacts"
+msgstr "Geen contacten"
+
+#: src/View/ContactList.vala:50
+msgid "Your contact list is empty."
+msgstr "Je contacten zijn leeg"
+
+#: src/View/ContactList.vala:51
+msgid "New Contact"
+msgstr "Nieuw Contact"
+
+#: src/View/ContactList.vala:51
+msgid "Create a new contact"
+msgstr "Maak een nieuw contact aan"
+
+#: src/View/ContactList.vala:52
+msgid "Import Contacts"
+msgstr "Importeer Contacten"
+
+#: src/View/ContactList.vala:52
+msgid "Import contacts from external file"
+msgstr "Importeer contacten uit een extern bestand"
+
+#: src/View/ContactList.vala:84
+msgid "Export all contacts to a file"
+msgstr "Exporteer alle contacten naar een bestand"
+
+#: src/View/ContactList.vala:89
+msgid "Import contacts from a file"
+msgstr "Importeer contacten uit een bestand"
+
+#: src/View/ContactList.vala:135
+msgid "Select the contact file to import"
+msgstr "Selecteer het contact bestand om te importeren"
+
+#: src/View/ContactList.vala:143 src/View/ContactList.vala:166
+msgid "VCard contact file"
+msgstr "VCard contact bestand"
+
+#: src/View/ContactList.vala:158 src/View/Contact.vala:197
+msgid "Where to save exported file"
+msgstr "Waar het geëxporteerde bestand opgeslagen moet worden"
+
+#: src/View/Headerbar.vala:39
+msgid "Create new contact"
+msgstr "Creëer nieuw contact"
+
+#: src/View/Headerbar.vala:53
+msgid "Search Contacts"
+msgstr "Zoek Contacten"
+
+#: src/View/Widgets/EditableLabelDate.vala:88
+#: src/View/Widgets/EditableLabel.vala:52
+#: src/View/Widgets/EditableLabelSegmented.vala:109
+msgid "Delete this entry"
+msgstr "Verwijder deze invoer"
+
+#: src/View/Widgets/EditableLabelDate.vala:92
+#: src/View/Widgets/EditableLabel.vala:57
+#: src/View/Widgets/EditableLabelNoType.vala:53
+#: src/View/Widgets/EditableLabelNoType.vala:57
+#: src/View/Widgets/EditableLabelSegmented.vala:113
+msgid "Edit this entry"
+msgstr "Pas deze invoer aan"
+
+#: src/View/Widgets/EditableTitle.vala:58
+msgid "Edit the name"
+msgstr "Pas de naam aan"
+
+#: src/View/Widgets/InfoSection.vala:70
+msgid "Add a new empty entry"
+msgstr "Voeg een nieuwe lege invoer toe"
+
+#: src/View/Widgets/IconPopup.vala:51
+msgid "Set from File..."
+msgstr "Stel in van Bestand..."
+
+#: src/View/Widgets/IconPopup.vala:58
+msgid "Delete"
+msgstr "Verwijder"
+
+#: src/View/Contact.vala:58
+msgid "Phones"
+msgstr "Telefoonnummers"
+
+#: src/View/Contact.vala:59
+msgid "Emails"
+msgstr "Emails"
+
+#: src/View/Contact.vala:60
+msgid "Addresses"
+msgstr "Adressen"
+
+#: src/View/Contact.vala:61
+msgid "Street"
+msgstr "Straat"
+
+#: src/View/Contact.vala:62
+msgid "City"
+msgstr "Stad"
+
+#: src/View/Contact.vala:63
+msgid "State/Province"
+msgstr "Staat/Provincie"
+
+#: src/View/Contact.vala:64
+msgid "Zip/Postal Code"
+msgstr "Postcode"
+
+#: src/View/Contact.vala:65
+msgid "Country"
+msgstr "Land"
+
+#: src/View/Contact.vala:68
+msgid "$0, "
+msgstr "$0, "
+
+#: src/View/Contact.vala:69
+msgid "$1, "
+msgstr "$1, "
+
+#: src/View/Contact.vala:70
+msgid "$2, "
+msgstr "$2, "
+
+#: src/View/Contact.vala:71
+msgid "$3, "
+msgstr "$3, "
+
+#: src/View/Contact.vala:72
+msgid "$4"
+msgstr "$4"
+
+#: src/View/Contact.vala:74
+msgid "Miscellaneous"
+msgstr "Diversen"
+
+#: src/View/Contact.vala:134
+msgid "Change the icon"
+msgstr "Verander het icoon"
+
+#: src/View/Contact.vala:166
+msgid "Delete Contact"
+msgstr "Verwijder Contact"
+
+#: src/View/Contact.vala:167
+msgid "Delete this contact permanently"
+msgstr "Verwijder dit contact permanent"
+
+#: src/View/Contact.vala:171
+msgid "Export"
+msgstr "Exporteer"
+
+#: src/View/Contact.vala:172
+msgid "Export this contact to a file"
+msgstr "Exporteer dit contact naar een bestand"
+
+#: src/View/Contact.vala:226
+msgid "Choose an image"
+msgstr "Kies een afbeelding"
+
+#: src/DataHelper/DataTypes.vala:51
+msgid "Home"
+msgstr "Thuis"
+
+#: src/DataHelper/DataTypes.vala:52
+msgid "Work"
+msgstr "Werk"
+
+#: src/DataHelper/DataTypes.vala:53
+msgid "Other"
+msgstr "Anders"
+
+#: src/DataHelper/DataTypes.vala:54
+msgid "Website"
+msgstr "Website"
+
+#: src/DataHelper/DataTypes.vala:55
+msgid "Nickname"
+msgstr "Bijnaam"
+
+#: src/DataHelper/DataTypes.vala:56
+msgid "Birthday"
+msgstr "Verjaardag"
+
+#: src/DataHelper/DataTypes.vala:57
+msgid "Notes"
+msgstr "Notities"
+
+#: src/Application.vala:51
+msgid "Contacts"
+msgstr "Contacten"
