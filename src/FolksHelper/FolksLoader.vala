@@ -27,7 +27,7 @@ namespace FolksHelper {
 
     public delegate void ContactActionFunc (Contact contact);
 
-    public async void load (ContactActionFunc actions) {
+    public async void load (ContactActionFunc actions) throws Error {
         var aggregator = IndividualAggregator.dup ();
 
         aggregator.individuals_changed_detailed.connect ((changes) => {
@@ -40,11 +40,10 @@ namespace FolksHelper {
             actions (build_contact_from_individual (individual));
         }
 
-        try {
-            yield aggregator.prepare ();
-        } catch (Error e) {
-            critical (e.message);
-        }
+        yield aggregator.prepare ();
+
+        yield;
+        return;
     }
 
     private Contact build_contact_from_individual (Individual individual) {

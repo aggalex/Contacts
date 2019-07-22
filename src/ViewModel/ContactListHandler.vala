@@ -38,16 +38,18 @@ namespace ViewModel {
         }
 
         public void initialize () throws Error {
-            var paths = FileHelper.get_contact_files ();
-            if (paths.length () == 0) return;
+            async_initialize.begin ();
+        }
 
-            List<Contact> folks_list = new List<Contact> ();
-            FolksHelper.load.begin ((contact) => {
+        private async void async_initialize () throws Error {
+            yield FolksHelper.load ((contact) => {
+                print (@"CONTACT NAME: $(contact.name)\n");
                 contact.remove.connect (() => remove_contact (contact));
                 contact_list.data.insert_sorted (contact, compare_contacts);
+                changed ();
+                print (@"ADDED CONTACT WITH NAME: $(contact.name)\n");
             });
-
-            changed ();
+            return;
         }
 
         private GLib.CompareFunc<Model.Contact>? compare_contacts = (c1, c2) => {

@@ -118,6 +118,11 @@ namespace View {
             sidebar_revealer.add (sidebar_box);
             sidebar_revealer.show_all ();
 
+            add1 (sidebar_revealer);
+            add2 (contact_stack_box);
+        }
+
+        public void initialize () {
             handler.changed.connect (() => {
                 if (handler.length == 0) {
                     show_sidebar = false;
@@ -126,16 +131,12 @@ namespace View {
                 }
             });
 
-            add1 (sidebar_revealer);
-            add2 (contact_stack_box);
-        }
-
-        public void initialize () {
             try {
                 handler.initialize ();
             } catch (Error e) {
                 show_error (e.message);
             }
+
             if (handler.length != 0) sidebar_revealer.reveal_child = true;
             sidebar.select_row (0);
         }
