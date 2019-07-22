@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-21 18:52+0300\n"
 "PO-Revision-Date: 2019-07-19 13:37+0300\n"
-"Last-Translator: Automatically generated\n"
+"Last-Translator: Mario Rodrigo\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -19,61 +19,61 @@ msgstr ""
 
 #: src/View/ContactList.vala:50
 msgid "No Contacts"
-msgstr ""
+msgstr "Sin contactos"
 
 #: src/View/ContactList.vala:50
 msgid "Your contact list is empty."
-msgstr ""
+msgstr "Tu lista de contactos está vacía."
 
 #: src/View/ContactList.vala:51
 msgid "New Contact"
-msgstr ""
+msgstr "Contacto nuevo"
 
 #: src/View/ContactList.vala:51
 msgid "Create a new contact"
-msgstr ""
+msgstr "Crear un contacto nuevo"
 
 #: src/View/ContactList.vala:52
 msgid "Import Contacts"
-msgstr ""
+msgstr "Importar contactos"
 
 #: src/View/ContactList.vala:52
 msgid "Import contacts from external file"
-msgstr ""
+msgstr "Importar contactos desde un fichero externo"
 
 #: src/View/ContactList.vala:84
 msgid "Export all contacts to a file"
-msgstr ""
+msgstr "Exportar todos los contactos a un fichero"
 
 #: src/View/ContactList.vala:89
 msgid "Import contacts from a file"
-msgstr ""
+msgstr "Importar contactos desde un fichero"
 
 #: src/View/ContactList.vala:135
 msgid "Select the contact file to import"
-msgstr ""
+msgstr "Seleccionar el fichero de contactos a importar"
 
 #: src/View/ContactList.vala:143 src/View/ContactList.vala:166
 msgid "VCard contact file"
-msgstr ""
+msgstr "Fichero de contacto VCard"
 
 #: src/View/ContactList.vala:158 src/View/Contact.vala:197
 msgid "Where to save exported file"
-msgstr ""
+msgstr "Dónde guardar el fichero exportado"
 
 #: src/View/Headerbar.vala:39
 msgid "Create new contact"
-msgstr ""
+msgstr "Crear un contacto nuevo"
 
 #: src/View/Headerbar.vala:53
 msgid "Search Contacts"
-msgstr ""
+msgstr "Buscar contactos"
 
 #: src/View/Widgets/EditableLabelDate.vala:88
 #: src/View/Widgets/EditableLabel.vala:52
 #: src/View/Widgets/EditableLabelSegmented.vala:109
 msgid "Delete this entry"
-msgstr ""
+msgstr "Borrar esta entrada"
 
 #: src/View/Widgets/EditableLabelDate.vala:92
 #: src/View/Widgets/EditableLabel.vala:57
@@ -81,55 +81,55 @@ msgstr ""
 #: src/View/Widgets/EditableLabelNoType.vala:57
 #: src/View/Widgets/EditableLabelSegmented.vala:113
 msgid "Edit this entry"
-msgstr ""
+msgstr "Editar esta entrada"
 
 #: src/View/Widgets/EditableTitle.vala:58
 msgid "Edit the name"
-msgstr ""
+msgstr "Editar el nombre"
 
 #: src/View/Widgets/InfoSection.vala:70
 msgid "Add a new empty entry"
-msgstr ""
+msgstr "Añadir una nueva entrada vacía"
 
 #: src/View/Widgets/IconPopup.vala:51
 msgid "Set from File..."
-msgstr ""
+msgstr "Seleccionar desde fichero..."
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"
-msgstr ""
+msgstr "Borrar"
 
 #: src/View/Contact.vala:58
 msgid "Phones"
-msgstr ""
+msgstr "Teléfonos"
 
 #: src/View/Contact.vala:59
 msgid "Emails"
-msgstr ""
+msgstr "Correos electrónicos"
 
 #: src/View/Contact.vala:60
 msgid "Addresses"
-msgstr ""
+msgstr "Direcciones"
 
 #: src/View/Contact.vala:61
 msgid "Street"
-msgstr ""
+msgstr "Calle"
 
 #: src/View/Contact.vala:62
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: src/View/Contact.vala:63
 msgid "State/Province"
-msgstr ""
+msgstr "Estado/Província"
 
 #: src/View/Contact.vala:64
 msgid "Zip/Postal Code"
-msgstr ""
+msgstr "Zip/Código Postal"
 
 #: src/View/Contact.vala:65
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: src/View/Contact.vala:68
 msgid "$0, "
@@ -153,60 +153,60 @@ msgstr ""
 
 #: src/View/Contact.vala:74
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Miscelánea"
 
 #: src/View/Contact.vala:134
 msgid "Change the icon"
-msgstr ""
+msgstr "Cambiar el icono"
 
 #: src/View/Contact.vala:166
 msgid "Delete Contact"
-msgstr ""
+msgstr "Borrar contacto"
 
 #: src/View/Contact.vala:167
 msgid "Delete this contact permanently"
-msgstr ""
+msgstr "Borrar este contacto permantentemente"
 
 #: src/View/Contact.vala:171
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/View/Contact.vala:172
 msgid "Export this contact to a file"
-msgstr ""
+msgstr "Exportar este contacto a fichero"
 
 #: src/View/Contact.vala:226
 msgid "Choose an image"
-msgstr ""
+msgstr "Escoger una imagen"
 
 #: src/DataHelper/DataTypes.vala:51
 msgid "Home"
-msgstr ""
+msgstr "Casa"
 
 #: src/DataHelper/DataTypes.vala:52
 msgid "Work"
-msgstr ""
+msgstr "Trabajo"
 
 #: src/DataHelper/DataTypes.vala:53
 msgid "Other"
-msgstr ""
+msgstr "Otro"
 
 #: src/DataHelper/DataTypes.vala:54
 msgid "Website"
-msgstr ""
+msgstr "Página web"
 
 #: src/DataHelper/DataTypes.vala:55
 msgid "Nickname"
-msgstr ""
+msgstr "Apodo"
 
 #: src/DataHelper/DataTypes.vala:56
 msgid "Birthday"
-msgstr ""
+msgstr "Cumpleaños"
 
 #: src/DataHelper/DataTypes.vala:57
 msgid "Notes"
-msgstr ""
+msgstr "Notas"
 
 #: src/Application.vala:51
 msgid "Contacts"
-msgstr ""
+msgstr "Contactos"
