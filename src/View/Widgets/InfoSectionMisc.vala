@@ -119,14 +119,15 @@ namespace View.Widgets {
         private int website_count = 0;
         private int nickname_count = 0;
 
+        private Gtk.Button birthday_button;
+        private Gtk.Button anniversary_button;
+
         private void on_set_birthday (bool has_birthday) {
-            var birthday_button = menu.find_by_label (DataHelper.Type.BIRTHDAY.to_string ());
             if (birthday_button != null) 
                 birthday_button.sensitive = !has_birthday;
         }
 
         private void on_set_anniversary (bool has_anniversary) {
-            var anniversary_button = menu.find_by_label (DataHelper.Type.ANNIVERSARY.to_string ());
             if (anniversary_button != null) 
                 anniversary_button.sensitive = !has_anniversary;
         }
@@ -138,7 +139,15 @@ namespace View.Widgets {
         construct {
             menu = new SimpleMenu (add_button);
             foreach (var data in DataHelper.Type.MISC) {
-                menu.append (data.to_string_translated ());
+                var button = menu.append (data.to_string_translated ());
+                switch (data) {
+                    case BIRTHDAY:
+                        birthday_button = button;
+                        break;
+                    case ANNIVERSARY:
+                        anniversary_button = button;
+                        break;
+                }
             }
             menu.poped_down.connect ((index) => {
                 print (@"POPED DOWN: $index\n");
@@ -202,6 +211,8 @@ namespace View.Widgets {
 
             if (can_write) handler.new_birthday ();
 
+            on_set_birthday (true);
+
             if (day != null && month != null && year != null) {
 
                 var date_day = (day <= 1 || day >= 31)? (DateDay) day : DateDay.BAD_DAY;
@@ -219,6 +230,8 @@ namespace View.Widgets {
             _new_entry (entry);
 
             if (can_write) handler.new_anniversary ();
+
+            on_set_anniversary (true);
 
             if (day != null && month != null && year != null) {
 
