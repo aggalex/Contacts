@@ -91,7 +91,7 @@ namespace DataHelper {
         }
     }
 
-    public class DataWithType<G> : Object{
+    public class DataWithType<G> {
         public G data;
         public Type type;
 

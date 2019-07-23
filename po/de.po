@@ -101,7 +101,7 @@ msgstr "Löschen"
 
 #: src/View/Contact.vala:58
 msgid "Phones"
-msgstr "Smartphones"
+msgstr "Telefone"
 
 #: src/View/Contact.vala:59
 msgid "Emails"
