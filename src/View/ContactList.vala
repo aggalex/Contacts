@@ -124,10 +124,11 @@ namespace View {
 
         public void initialize () {
             handler.changed.connect (() => {
-                if (handler.length == 0) {
-                    show_sidebar = false;
+                if (handler.length != 0) {
+                    sidebar_revealer.set_reveal_child (true);
+                    if (!(contact_stack.child is Contact)) sidebar.select_row (0);
                 } else {
-                    show_sidebar = true;
+                    sidebar_revealer.set_reveal_child (false);
                 }
             });
 

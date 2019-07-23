@@ -41,15 +41,10 @@ namespace FolksHelper {
         }
 
         yield aggregator.prepare ();
-
-        yield;
-        return;
     }
 
     private Contact build_contact_from_individual (Individual individual) {
         var contact = new Contact (individual.display_name);
-
-        contact.individual = individual;
 
         foreach (var phone in individual.phone_numbers) {
             var type = parse_type (phone.get_parameter_values ("type"));

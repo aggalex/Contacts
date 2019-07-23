@@ -38,16 +38,25 @@ namespace ViewModel {
         }
 
         public void initialize () throws Error {
-            async_initialize.begin ();
-        }
+            var paths = FileHelper.get_contact_files ();
+            if (paths.length () == 0) return;
 
-        private async void async_initialize () throws Error {
-            yield FolksHelper.load ((contact) => {
-                print (@"CONTACT NAME: $(contact.name)\n");
+            foreach (var path in paths) {
+                var contact = load (path);
                 contact.remove.connect (() => remove_contact (contact));
                 contact_list.data.insert_sorted (contact, compare_contacts);
-                changed ();
-                print (@"ADDED CONTACT WITH NAME: $(contact.name)\n");
+            }
+
+            changed ();
+        }
+
+        public void import_from_folks () throws Error {
+            async_folks_initialize.begin ();
+        }
+
+        private async void async_folks_initialize () throws Error {
+            yield FolksHelper.load ((contact) => {
+                add_contact_from_model (contact);
             });
             return;
         }
@@ -64,14 +73,15 @@ namespace ViewModel {
 
         public void add_contact (string name) {
             var contact = new Contact (name);
-            contact.remove.connect (() => remove_contact (contact));
-
-            contact_list.data.insert_sorted (contact, compare_contacts);
-            changed ();
+            add_contact_from_model (contact);
         }
 
         public void add_contact_by_handler (ContactHandler handler) {
             var contact = handler.contact;
+            add_contact_from_model (contact);
+        }
+
+        private void add_contact_from_model (Contact contact) {
             contact.remove.connect (() => remove_contact (contact));
 
             contact_list.data.insert_sorted (contact, compare_contacts);

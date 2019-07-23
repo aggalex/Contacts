@@ -89,9 +89,9 @@ namespace DataHelper {
 
     public class DataWithType<G> {
         public G data;
-        public DataHelper.Type type;
+        public Type type;
 
-        public DataWithType (G data, DataHelper.Type type) {
+        public DataWithType (G data, Type type) {
             this.data = data;
             this.type = type;
         }

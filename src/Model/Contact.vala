@@ -28,8 +28,6 @@ namespace Model {
 
     public class Contact {
 
-        public Folks.Individual? individual = null;
-
         // Default properties
         public string name;
         public Date? birthday;
