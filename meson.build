@@ -29,6 +29,7 @@ dependencies = [
     dependency('gio-unix-2.0', version: '>=2.20'),
     dependency('granite'),
     dependency('json-glib-1.0'),
+    dependency('folks'),
 ]
 
 # Adds subfolders specific build system
@@ -122,6 +123,8 @@ code_files = files(
     'src/DataHelper/Address.vala',
 
     'src/FileHelper/FileHelper.vala',
+
+    'src/FolksHelper/FolksLoader.vala',
 
     'src/JsonHelper/JsonParser.vala',
     'src/JsonHelper/JsonBuilder.vala',

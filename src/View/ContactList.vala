@@ -62,7 +62,7 @@ namespace View {
                         add_empty_contact ();
                         break;
                     case 1:
-                        import ();
+                        import_vcard ();
                         break;
                 }
             });
@@ -98,7 +98,12 @@ namespace View {
             var import_button = new Gtk.Button.from_icon_name ("document-import", Gtk.IconSize.LARGE_TOOLBAR);
             import_button.set_tooltip_text (_("Import contacts from a file"));
             import_button.get_style_context ().add_class (STYLE_CLASS_FLAT);
-            import_button.clicked.connect (import);
+
+            var import_menu = new SimpleMenu (import_button);
+            var vcard_button = import_menu.append ("From vcard file");
+            vcard_button.clicked.connect (import_vcard);
+            var system_button = import_menu.append ("From system & online accounts");
+            system_button.clicked.connect (import_system);
 
             var action_box = new Gtk.Box (Orientation.HORIZONTAL, 6);
             action_box.margin = 6;
@@ -118,24 +123,26 @@ namespace View {
             sidebar_revealer.add (sidebar_box);
             sidebar_revealer.show_all ();
 
-            handler.changed.connect (() => {
-                if (handler.length == 0) {
-                    show_sidebar = false;
-                } else {
-                    show_sidebar = true;
-                }
-            });
-
             add1 (sidebar_revealer);
             add2 (contact_stack_box);
         }
 
         public void initialize () {
+            handler.changed.connect (() => {
+                if (handler.length != 0) {
+                    sidebar_revealer.set_reveal_child (true);
+                    if (!(contact_stack.child is Contact)) sidebar.select_row (0);
+                } else {
+                    sidebar_revealer.set_reveal_child (false);
+                }
+            });
+
             try {
                 handler.initialize ();
             } catch (Error e) {
                 show_error (e.message);
             }
+
             if (handler.length != 0) sidebar_revealer.reveal_child = true;
             sidebar.select_row (0);
         }
@@ -149,9 +156,9 @@ namespace View {
             sidebar.add_empty_contact ();
         }
 
-        public void import () {
+        public void import_vcard () {
             var chooser = new Gtk.FileChooserNative (
-                _("Select the contact file to import"),    // name: string
+                _("Select the contact file to import"), // name: string
                 (Gtk.Window) this.get_toplevel (),      // transient parent: Gtk.Window
                 FileChooserAction.OPEN,                 // File chooser action: FileChooserAction
                 null,                                   // Accept label: string
@@ -176,9 +183,17 @@ namespace View {
             chooser.destroy ();
         }
 
+        public void import_system () {
+            try {
+                handler.import_from_folks ();
+            } catch (Error e) {
+                show_error (e.message);
+            }
+        }
+
         public void export () {
             var chooser = new Gtk.FileChooserNative (
-                _("Where to save exported file"),          // name: string
+                _("Where to save exported file"),       // name: string
                 (Gtk.Window) this.get_toplevel (),      // transient parent: Gtk.Window
                 FileChooserAction.SAVE,                 // File chooser action: FileChooserAction
                 null,                                   // Accept label: string

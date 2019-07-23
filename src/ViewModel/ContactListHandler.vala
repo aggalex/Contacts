@@ -50,6 +50,17 @@ namespace ViewModel {
             changed ();
         }
 
+        public void import_from_folks () throws Error {
+            async_folks_initialize.begin ();
+        }
+
+        private async void async_folks_initialize () throws Error {
+            yield FolksHelper.load ((contact) => {
+                add_contact_from_model (contact);
+            });
+            return;
+        }
+
         private GLib.CompareFunc<Model.Contact>? compare_contacts = (c1, c2) => {
             return strcmp (c1.name, c2.name);
         };
@@ -62,14 +73,15 @@ namespace ViewModel {
 
         public void add_contact (string name) {
             var contact = new Contact (name);
-            contact.remove.connect (() => remove_contact (contact));
-
-            contact_list.data.insert_sorted (contact, compare_contacts);
-            changed ();
+            add_contact_from_model (contact);
         }
 
         public void add_contact_by_handler (ContactHandler handler) {
             var contact = handler.contact;
+            add_contact_from_model (contact);
+        }
+
+        private void add_contact_from_model (Contact contact) {
             contact.remove.connect (() => remove_contact (contact));
 
             contact_list.data.insert_sorted (contact, compare_contacts);

@@ -27,11 +27,12 @@ using FileHelper;
 namespace Model {
 
     public class Contact {
-        public Gdk.Pixbuf? icon;
 
         // Default properties
         public string name;
         public Date? birthday;
+
+        public Gdk.Pixbuf? icon;
 
         public List<DataWithType<string>>? phones;
         public List<DataWithType<string>>? emails;
