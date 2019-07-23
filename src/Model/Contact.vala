@@ -32,6 +32,7 @@ namespace Model {
         // Default properties
         public string name;
         public Date? birthday;
+        public Date? anniversary;
 
         public List<DataWithType<string>>? phones;
         public List<DataWithType<string>>? emails;
@@ -80,6 +81,9 @@ namespace Model {
 
             builder.set_member_name ("birthday");
             builder.add_value (get_date (birthday));
+
+            builder.set_member_name ("anniversary");
+            builder.add_value (get_date (anniversary));
 
             builder.set_member_name ("phones");
             builder.add_value (get_string_list_with_type (phones));

@@ -30,6 +30,7 @@ namespace VCardHelper {
         builder.append (build_name (contact.name));
 
         if (contact.birthday != null) builder.append (build_birthday (contact.birthday));
+        if (contact.anniversary != null) builder.append (build_anniversary (contact.anniversary));
         try {
             if (contact.icon != null) builder.append (build_icon (contact.icon));
             could_build_icon = true;
@@ -88,9 +89,25 @@ namespace VCardHelper {
     private string build_birthday (Date bday) {
         var day = bday.get_day ();
         var month = bday.get_month ();
-        var year = bday .get_year ();
+        var year = bday.get_year ();
 
         var builder = new StringBuilder ("BDAY;CHARSET=UTF-8:");
+        builder.append (year.to_string ());
+        if (month < 10) builder.append ("0");
+        builder.append (((int) month).to_string ());
+        if (day < 10) builder.append ("0");
+        builder.append (day.to_string ());
+        builder.append ("\n");
+
+        return builder.str;
+    }
+
+    private string build_anniversary (Date anniversary) {
+        var day = anniversary.get_day ();
+        var month = anniversary.get_month ();
+        var year = anniversary.get_year ();
+
+        var builder = new StringBuilder ("ANNIVERSARY;CHARSET=UTF-8:");
         builder.append (year.to_string ());
         if (month < 10) builder.append ("0");
         builder.append (((int) month).to_string ());

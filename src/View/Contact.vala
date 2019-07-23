@@ -118,6 +118,9 @@ namespace View {
             if (handler.birthday != null)
                 misc_info.new_entry_birthday (handler.birthday.get_day (), handler.birthday.get_month (), handler.birthday.get_year ());
 
+            if (handler.anniversary != null)
+                misc_info.new_entry_anniversary (handler.anniversary.get_day (), handler.anniversary.get_month (), handler.anniversary.get_year ());
+
             if (handler.icon != null) {
                 icon.pixbuf = handler.icon;
                 has_icon (true);
@@ -325,6 +328,11 @@ namespace View {
             misc_info.handler.set_birthday = (day, month, year) => handler.birthday.set_dmy (day, month, year);
             misc_info.handler.new_birthday = () => handler.birthday = Date ();
             misc_info.handler.clear_birthday = () => handler.birthday = null;
+
+
+            misc_info.handler.set_anniversary = (day, month, year) => handler.anniversary.set_dmy (day, month, year);
+            misc_info.handler.new_anniversary = () => handler.anniversary = Date ();
+            misc_info.handler.clear_anniversary = () => handler.anniversary = null;
         }
 
     }

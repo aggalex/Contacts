@@ -23,9 +23,9 @@ namespace DataHelper {
 
     public enum Type {
 
-        HOME, WORK, OTHER, WEBSITE, NICKNAME, BIRTHDAY, NOTES;
+        HOME, WORK, OTHER, WEBSITE, NICKNAME, BIRTHDAY, ANNIVERSARY, NOTES;
 
-        public const Type[] MISC = { Type.WEBSITE,  Type.NICKNAME,  Type.BIRTHDAY,  Type.NOTES};
+        public const Type[] MISC = { Type.WEBSITE,  Type.NICKNAME,  Type.BIRTHDAY, Type.ANNIVERSARY, Type.NOTES};
 
         public const Type[] ALL = { Type.HOME,  Type.WORK,  Type.OTHER};
 
@@ -41,6 +41,7 @@ namespace DataHelper {
                 case WEBSITE: return "Website";
                 case NICKNAME: return "Nickname";
                 case BIRTHDAY: return "Birthday";
+                case ANNIVERSARY: return "Anniversary";
                 case NOTES: return "Notes";
                 default: return DEFAULT.to_string ();
             }
@@ -54,6 +55,7 @@ namespace DataHelper {
                 case WEBSITE: return _("Website");
                 case NICKNAME: return _("Nickname");
                 case BIRTHDAY: return _("Birthday");
+                case ANNIVERSARY: return _("Anniversary");
                 case NOTES: return _("Notes");
                 default: return DEFAULT.to_string_translated ();
             }
@@ -67,6 +69,7 @@ namespace DataHelper {
                 case "Website": return WEBSITE;
                 case "Nickname": return NICKNAME;
                 case "Birthday": return BIRTHDAY;
+                case "Anniversary": return ANNIVERSARY;
                 case "Notes": return NOTES;
                 default: return DEFAULT;
             }
@@ -81,7 +84,8 @@ namespace DataHelper {
                 case 3: return WEBSITE;
                 case 4: return NICKNAME;
                 case 5: return BIRTHDAY;
-                case 6: return NOTES;
+                case 6: return ANNIVERSARY;
+                case 7: return NOTES;
                 default: return DEFAULT;
             }
         }

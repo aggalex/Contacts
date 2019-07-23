@@ -46,8 +46,17 @@ namespace ViewModel {
                 return contact.birthday;
             }
             set {
-                print ("setting birthday");
                 contact.birthday = value;
+                changed ();
+            }
+        }
+
+        public Date? anniversary {
+            get {
+                return contact.anniversary;
+            }
+            set {
+                contact.anniversary = value;
                 changed ();
             }
         }

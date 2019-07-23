@@ -68,6 +68,7 @@ namespace JsonHelper {
         public string name {get; set;}
         public string? icon {get; set;}
         public JsonDateModel? birthday {get; set;}
+        public JsonDateModel? anniversary {get; set;}
 
         // GObject Deserialize won't dedserialize arrays :(
 
@@ -81,6 +82,10 @@ namespace JsonHelper {
 
             if (birthday != null) {
                 contact.birthday = birthday.to_date ();
+            }
+
+            if (birthday != null) {
+                contact.anniversary = anniversary.to_date ();
             }
 
             return contact;
