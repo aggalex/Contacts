@@ -44,7 +44,7 @@ namespace View.Widgets {
             list_box.margin_bottom = 3;
         }
 
-        public void append (string text) {
+        public Gtk.Button append (string text) {
             var index = length++;
 
             var button = new Gtk.Button ();
@@ -59,6 +59,8 @@ namespace View.Widgets {
             button.margin_bottom = 0;
             list_box.add (button);
             list.append (button);
+
+            return button;
         }
 
         public Gtk.Button? find_by_label (string label) {
