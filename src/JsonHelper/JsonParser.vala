@@ -138,6 +138,7 @@ namespace JsonHelper {
             var phones_jarray = member_table.get ("phones");
             if (contact.phones == null) contact.phones = new List<DataWithType<string>> ();
             phones_jarray.foreach_element ((array, i, node) => {
+                if (node.get_node_type () != NodeType.OBJECT) return;
                 var data = Json.gobject_deserialize (typeof (JsonDWTStringModel), node) as JsonDWTStringModel;
                 contact.phones.append (data.to_dwt ());
             });
@@ -147,6 +148,7 @@ namespace JsonHelper {
             var emails_jarray = member_table.get ("emails");
             if (contact.emails == null) contact.emails = new List<DataWithType<string>> ();
             emails_jarray.foreach_element ((array, i, node) => {
+                if (node.get_node_type () != NodeType.OBJECT) return;
                 var data = Json.gobject_deserialize (typeof (JsonDWTStringModel), node) as JsonDWTStringModel;
                 contact.emails.append (data.to_dwt ());
             });
@@ -156,6 +158,7 @@ namespace JsonHelper {
             var websites_jarray = member_table.get ("websites");
             if (contact.websites == null) contact.websites = new List<DataWithType<string>> ();
             websites_jarray.foreach_element ((array, i, node) => {
+                if (node.get_node_type () != NodeType.OBJECT) return;
                 var data = Json.gobject_deserialize (typeof (JsonDWTStringModel), node) as JsonDWTStringModel;
                 contact.websites.append (data.to_dwt ());
             });
@@ -165,6 +168,7 @@ namespace JsonHelper {
             var addresses_jarray = member_table.get ("addresses");
             if (contact.addresses == null) contact.addresses = new List<DataWithType<Address?>> ();
             addresses_jarray.foreach_element ((array, i, node) => {
+                if (node.get_node_type () != NodeType.OBJECT) return;
                 var data = Json.gobject_deserialize (typeof (JsonDWTAddressModel), node) as JsonDWTAddressModel;
                 contact.addresses.append (data.to_dwt ());
             });
@@ -174,6 +178,7 @@ namespace JsonHelper {
             var notes_jarray = member_table.get ("notes");
             if (contact.notes == null) contact.notes = new List<string> ();
             notes_jarray.foreach_element ((array, i, node) => {
+                if (node.get_node_type () != NodeType.VALUE) return;
                 var data = new Reader (node).get_string_value ();
                 contact.notes.append (data);
             });
@@ -183,6 +188,7 @@ namespace JsonHelper {
             var nicknames_jarray = member_table.get ("nicknames");
             if (contact.nicknames == null) contact.nicknames = new List<string> ();
             nicknames_jarray.foreach_element ((array, i, node) => {
+                if (node.get_node_type () != NodeType.OBJECT) return;
                 var data = new Reader (node).get_string_value ();
                 contact.nicknames.append (data);
             });
