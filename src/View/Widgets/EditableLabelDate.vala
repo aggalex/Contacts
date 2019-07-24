@@ -58,11 +58,16 @@ namespace View.Widgets {
         public EditableLabelDate (uint? day, uint? month, uint? year, DataHelper.Type label_text) {
             data_type = label_text;
 
-            var now = new GLib.DateTime.now_local ();
-            int year_now;
-            int month_now;
-            now.get_ymd (out year_now, out month_now, null);
-            calendar.select_month (month_now, year_now-30);
+            if (day != null && month != null && year != null) {
+                var now = new GLib.DateTime.now_local ();
+                int year_now;
+                int month_now;
+                now.get_ymd (out year_now, out month_now, null);
+                calendar.select_month (month_now, year_now-30);
+            } else {
+                calendar.select_day (day);
+                calendar.select_month (month, year);
+            }
 
             if (day != null && month != null && year != null) {
                 calendar.day = (int) day;

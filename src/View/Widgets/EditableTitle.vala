@@ -51,6 +51,7 @@ namespace View.Widgets {
             }
 
             label.set_text (text);
+            entry.set_text (text);
         }
 
         public void clicked () {

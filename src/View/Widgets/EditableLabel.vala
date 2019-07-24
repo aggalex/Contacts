@@ -42,6 +42,7 @@ namespace View.Widgets {
 
         public EditableLabel (string text = "", DataHelper.Type type){
             label.set_text (text);
+            entry.set_text (text);
             data_type = type;
             type_button.set_label (@"$(data_type.to_string_translated ()):");
         }
