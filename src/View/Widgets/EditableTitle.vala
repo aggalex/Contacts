@@ -97,6 +97,14 @@ namespace View.Widgets {
                 changed ();
             });
 
+            entry.key_release_event.connect ((key) => {
+                if (key.keyval == 65307) {
+                    this.set_visible_child_name ("label");
+                    entry.text = label.label;
+                }
+                return true;
+            });
+
             this.show_all();
             this.set_visible_child_name ("label");
             this.set_transition_type (Gtk.StackTransitionType.CROSSFADE);

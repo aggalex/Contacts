@@ -88,6 +88,7 @@ namespace View.Widgets {
                 entry.text = text_array [i];
                 entry.set_placeholder_text (entry_names[i]);
                 entries.append (entry);
+                this.text_array.append (text_array[i]);
                 this.text_array.append ("");
             }
 
@@ -107,6 +108,22 @@ namespace View.Widgets {
 
             this.data_type = type;
             construct_this ();
+        }
+
+        private bool on_focus_out_event () {
+            this.set_visible_child_name ("label");
+
+            var loop = new MainLoop ();
+            revealer_pause.begin ((obj, res) => {
+                var i = 0;
+                foreach (Gtk.Entry entry in entries) {
+                    entry.text = text_array.nth_data (i++);
+                }
+                loop.quit ();
+            });
+            loop.run ();
+
+            return true;
         }
 
         private void construct_this () {
@@ -142,7 +159,6 @@ namespace View.Widgets {
                 changed ();
             });
 
-
             button_box.pack_start (delete_button, false, false, 0);
             button_box.pack_start (edit_button, false, false, 0);
 
@@ -171,6 +187,7 @@ namespace View.Widgets {
             edit_button.clicked.connect (() => {
                 this.set_visible_child_name ("entries");
                 entry_revealer.set_reveal_child (true);
+                entries.nth_data (0).grab_focus ();
             });
 
             var loop = new MainLoop ();
@@ -190,16 +207,12 @@ namespace View.Widgets {
 
                     changed ();
                 });
+                entry.key_release_event.connect ((key) => {
+                    if (key.keyval == 65307)
+                        on_focus_out_event ();
+                    return true;
+                });
             }
-
-            entry_box.focus_out_event.connect (() => {
-                this.set_visible_child_name ("label");
-                var i = 0;
-                foreach (Gtk.Entry entry in entries) {
-                    entry.text = text_array.nth_data (i++);
-                }
-                return true;
-            });
 
             set_label_text ();
             this.show_all();
@@ -208,7 +221,7 @@ namespace View.Widgets {
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
         }
 
-        public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
+        public static async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
           GLib.Timeout.add (interval, () => {
               nap.callback ();
               return false;

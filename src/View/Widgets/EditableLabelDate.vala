@@ -46,6 +46,10 @@ namespace View.Widgets {
             get {return calendar.year;}
         }
 
+        private int backup_day;
+        private int backup_month;
+        private int backup_year;
+
         public DataHelper.Type data_type {get; private set;}
         public string text {
             owned get {
@@ -60,23 +64,18 @@ namespace View.Widgets {
 
             if (day != null && month != null && year != null) {
                 var now = new GLib.DateTime.now_local ();
-                int year_now;
-                int month_now;
-                now.get_ymd (out year_now, out month_now, null);
-                calendar.select_month (month_now, year_now-30);
+                now.get_ymd (out backup_year, out backup_month, out backup_day);
+                calendar.select_month (backup_month, backup_year-30);
+                label.set_text (extract_label_text ());
             } else {
                 calendar.select_day (day);
                 calendar.select_month (month, year);
+                label.set_text ("");
+                backup_day = (int) day;
+                backup_month = (int) month;
+                backup_year = (int) year;
             }
 
-            if (day != null && month != null && year != null) {
-                calendar.day = (int) day;
-                calendar.month = (int) month-1;
-                calendar.year = (int) year;
-                label.set_text (extract_label_text ());
-            } else {
-                label.set_text ("");
-            }
             explaining_label.label = @"$(data_type.to_string_translated ()):";
         }
 
@@ -133,6 +132,9 @@ namespace View.Widgets {
                 loop.run ();
                 this.set_visible_child_name ("label");
                 date_backup.set_dmy ((DateDay)calendar.day, calendar.month, (DateYear)calendar.year);
+                backup_day = calendar.day;
+                backup_month = calendar.month;
+                backup_year = calendar.year;
                 label.set_text (extract_label_text ());
                 changed ();
             };
@@ -140,12 +142,23 @@ namespace View.Widgets {
             edit_button.clicked.connect (() => {
                 this.set_visible_child_name ("calendar");
                 calendar_revealer.set_reveal_child (true);
+                calendar.grab_focus ();
             });
 
             calendar.key_release_event.connect ((key) => {
                 if (key.keyval == 65293)
                     close_calendar ();
-                return false;
+                else if (key.keyval == 65307) {
+                    calendar.day = backup_day;
+                    calendar.month = backup_month;
+                    calendar.year = backup_year;
+                    revealer_pause.begin ((obj, res) => {
+                        loop.quit ();
+                    });
+                    loop.run ();
+                    this.set_visible_child_name ("label");
+                }
+                return true;
             });
 
             calendar.focus_out_event.connect (() => {close_calendar ();});
