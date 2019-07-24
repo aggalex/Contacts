@@ -10,6 +10,7 @@ Dependencies:
 - `git`
 - `elementary-sdk` 
 - `libfolks-dev`
+
 After installing all the required dependecies, you can build Contacts using:
 ```
 git clone https://github.com/aggalex/Contacts.git com.github.aggalex.Contacts && cd com.github.aggalex.Contacts
