@@ -96,6 +96,12 @@ namespace ViewModel {
             }
         }
 
+        public List<DataWithType<string>>? websites {
+            get {
+                return contact.websites;
+            }
+        }
+
         public List<DataWithType<Address?>>? addresses {
             get {
                 return contact.addresses;
@@ -105,13 +111,6 @@ namespace ViewModel {
         public List<string>? notes {
             get {
                 return contact.notes;
-            }
-        }
-
-
-        public List<string>? websites {
-            get {
-                return contact.websites;
             }
         }
 
@@ -194,6 +193,39 @@ namespace ViewModel {
             }
 
             contact.emails.remove(contact.emails.nth_data(index));
+            changed ();
+        }
+
+
+
+
+        public void add_website (string webiste, DataHelper.Type type) {
+            if (contact.websites == null)
+                contact.websites =  new List<DataWithType<string>>();
+            contact.websites.append (new DataWithType<string> (webiste, type));
+            changed ();
+        }
+
+        public bool set_website (string website, DataHelper.Type type, int index) {
+            if (contact.websites == null) return false;
+
+            unowned List<DataWithType<string>> element = contact.websites.nth (index);
+            element.data.data = website;
+            element.data.type = type;
+            try {
+                return true;
+            } finally {
+                changed ();
+            }
+        }
+
+        public void remove_website(int index) {
+            if (contact.websites.length () == 1) {
+                contact.websites = null;
+                return;
+            }
+
+            contact.websites.remove(contact.websites.nth_data(index));
             changed ();
         }
 
@@ -289,37 +321,6 @@ namespace ViewModel {
             }
 
             contact.nicknames.remove(contact.nicknames.nth_data(index));
-            changed ();
-        }
-
-
-
-
-        public void add_website (string webiste) {
-            if (contact.websites == null)
-                contact.websites =  new List<string>();
-            contact.websites.append (webiste);
-            changed ();
-        }
-
-        public bool set_website (string website, int index) {
-            if (contact.websites == null) return false;
-
-            contact.websites.nth (index).data = website;
-            try {
-                return true;
-            } finally {
-                changed ();
-            }
-        }
-
-        public void remove_website(int index) {
-            if (contact.websites.length () == 1) {
-                contact.websites = null;
-                return;
-            }
-
-            contact.websites.remove(contact.websites.nth_data(index));
             changed ();
         }
 

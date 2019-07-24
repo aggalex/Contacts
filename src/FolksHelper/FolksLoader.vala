@@ -56,6 +56,11 @@ namespace FolksHelper {
             contact.emails.append (new DataWithType<string> (email.value, type));
         }
 
+        foreach (var website in individual.urls) {
+            var type = parse_type (website.get_parameter_values ("type"));
+            contact.websites.append (new DataWithType<string> (website.value, type));
+        }
+
         foreach (var address in individual.postal_addresses) {
             var type = parse_type (address.get_parameter_values ("type"));
             contact.addresses.append (new DataWithType<Address?> (parse_address (address.value), type));
@@ -63,10 +68,6 @@ namespace FolksHelper {
 
         foreach (var note in individual.notes) {
             contact.notes.append (note.value);
-        }
-
-        foreach (var website in individual.urls) {
-            contact.websites.append (website.value);
         }
 
         contact.nicknames.append (individual.alias);

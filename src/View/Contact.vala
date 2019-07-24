@@ -59,6 +59,7 @@ namespace View {
 
         private InfoSection phone_info = new InfoSection (_("Phones"));
         private InfoSection email_info = new InfoSection (_("Emails"));
+        private InfoSection website_info = new InfoSection (_("Websites"));
         private InfoSectionSegmented address_info = new InfoSectionSegmented (_("Addresses"), {
             _("Street"),
             _("City"),
@@ -103,14 +104,14 @@ namespace View {
             if (handler.emails != null) foreach (var email in handler.emails)
                 email_info.new_entry (email.data, email.type);
 
+            if (handler.websites != null) foreach (var website in handler.websites)
+                website_info.new_entry (website.data, website.type);
+
             if (handler.addresses != null) foreach (var address in handler.addresses)
                 address_info.new_entry (address.data.to_string_array (), address.type);
 
             if (handler.notes != null) foreach (var note in handler.notes)
                 misc_info.new_entry_note (note);
-
-            if (handler.websites != null) foreach (var website in handler.websites)
-                misc_info.new_entry_website (website);
 
             if (handler.notes != null) foreach (var nickname in handler.nicknames)
                 misc_info.new_entry_nickname (nickname);
@@ -128,6 +129,7 @@ namespace View {
 
             phone_info.can_write = true;
             email_info.can_write = true;
+            website_info.can_write = true;
             address_info.can_write = true;
             misc_info.can_write = true;
         }
@@ -163,6 +165,7 @@ namespace View {
             flow_box.set_orientation (Gtk.Orientation.HORIZONTAL);
             flow_box.add (phone_info);
             flow_box.add (email_info);
+            flow_box.add (website_info);
             flow_box.add (address_info);
             flow_box.add (misc_info);
             flow_box.set_selection_mode (Gtk.SelectionMode.NONE);
@@ -309,6 +312,10 @@ namespace View {
             email_info.handler.remove = handler.remove_email;
             email_info.handler.change = handler.set_email;
 
+            website_info.handler.add = handler.add_website;
+            website_info.handler.remove = handler.remove_website;
+            website_info.handler.change = handler.set_website;
+
             address_info.handler.add = handler.add_address;
             address_info.handler.remove = handler.remove_address;
             address_info.handler.change = handler.set_address;
@@ -317,10 +324,6 @@ namespace View {
             misc_info.handler.remove_note = handler.remove_note;
             misc_info.handler.change_note = handler.set_note;
 
-            misc_info.handler.add_website = handler.add_website;
-            misc_info.handler.remove_website = handler.remove_website;
-            misc_info.handler.change_website = handler.set_website;
-
             misc_info.handler.add_nickname = handler.add_nickname;
             misc_info.handler.remove_nickname = handler.remove_nickname;
             misc_info.handler.change_nickname = handler.set_nickname;
@@ -328,7 +331,6 @@ namespace View {
             misc_info.handler.set_birthday = (day, month, year) => handler.birthday.set_dmy (day, month, year);
             misc_info.handler.new_birthday = () => handler.birthday = Date ();
             misc_info.handler.clear_birthday = () => handler.birthday = null;
-
 
             misc_info.handler.set_anniversary = (day, month, year) => handler.anniversary.set_dmy (day, month, year);
             misc_info.handler.new_anniversary = () => handler.anniversary = Date ();

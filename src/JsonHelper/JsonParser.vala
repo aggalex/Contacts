@@ -152,6 +152,15 @@ namespace JsonHelper {
             });
         }
 
+        if (member_table.contains ("websites")) {
+            var websites_jarray = member_table.get ("websites");
+            if (contact.websites == null) contact.websites = new List<DataWithType<string>> ();
+            websites_jarray.foreach_element ((array, i, node) => {
+                var data = Json.gobject_deserialize (typeof (JsonDWTStringModel), node) as JsonDWTStringModel;
+                contact.websites.append (data.to_dwt ());
+            });
+        }
+
         if (member_table.contains ("addresses")) {
             var addresses_jarray = member_table.get ("addresses");
             if (contact.addresses == null) contact.addresses = new List<DataWithType<Address?>> ();
@@ -167,15 +176,6 @@ namespace JsonHelper {
             notes_jarray.foreach_element ((array, i, node) => {
                 var data = new Reader (node).get_string_value ();
                 contact.notes.append (data);
-            });
-        }
-
-        if (member_table.contains ("websites")) {
-            var websites_jarray = member_table.get ("websites");
-            if (contact.websites == null) contact.websites = new List<string> ();
-            websites_jarray.foreach_element ((array, i, node) => {
-                var data = new Reader (node).get_string_value ();
-                contact.websites.append (data);
             });
         }
 

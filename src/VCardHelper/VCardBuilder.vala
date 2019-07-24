@@ -138,6 +138,19 @@ namespace VCardHelper {
         return builder.str;
     }
 
+    private string build_website (DataWithType<string> data) {
+        var builder = new StringBuilder ("URL;CHARSET=UTF-8");
+        if (data.type == DataHelper.Type.WORK) {
+            builder.append (";");
+            builder.append (data.type.to_string ().up ());
+        }
+        builder.append (":");
+        builder.append (data.data);
+        builder.append ("\n");
+
+        return builder.str;
+    }
+
     private string build_address (DataWithType<Address?> data) {
         var builder = new StringBuilder ("ADR;CHARSET=UTF-8;TYPE=");
         builder.append (data.type.to_string ().up ());
@@ -161,14 +174,6 @@ namespace VCardHelper {
 
     private string build_nickname (string data) {
         var builder = new StringBuilder ("NICKNAME;CHARSET=UTF-8:");
-        builder.append (data);
-        builder.append ("\n");
-
-        return builder.str;
-    }
-
-    private string build_website (string data) {
-        var builder = new StringBuilder ("URL;CHARSET=UTF-8:");
         builder.append (data);
         builder.append ("\n");
 

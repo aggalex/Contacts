@@ -37,11 +37,11 @@ namespace Model {
 
         public List<DataWithType<string>>? phones;
         public List<DataWithType<string>>? emails;
+        public List<DataWithType<string>>? websites;
         public List<DataWithType<Address?>>? addresses;
 
         public List<string>? notes;
         public List<string>? nicknames;
-        public List<string>? websites;
 
         private string file_name;
 
@@ -92,6 +92,9 @@ namespace Model {
             builder.set_member_name ("emails");
             builder.add_value (get_string_list_with_type (emails));
 
+            builder.set_member_name ("websites");
+            builder.add_value (get_string_list_with_type (websites));
+
             builder.set_member_name ("addresses");
             builder.add_value (get_address_list_with_type (addresses));
 
@@ -100,9 +103,6 @@ namespace Model {
 
             builder.set_member_name ("nicknames");
             builder.add_value (get_string_list (nicknames));
-
-            builder.set_member_name ("websites");
-            builder.add_value (get_string_list (websites));
 
             builder.end_object ();
 

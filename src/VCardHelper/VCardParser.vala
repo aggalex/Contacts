@@ -131,11 +131,12 @@ namespace VCardHelper {
         }
         if (line.has_prefix ("URL")) {
 
+            var type = parse_type (line);
             var needle = parse_needle (line);
 
-            if (contact.websites == null) contact.websites = new List<string> ();
-            contact.websites.append (needle);
+            if (contact.websites == null) contact.websites = new List<DataWithType<string>> ();
 
+            contact.websites.append (new DataWithType<string> (needle, type));
             return;
         }
         if (line.has_prefix ("NICKNAME")) {
