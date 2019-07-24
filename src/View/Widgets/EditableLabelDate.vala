@@ -80,11 +80,9 @@ namespace View.Widgets {
             var day = calendar.day;
             var year = calendar.year;
 
-            print (@"DATE: $year, $month, $day");
-
             var date_time = new GLib.DateTime.local (year, month, day, 0, 0, 0);
 
-            return date_time.format (Granite.DateTime.get_default_date_format ());
+            return date_time.format (Granite.DateTime.get_default_date_format (false, true, true));
         }
 
         construct {
