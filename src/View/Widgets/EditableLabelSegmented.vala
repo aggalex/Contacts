@@ -208,7 +208,7 @@ namespace View.Widgets {
                     changed ();
                 });
                 entry.key_release_event.connect ((key) => {
-                    if (key.keyval == 65307)
+                    if (Gdk.keyval_name (key.keyval) == "Escape")
                         on_focus_out_event ();
                     return true;
                 });

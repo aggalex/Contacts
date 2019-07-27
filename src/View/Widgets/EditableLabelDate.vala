@@ -146,9 +146,9 @@ namespace View.Widgets {
             });
 
             calendar.key_release_event.connect ((key) => {
-                if (key.keyval == 65293)
+                if (Gdk.keyval_name (key.keyval) == "Enter")
                     close_calendar ();
-                else if (key.keyval == 65307) {
+                else if (Gdk.keyval_name (key.keyval) == "Escape") {
                     calendar.day = backup_day;
                     calendar.month = backup_month;
                     calendar.year = backup_year;

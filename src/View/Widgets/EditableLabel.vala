@@ -105,7 +105,7 @@ namespace View.Widgets {
             });
 
             entry.key_release_event.connect ((key) => {
-                if (key.keyval == 65307) {
+                if (Gdk.keyval_name (key.keyval) == "Escape") {
                     this.set_visible_child_name ("label");
                     entry.text = label.label;
                 }
