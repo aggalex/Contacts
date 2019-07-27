@@ -67,6 +67,8 @@ namespace View {
                 }
             });
 
+            handler.contact_error.connect ((contact_error) => show_error (contact_error.message));
+
             //right
 
             error_bar.show_all ();

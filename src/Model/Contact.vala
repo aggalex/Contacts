@@ -30,6 +30,7 @@ namespace Model {
 
         // Default properties
         public string name;
+
         public Date? birthday;
         public Date? anniversary;
 
@@ -58,7 +59,7 @@ namespace Model {
             nicknames = null;
             websites = null;
 
-            file_name = name;
+            file_name = get_filename (name);
         }
 
         public void save () throws IOError, Error {
@@ -106,6 +107,10 @@ namespace Model {
 
             builder.end_object ();
 
+            var new_filename = get_filename (name);
+            if (new_filename != file_name)
+                FileHelper.rename (file_name, new_filename);
+
             var generator = new Json.Generator ();
             var root = builder.get_root ();
             generator.set_root (root);
@@ -114,13 +119,14 @@ namespace Model {
             print (output);
             print ("\n");
 
-            if (name != file_name)
-                FileHelper.rename (get_filename (file_name), get_filename (name));
-
-            FileHelper.save (get_filename (name), output);
+            FileHelper.save (new_filename, output);
         }
 
-        private string get_filename (string name) {
+        public void delete_file () throws Error {
+            FileHelper.delete (file_name);
+        }
+
+        private static string get_filename (string name) {
             return name.replace (" ", "_") + ".json";
         }
 

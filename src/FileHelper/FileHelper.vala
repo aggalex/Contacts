@@ -87,6 +87,13 @@ namespace FileHelper {
         return builder.str;
     }
 
+    public void @delete (string filename, string path_suffix = "") throws Error {
+        var path = get_file_path (filename, path_suffix);
+
+        File file = File.new_for_path (path);
+        file.delete ();
+    }
+
     public List<string> get_contact_files () throws FileError, Error {
         var directory = get_file_path ("", "");
 

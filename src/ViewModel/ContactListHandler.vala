@@ -25,6 +25,7 @@ namespace ViewModel {
 
     public class ContactListHandler : Object {
 
+        public signal void contact_error (Error e);
         public signal void changed ();
 
         private ContactList contact_list = new ContactList ();
@@ -43,7 +44,13 @@ namespace ViewModel {
 
             foreach (var path in paths) {
                 var contact = load (path);
-                contact.remove.connect (() => remove_contact (contact));
+            contact.remove.connect (() => {
+                try {
+                    remove_contact (contact);
+                } catch (Error e) {
+                    contact_error (e);
+                }
+            });
                 contact_list.data.insert_sorted (contact, compare_contacts);
             }
 
@@ -55,10 +62,13 @@ namespace ViewModel {
         }
 
         private async void async_folks_initialize () throws Error {
-            yield FolksHelper.load ((contact) => {
-                add_contact_from_model (contact);
-            });
-            return;
+            GLib.Timeout.add (2000, () => {
+                FolksHelper.load.begin ((contact) => {
+                    add_contact_from_model (contact);
+                });
+                return true;
+            }, GLib.Priority.DEFAULT);
+            yield;
         }
 
         private GLib.CompareFunc<Model.Contact>? compare_contacts = (c1, c2) => {
@@ -82,14 +92,28 @@ namespace ViewModel {
         }
 
         private void add_contact_from_model (Contact contact) {
-            contact.remove.connect (() => remove_contact (contact));
+            contact.remove.connect (() => {
+                try {
+                    remove_contact (contact);
+                } catch (Error e) {
+                    contact_error (e);
+                }
+            });
 
             contact_list.data.insert_sorted (contact, compare_contacts);
+
+            try {
+                contact.save ();
+            } catch (Error e) {
+                contact_error (e);
+            }
             changed ();
         }
 
-        public bool remove_contact (Contact contact) {
+        public bool remove_contact (Contact contact) throws Error {
             if (!contains (contact)) return false;
+
+            contact.delete_file ();
 
             contact_list.data.remove (contact);
 
@@ -127,9 +151,7 @@ namespace ViewModel {
         public void import (string path) throws Error {
             var list = VCardHelper.parse (path);
             foreach (var contact in list) {
-                contact.remove.connect (() => remove_contact (contact));
-
-                contact_list.data.insert_sorted (contact, compare_contacts);
+                add_contact_from_model (contact);
             }
             changed ();
         }

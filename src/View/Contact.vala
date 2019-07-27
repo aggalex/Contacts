@@ -127,6 +127,8 @@ namespace View {
                 has_icon (true);
             }
 
+            handler.contact_error.connect ((contact_error) => show_error (contact_error.message));
+
             phone_info.can_write = true;
             email_info.can_write = true;
             website_info.can_write = true;
@@ -180,24 +182,13 @@ namespace View {
             export_button.set_tooltip_text (_("Export this contact to a file"));
             export_button.clicked.connect (export);
 
-            var save_button = new Gtk.Button.with_label ("Save");   // TODO: Make this redundant
-            save_button.clicked.connect (() => {
-                try {
-                    handler.save();
-                } catch (Error e) {
-                    show_error (e.message);
-                }
-            });
-
             make_bottom_section_unavailable.connect ((not_available) => {
                 delete_button.set_sensitive (!not_available);
                 export_button.set_sensitive (!not_available);
-                save_button.set_sensitive (!not_available);
             });
 
             var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             bottom_box.pack_end (delete_button, false, false, 0);
-            bottom_box.pack_end (save_button, false, false, 0);
             bottom_box.pack_end (export_button, false, false, 0);
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);

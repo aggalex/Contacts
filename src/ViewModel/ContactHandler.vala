@@ -28,6 +28,7 @@ namespace ViewModel {
 
     public class ContactHandler {
 
+        public signal void contact_error (Error e);
         public signal void changed ();
         internal Contact contact;
 
@@ -124,11 +125,18 @@ namespace ViewModel {
 
 
         public ContactHandler (string name = "") {
-            contact = new Contact (name);
+            this.from_model (new Contact (name));
         }
 
         public ContactHandler.from_model (Contact contact) {
             this.contact = contact;
+            changed.connect (() => {
+                try {
+                    contact.save ();
+                } catch (Error e) {
+                    contact_error (e);
+                }
+            });
         }
 
 
