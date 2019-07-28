@@ -40,6 +40,11 @@ namespace View.Widgets {
 
             label.label = "Hello World!";
 
+            bar.response.connect ((response) => {
+                if (response == Gtk.ResponseType.CLOSE)
+                    this.reveal_child = false;
+            });
+
             this.add (bar);
             this.reveal_child = false;
             this.transition_type = RevealerTransitionType.SLIDE_DOWN;
