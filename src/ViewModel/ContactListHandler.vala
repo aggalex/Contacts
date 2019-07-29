@@ -23,6 +23,10 @@ using Model;
 
 namespace ViewModel {
 
+    errordomain IconLoadingError {
+        COULD_NOT_LOAD
+    }
+
     public class ContactListHandler : Object {
 
         public signal void contact_error (Error e);
@@ -140,7 +144,10 @@ namespace ViewModel {
         }
 
         public Contact load (string path) throws Error {
-            var contact = JsonHelper.parse (FileHelper.read (path));
+            Error e = null;
+            var contact = JsonHelper.parse (FileHelper.read (path), out e);
+            if (e != null)
+                contact_error (new IconLoadingError.COULD_NOT_LOAD (@"Failed loading contact icons: $(e.message)"));
             return contact;
         }
 
@@ -149,11 +156,15 @@ namespace ViewModel {
         }
 
         public void import (string path) throws Error {
-            var list = VCardHelper.parse (path);
+            Error e;
+            var list = VCardHelper.parse (path, out e);
             foreach (var contact in list) {
                 add_contact_from_model (contact);
             }
             changed ();
+
+            if (e != null)
+                throw new IconLoadingError.COULD_NOT_LOAD (@"Failed loading contact icons: $(e.message)");
         }
 
         public ContactListHandler iterator () {

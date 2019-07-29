@@ -72,19 +72,28 @@ namespace JsonHelper {
 
         // GObject Deserialize won't dedserialize arrays :(
 
-        public Contact to_contact () {
+        public Contact to_contact (out Error? icon_error) {
+            icon_error = null;
             var contact = new Contact (name.locale_to_utf8 (-1, null, null));
 
             if (icon != null? icon != "" : false) {
                 var data = Base64.decode (icon);
-                contact.icon = new Gdk.Pixbuf.from_data (data, Gdk.Colorspace.RGB, true, 8, 64, 64, 150);
+                var icon_loader = new Gdk.PixbufLoader ();
+                icon_loader.set_size (64, 64);
+                try {
+                    icon_loader.write (data);
+                    icon_loader.close ();
+                } catch (Error e) {
+                    icon_error = e;
+                }
+                contact.icon = icon_loader.get_pixbuf ();
             }
 
             if (birthday != null) {
                 contact.birthday = birthday.to_date ();
             }
 
-            if (birthday != null) {
+            if (anniversary != null) {
                 contact.anniversary = anniversary.to_date ();
             }
 
@@ -110,7 +119,7 @@ namespace JsonHelper {
         }
     }
 
-    public Contact? parse (string json) throws Error
+    public Contact? parse (string json, out Error? icon_error) throws Error
         requires (json != null)
     {
         print (json + "\n");
@@ -124,7 +133,7 @@ namespace JsonHelper {
         var obj = Json.gobject_deserialize (typeof (JsonContactModel), node) as JsonContactModel;
         assert (obj != null);
 
-        var contact = obj.to_contact ();
+        var contact = obj.to_contact (out icon_error);
 
         var member_table = new HashTable<string, Json.Array> (str_hash, str_equal);
 

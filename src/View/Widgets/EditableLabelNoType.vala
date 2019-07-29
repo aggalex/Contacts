@@ -22,6 +22,8 @@ using Granite;
 using Granite.Widgets;
 using Gtk;
 
+using View.Widgets.EditableWidgetTools;
+
 namespace View.Widgets {
 
     public class EditableLabelNoType : Gtk.Stack, EditableWidget {
@@ -78,6 +80,7 @@ namespace View.Widgets {
 
             edit_button.clicked.connect (() => {
                 this.set_visible_child_name ("entry");
+                SignalAggregator.INSTANCE.opened (this);
             });
 
             entry.activate.connect (() => {
@@ -86,22 +89,32 @@ namespace View.Widgets {
                 changed ();
             });
 
-            entry.focus_out_event.connect (() => {
-                this.set_visible_child_name ("label");
-                entry.text = label.label;
-            });
+            // entry.focus_out_event.connect (() => {
+            //     this.set_visible_child_name ("label");
+            //     entry.text = label.label;
+            // });
 
             entry.key_release_event.connect ((key) => {
                 if (Gdk.keyval_name (key.keyval) == "Escape") {
-                    this.set_visible_child_name ("label");
-                    entry.text = label.label;
+                    close_without_saving ();
                 }
                 return true;
+            });
+
+            SignalAggregator.INSTANCE.opened.connect ((widget) => {
+                if (widget != this) {
+                    close_without_saving ();
+                }
             });
 
             this.show_all();
             this.set_visible_child_name ("label");
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+        }
+
+        public void close_without_saving () {
+            this.set_visible_child_name ("label");
+            entry.text = label.label;
         }
     }
 }

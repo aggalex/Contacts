@@ -36,6 +36,26 @@ namespace View.Widgets {
 
         public abstract string text {owned get;}
 
+        public abstract void close_without_saving ();
+
+    }
+
+    namespace EditableWidgetTools {
+        public class SignalAggregator : Object {
+            public signal void opened (Widget widget);
+
+            private static SignalAggregator? instance;
+
+            public static SignalAggregator INSTANCE {
+                get {
+                    if (instance == null)
+                        instance = new SignalAggregator ();
+                    return instance;
+                }
+            }
+
+            private SignalAggregator () {}
+        }
     }
 
 }

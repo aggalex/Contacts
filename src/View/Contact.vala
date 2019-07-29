@@ -260,6 +260,10 @@ namespace View {
 
             chooser.destroy ();
             set_image_path (filename);
+
+            print (@"BITS PER SAMPLE: $(icon.pixbuf.bits_per_sample)\n");
+            print (@"ROWSTRIDE: $(icon.pixbuf.rowstride)\n");
+
             changed ();
         }
 

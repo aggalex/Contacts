@@ -22,6 +22,8 @@ using Granite;
 using Granite.Widgets;
 using Gtk;
 
+using View.Widgets.EditableWidgetTools;
+
 namespace View.Widgets {
 
     public class EditableLabelDate : Gtk.Stack, EditableWidget {
@@ -33,6 +35,8 @@ namespace View.Widgets {
         private Gtk.Revealer calendar_revealer = new Gtk.Revealer ();
 
         private Date date_backup = Date ();
+
+        private VoidFunc close_func;
 
         public int day {
             get {return calendar.day;}
@@ -125,7 +129,7 @@ namespace View.Widgets {
             delete_button.clicked.connect (() => deleted ());
 
             var loop = new MainLoop ();
-            VoidFunc close_calendar = () => {
+            close_func = () => {
                 revealer_pause.begin ((obj, res) => {
                     loop.quit ();
                 });
@@ -143,30 +147,32 @@ namespace View.Widgets {
                 this.set_visible_child_name ("calendar");
                 calendar_revealer.set_reveal_child (true);
                 calendar.grab_focus ();
+                SignalAggregator.INSTANCE.opened (this);
             });
 
             calendar.key_release_event.connect ((key) => {
                 if (Gdk.keyval_name (key.keyval) == "Enter")
-                    close_calendar ();
+                    close_without_saving ();
                 else if (Gdk.keyval_name (key.keyval) == "Escape") {
-                    calendar.day = backup_day;
-                    calendar.month = backup_month;
-                    calendar.year = backup_year;
-                    revealer_pause.begin ((obj, res) => {
-                        loop.quit ();
-                    });
-                    loop.run ();
-                    this.set_visible_child_name ("label");
+                    close_without_saving ();
                 }
                 return true;
             });
 
-            calendar.focus_out_event.connect (() => {close_calendar ();});
+            SignalAggregator.INSTANCE.opened.connect ((widget) => {
+                if (widget != this) {
+                    close_without_saving ();
+                }
+            });
 
             this.show_all();
             this.set_visible_child_name ("label");
             this.set_homogeneous (false);
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+        }
+
+        public void close_without_saving () {
+            close_func ();
         }
 
         public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {

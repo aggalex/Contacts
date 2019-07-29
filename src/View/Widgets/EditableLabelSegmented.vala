@@ -23,6 +23,7 @@ using Granite.Widgets;
 using Gtk;
 
 using DataHelper;
+using View.Widgets.EditableWidgetTools;
 
 namespace View.Widgets {
     public class EditableLabelSegmented : Gtk.Stack, EditableWidget {
@@ -110,7 +111,7 @@ namespace View.Widgets {
             construct_this ();
         }
 
-        private bool on_focus_out_event () {
+        public void close_without_saving () {
             this.set_visible_child_name ("label");
 
             var loop = new MainLoop ();
@@ -122,8 +123,6 @@ namespace View.Widgets {
                 loop.quit ();
             });
             loop.run ();
-
-            return true;
         }
 
         private void construct_this () {
@@ -173,6 +172,7 @@ namespace View.Widgets {
             foreach (Gtk.Entry entry in entries) {
                 entry_box.pack_start (entry, true, true, 0);
             }
+
             entry_box.get_style_context ().add_class ("linked");
             entry_box.set_halign (Gtk.Align.FILL);
             entry_box.margin = 6;
@@ -188,6 +188,7 @@ namespace View.Widgets {
                 this.set_visible_child_name ("entries");
                 entry_revealer.set_reveal_child (true);
                 entries.nth_data (0).grab_focus ();
+                SignalAggregator.INSTANCE.opened (this);
             });
 
             var loop = new MainLoop ();
@@ -209,10 +210,16 @@ namespace View.Widgets {
                 });
                 entry.key_release_event.connect ((key) => {
                     if (Gdk.keyval_name (key.keyval) == "Escape")
-                        on_focus_out_event ();
+                        close_without_saving ();
                     return true;
                 });
             }
+
+            SignalAggregator.INSTANCE.opened.connect ((widget) => {
+                if (widget != this) {
+                    close_without_saving ();
+                }
+            });
 
             set_label_text ();
             this.show_all();

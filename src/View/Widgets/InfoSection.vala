@@ -38,6 +38,8 @@ namespace View.Widgets {
 
     public class InfoSection : Gtk.Box {
 
+        public signal void opened_entry ();
+
         protected string title;
         protected Gtk.Label title_label = new Gtk.Label (null);
 

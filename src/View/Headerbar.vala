@@ -29,7 +29,7 @@ namespace View {
         public signal void changed_search (string query);
 
         private Gtk.Button add_entry_button = new Gtk.Button.from_icon_name ("contact-new", Gtk.IconSize.LARGE_TOOLBAR);
-        private Gtk.SearchEntry Search = new Gtk.SearchEntry ();
+        private Gtk.SearchEntry search = new Gtk.SearchEntry ();
 
         public signal void new_contact ();
 
@@ -39,13 +39,13 @@ namespace View {
                 new_contact ();
             });
 
-            Search.valign = Gtk.Align.CENTER;
-            Search.set_placeholder_text (_("Search Contacts"));
+            search.valign = Gtk.Align.CENTER;
+            search.set_placeholder_text (_("Search Contacts"));
 
-            Search.changed.connect(() => changed_search (Search.get_text()));
+            search.changed.connect(() => changed_search (search.get_text()));
 
+            this.pack_start (search);
             this.pack_start (add_entry_button);
-            this.pack_start (Search);
             this.set_show_close_button (true);
         }
     }

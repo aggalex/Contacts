@@ -25,7 +25,9 @@ using QuotedPrintableHelper;
 
 namespace VCardHelper {
 
-    public List<Contact> parse (string path) throws Error, IOError {
+    public List<Contact> parse (string path, out Error? icon_error) throws Error, IOError {
+        icon_error = null;
+
         File file = File.new_for_path (path);
         var dis = new DataInputStream (file.read ());
         var list = new List<Contact> ();
@@ -44,7 +46,7 @@ namespace VCardHelper {
                 line = parse_quoted_printable_line (line);
                 line = line.strip ();
                 if (line == "END:VCARD") break;
-                set_contact_info(line, contact); // TODO: Make things break less. (BDAY 00000000 broke things (segfault))
+                set_contact_info(line, contact, ref icon_error);
             }
 
             if (contact.name == "") continue;
@@ -74,7 +76,7 @@ namespace VCardHelper {
         return type;
     }
 
-    private void set_contact_info(string line, Contact contact) {
+    private void set_contact_info (string line, Contact contact, ref Error? icon_error) {
         if (line.has_prefix ("FN")){
 
             var needle = parse_needle (line);
@@ -203,12 +205,17 @@ namespace VCardHelper {
         }
         if (line.has_prefix ("PHOTO")) {
 
-            // var needle = parse_needle (line);
-            // File image_file = File.new_for_path (home + "/.local/share/contacts/image.png");
-            // var os = image_file.replace (null, false, FileCreateFlags.PRIVATE);
-            // os.write (Base64.decode (needle));
-
-            // contact.set_image (home + "/.local/share/contacts/image.png");
+            var needle = parse_needle (line);
+            var data = Base64.decode (needle);
+            var icon_loader = new Gdk.PixbufLoader ();
+            icon_loader.set_size (64, 64);
+            try {
+                icon_loader.write (data);
+                icon_loader.close ();
+            } catch (Error e) {
+                icon_error = e;
+            }
+            contact.icon = icon_loader.get_pixbuf ();
 
             return;
         }
