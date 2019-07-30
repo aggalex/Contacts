@@ -150,7 +150,6 @@ namespace View.Widgets {
                 }
             }
             menu.poped_down.connect ((index) => {
-                print (@"POPED DOWN: $index\n");
                 var parsed_data = DataHelper.Type.parse_int (index + 3);
                 switch (parsed_data) {
                     case NOTES:
@@ -251,6 +250,7 @@ namespace View.Widgets {
             switch (widget.data_type) {
                 case BIRTHDAY:
                     var label = (EditableLabelDate) widget;
+                    print (@"SET ENTRY BIRTHDAY: $(label.day), $(label.month+1), $(label.year)\n");
                     handler.set_birthday ((DateDay) label.day, label.month+1, (DateYear) label.year);
                     return;
                 case ANNIVERSARY:

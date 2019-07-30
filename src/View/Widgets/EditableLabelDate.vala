@@ -36,7 +36,7 @@ namespace View.Widgets {
 
         private Date date_backup = Date ();
 
-        private VoidFunc close_func;
+        private VoidFunc close_calendar;
 
         public int day {
             get {return calendar.day;}
@@ -66,18 +66,18 @@ namespace View.Widgets {
         public EditableLabelDate (uint? day, uint? month, uint? year, DataHelper.Type label_text) {
             data_type = label_text;
 
-            if (day != null && month != null && year != null) {
+            if (day == null || month == null || year == null) {
                 var now = new GLib.DateTime.now_local ();
                 now.get_ymd (out backup_year, out backup_month, out backup_day);
                 calendar.select_month (backup_month, backup_year-30);
                 label.set_text (extract_label_text ());
             } else {
-                calendar.select_day (day);
-                calendar.select_month (month, year);
-                label.set_text ("");
                 backup_day = (int) day;
                 backup_month = (int) month;
                 backup_year = (int) year;
+                calendar.select_day (backup_day);
+                calendar.select_month (backup_month, backup_year);
+                label.set_text (extract_label_text ());
             }
 
             explaining_label.label = @"$(data_type.to_string_translated ()):";
@@ -129,7 +129,8 @@ namespace View.Widgets {
             delete_button.clicked.connect (() => deleted ());
 
             var loop = new MainLoop ();
-            close_func = () => {
+
+            close_calendar = () => {
                 revealer_pause.begin ((obj, res) => {
                     loop.quit ();
                 });
@@ -152,12 +153,14 @@ namespace View.Widgets {
 
             calendar.key_release_event.connect ((key) => {
                 if (Gdk.keyval_name (key.keyval) == "Enter")
-                    close_without_saving ();
+                    close_calendar ();
                 else if (Gdk.keyval_name (key.keyval) == "Escape") {
                     close_without_saving ();
                 }
                 return true;
             });
+
+            calendar.focus_out_event.connect (() => {close_calendar ();}); 
 
             SignalAggregator.INSTANCE.opened.connect ((widget) => {
                 if (widget != this) {
@@ -172,7 +175,16 @@ namespace View.Widgets {
         }
 
         public void close_without_saving () {
-            close_func ();
+            if (calendar_revealer.child_revealed == true) {
+                reset_data ();
+                close_calendar ();
+            }
+        }
+
+        private void reset_data () {
+            calendar.day = backup_day;
+            calendar.month = backup_month;
+            calendar.year = backup_month;
         }
 
         public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {

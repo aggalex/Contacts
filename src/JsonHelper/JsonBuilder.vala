@@ -99,6 +99,7 @@ namespace JsonHelper {
 
             builder.set_member_name ("state");
             builder.add_string_value (address.state);
+
             builder.set_member_name ("zip");
             builder.add_string_value (address.zip);
 

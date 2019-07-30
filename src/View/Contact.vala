@@ -323,13 +323,25 @@ namespace View {
             misc_info.handler.remove_nickname = handler.remove_nickname;
             misc_info.handler.change_nickname = handler.set_nickname;
 
-            misc_info.handler.set_birthday = (day, month, year) => handler.birthday.set_dmy (day, month, year);
+            misc_info.handler.set_birthday = (day, month, year) => {
+                handler.birthday.set_dmy (day, month, year);
+                handler.changed ();
+            };
             misc_info.handler.new_birthday = () => handler.birthday = Date ();
-            misc_info.handler.clear_birthday = () => handler.birthday = null;
+            misc_info.handler.clear_birthday = () => {
+                handler.birthday = null;
+                handler.changed ();
+            };
 
-            misc_info.handler.set_anniversary = (day, month, year) => handler.anniversary.set_dmy (day, month, year);
+            misc_info.handler.set_anniversary = (day, month, year) => {
+                handler.anniversary.set_dmy (day, month, year);
+                handler.changed ();
+            };
             misc_info.handler.new_anniversary = () => handler.anniversary = Date ();
-            misc_info.handler.clear_anniversary = () => handler.anniversary = null;
+            misc_info.handler.clear_anniversary = () => {
+                handler.anniversary = null;
+                handler.changed ();
+            };
         }
 
     }
