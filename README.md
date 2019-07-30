@@ -20,16 +20,5 @@ ninja
 sudo ninja install
 ```
 
-### Beta state TODO:
-- Translating
-- Hardening stability
-- proper error handling
-- options menu
-- tooltips
-- autosaving
-- defensive importing/exporting
-
-List might grow according to the needs of the development. When the list is exhausted, the app will go in RC state, to smooth out any inconsistencies, and then the app will be released in appcenter.
-
 ### Release Date
-> <i>When it's ready</i> ~~ <br><sup>- The elementary team
+> In the forthcoming future!
