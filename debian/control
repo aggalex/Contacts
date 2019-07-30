@@ -1,0 +1,16 @@
+Source: com.github.aggalex.contacts
+Section: utils
+Priority: optional
+Maintainer: Alex Angelou <ubuntu1aggelalex@gmail.com>
+Build-Depends: meson,
+               debhelper (>= 10.5.1),
+               libgranite-dev,
+               libgtk-3-dev,
+               valac,
+               libfolks-dev
+
+Package: com.github.aggalex.contacts
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Pre-Depends: dpkg (>= 1.15.6)
+Description: A Contacts manager for elementary OS
