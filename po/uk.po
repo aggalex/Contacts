@@ -184,11 +184,11 @@ msgstr "Оберіть світлину"
 
 #: src/DataHelper/DataTypes.vala:51
 msgid "Home"
-msgstr "Домашній"
+msgstr "Дім"
 
 #: src/DataHelper/DataTypes.vala:52
 msgid "Work"
-msgstr "Робочий"
+msgstr "Робота"
 
 #: src/DataHelper/DataTypes.vala:53
 msgid "Other"
