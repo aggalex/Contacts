@@ -270,6 +270,7 @@ namespace View {
         public void require_name () {
             make_bottom_section_unavailable (true);
             name_label.clicked ();
+            name_label.require_name ();
             name_label.focus_on_entry ();
             name_changed.connect (() => {
                 if (name_label.text == "") {

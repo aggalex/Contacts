@@ -38,10 +38,6 @@ namespace View.Widgets {
         public HandlerRemoveFunc remove_note;
         public HandlerSetFunc change_note;
 
-        public HandlerAddFunc add_website;
-        public HandlerRemoveFunc remove_website;
-        public HandlerSetFunc change_website;
-
         public HandlerAddFunc add_nickname;
         public HandlerRemoveFunc remove_nickname;
         public HandlerSetFunc change_nickname;
@@ -116,7 +112,6 @@ namespace View.Widgets {
         internal new HandlerInterfaceMisc handler = new HandlerInterfaceMisc ();
 
         private int note_count = 0;
-        private int website_count = 0;
         private int nickname_count = 0;
 
         private Gtk.Button birthday_button;
@@ -150,13 +145,10 @@ namespace View.Widgets {
                 }
             }
             menu.poped_down.connect ((index) => {
-                var parsed_data = DataHelper.Type.parse_int (index + 3);
+                var parsed_data = DataHelper.Type.parse_int (index + 4);
                 switch (parsed_data) {
                     case NOTES:
                         new_entry_note ("");
-                        break;
-                    case WEBSITE:
-                        new_entry_website ("");
                         break;
                     case NICKNAME:
                         new_entry_nickname ("");
@@ -185,15 +177,6 @@ namespace View.Widgets {
             _new_entry (entry, note_count++);
 
             if (can_write) handler.add_note (data);
-        }
-
-        public void new_entry_website (string data) {
-            var type = DataHelper.Type.WEBSITE;
-            var entry = new EditableLabelNoType (data, type);
-
-            _new_entry (entry, website_count++);
-
-            if (can_write) handler.add_website (data);
         }
 
         public void new_entry_nickname (string data) {
@@ -260,9 +243,6 @@ namespace View.Widgets {
                 case NOTES:
                     handler.change_note (widget.text, index);
                     return;
-                case WEBSITE:
-                    handler.change_website (widget.text, index);
-                    return;
                 case NICKNAME:
                     handler.change_nickname (widget.text, index);
                     return;
@@ -280,10 +260,6 @@ namespace View.Widgets {
                 case NOTES:
                     handler.remove_note (index);
                     note_count--;
-                    return;
-                case WEBSITE:
-                    handler.remove_website (index);
-                    website_count--;
                     return;
                 case NICKNAME:
                     handler.remove_nickname (index);

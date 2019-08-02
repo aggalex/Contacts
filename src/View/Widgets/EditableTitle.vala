@@ -32,6 +32,8 @@ namespace View.Widgets {
 
         private Gtk.Button label_button = new Gtk.Button ();
 
+        private bool requires_name = false;
+
         public string text {
             get {
                 return entry.get_text ();
@@ -62,6 +64,10 @@ namespace View.Widgets {
             entry.grab_focus ();
         }
 
+        public void require_name () {
+            requires_name = true;
+        }
+
         construct {
             label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
 
@@ -87,6 +93,11 @@ namespace View.Widgets {
             });
 
             entry.focus_out_event.connect (() => {
+                if (requires_name) {
+                   entry.activate ();
+                   return true;
+                }
+
                 this.set_visible_child_name ("label");
                 entry.text = label.label;
             });

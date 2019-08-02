@@ -25,9 +25,9 @@ namespace DataHelper {
 
         HOME, WORK, OTHER, WEBSITE, NICKNAME, BIRTHDAY, ANNIVERSARY, NOTES;
 
-        public const Type[] MISC = { Type.WEBSITE,  Type.NICKNAME,  Type.BIRTHDAY, Type.ANNIVERSARY, Type.NOTES};
+        public const Type[] MISC = { Type.NICKNAME,  Type.BIRTHDAY, Type.ANNIVERSARY, Type.NOTES };
 
-        public const Type[] ALL = { Type.HOME,  Type.WORK,  Type.OTHER};
+        public const Type[] ALL = { Type.HOME,  Type.WORK,  Type.OTHER };
 
         public const Type DEFAULT = HOME;
 
