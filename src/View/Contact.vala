@@ -116,10 +116,10 @@ namespace View {
             if (handler.notes != null) foreach (var nickname in handler.nicknames)
                 misc_info.new_entry_nickname (nickname);
 
-            if (handler.birthday != null)
+            if (handler.birthday != null? handler.birthday.valid (): false)
                 misc_info.new_entry_birthday (handler.birthday.get_day (), handler.birthday.get_month (), handler.birthday.get_year ());
 
-            if (handler.anniversary != null)
+            if (handler.anniversary != null? handler.anniversary.valid (): false)
                 misc_info.new_entry_anniversary (handler.anniversary.get_day (), handler.anniversary.get_month (), handler.anniversary.get_year ());
 
             if (handler.icon != null) {

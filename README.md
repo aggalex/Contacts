@@ -10,7 +10,6 @@ An easy contact manager for elementary OS (RC State)
 - `elementary-sdk` 
 - `libfolks-dev`
 
-
 ### Building
 After installing all the required dependecies, you can build Contacts using:
 ```
