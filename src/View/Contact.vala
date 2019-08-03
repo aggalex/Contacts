@@ -261,9 +261,6 @@ namespace View {
             chooser.destroy ();
             set_image_path (filename);
 
-            print (@"BITS PER SAMPLE: $(icon.pixbuf.bits_per_sample)\n");
-            print (@"ROWSTRIDE: $(icon.pixbuf.rowstride)\n");
-
             changed ();
         }
 
@@ -286,7 +283,7 @@ namespace View {
         }
 
         private void set_connections () {
-            name_label.changed.connect_after (() => {
+            name_label.changed.connect (() => {
                 title = name_label.text;
                 handler.name = name_label.text;
                 name_changed ();

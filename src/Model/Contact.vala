@@ -63,6 +63,8 @@ namespace Model {
         }
 
         public void save () throws IOError, Error {
+            if (name == "") return;
+
             var builder = new Json.Builder ();
             builder.begin_object ();
 
@@ -108,8 +110,10 @@ namespace Model {
             builder.end_object ();
 
             var new_filename = get_filename (name);
-            if (new_filename != file_name)
+            if (new_filename != file_name) {
                 FileHelper.rename (file_name, new_filename);
+                file_name = new_filename;
+            }
 
             var generator = new Json.Generator ();
             var root = builder.get_root ();
