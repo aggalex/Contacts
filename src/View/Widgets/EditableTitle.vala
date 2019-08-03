@@ -65,6 +65,8 @@ namespace View.Widgets {
         }
 
         public void require_name () {
+            clicked ();
+            focus_on_entry ();
             requires_name = true;
         }
 
@@ -94,8 +96,11 @@ namespace View.Widgets {
 
             entry.focus_out_event.connect (() => {
                 if (requires_name) {
-                   entry.activate ();
-                   return true;
+                    print (@"ENTRY TEXT: $(entry.text.strip ())\n");
+                    if (entry.text.strip () == "") return true;
+
+                    entry.activate ();
+                    return true;
                 }
 
                 this.set_visible_child_name ("label");
@@ -103,9 +108,12 @@ namespace View.Widgets {
             });
 
             entry.activate.connect (() => {
-                label.set_text (entry.get_text ());
+                if (entry.text.strip () == "") return;
+
+                requires_name = false;
+
+                text = entry.text;
                 this.set_visible_child_name ("label");
-                changed ();
             });
 
             entry.key_release_event.connect ((key) => {

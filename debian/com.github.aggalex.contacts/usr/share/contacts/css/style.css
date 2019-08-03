@@ -1,0 +1,16 @@
+/*.transparent_background {
+    background-color: @bg_color;
+}*/
+@define-color colorAccent #68b723;
+
+.bold {
+    font-weight: bold;
+}
+
+.normal-background {
+    background-color: @bg-color;
+}
+
+.white-background {
+    background-color: @base_color;
+}

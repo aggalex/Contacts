@@ -35,7 +35,7 @@ namespace View {
 
     public class Contact : Gtk.ScrolledWindow {
 
-        public unowned ContactHandler _handler;
+        private unowned ContactHandler _handler;
         public unowned ContactHandler handler {
             get {
                 return _handler;
@@ -269,15 +269,8 @@ namespace View {
 
         public void require_name () {
             make_bottom_section_unavailable (true);
-            name_label.clicked ();
             name_label.require_name ();
-            name_label.focus_on_entry ();
             name_changed.connect (() => {
-                if (name_label.text == "") {
-                    name_label.clicked ();
-                    return;
-                }
-
                 make_bottom_section_unavailable (false);
             });
         }
@@ -293,7 +286,7 @@ namespace View {
         }
 
         private void set_connections () {
-            name_label.changed.connect (() => {
+            name_label.changed.connect_after (() => {
                 title = name_label.text;
                 handler.name = name_label.text;
                 name_changed ();

@@ -86,13 +86,11 @@ namespace ViewModel {
         }
 
         public void add_contact (string name) {
-            var contact = new Contact (name);
-            add_contact_from_model (contact);
+            add_contact_from_model (new Contact (name));
         }
 
         public void add_contact_by_handler (ContactHandler handler) {
-            var contact = handler.contact;
-            add_contact_from_model (contact);
+            add_contact_from_model (handler.contact);
         }
 
         private void add_contact_from_model (Contact contact) {

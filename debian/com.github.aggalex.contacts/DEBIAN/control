@@ -1,0 +1,10 @@
+Package: com.github.aggalex.contacts
+Version: 0.1
+Architecture: amd64
+Maintainer: Alex Angelou <ubuntu1aggelalex@gmail.com>
+Installed-Size: 658
+Pre-Depends: dpkg (>= 1.15.6)
+Depends: libc6 (>= 2.4), libfolks25 (>= 0.9.7), libgdk-pixbuf2.0-0 (>= 2.22.0), libgee-0.8-2 (>= 0.8.3), libglib2.0-0 (>= 2.35.9), libgranite5 (>= 0.4.0), libgtk-3-0 (>= 3.21.5), libjson-glib-1.0-0 (>= 0.12.0)
+Section: utils
+Priority: optional
+Description: A Contacts manager for elementary OS
