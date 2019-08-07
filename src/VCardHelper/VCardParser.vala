@@ -25,12 +25,15 @@ using QuotedPrintableHelper;
 
 namespace VCardHelper {
 
-    public List<Contact> parse (string path, out Error? icon_error) throws Error, IOError {
+    public delegate void ContactActions (Contact contact);
+
+    public async void parse (string path, out Error? icon_error, ContactActions actions) throws Error, IOError {
         icon_error = null;
+
+        var loop = new MainLoop ();
 
         File file = File.new_for_path (path);
         var dis = new DataInputStream (file.read ());
-        var list = new List<Contact> ();
         var line = dis.read_line_utf8 ();
         var next_line = dis.read_line_utf8 ();
         while (line != null && next_line != null) {
@@ -51,9 +54,8 @@ namespace VCardHelper {
 
             if (contact.name == "") continue;
 
-            list.append (contact);
+            actions (contact);
         }
-        return list;
     }
 
     private DataHelper.Type parse_type (string line) {

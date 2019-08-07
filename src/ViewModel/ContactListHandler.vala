@@ -154,15 +154,20 @@ namespace ViewModel {
         }
 
         public void import (string path) throws Error {
-            Error e;
-            var list = VCardHelper.parse (path, out e);
-            foreach (var contact in list) {
+            VCardHelper.parse.begin (path, (contact) => {
                 add_contact_from_model (contact);
-            }
-            changed ();
-
-            if (e != null)
-                throw new IconLoadingError.COULD_NOT_LOAD (@"Failed loading contact icons: $(e.message)");
+                print ("RUN IMPORT\n");
+                changed ();
+            }, (obj, res) => {
+                try {
+                    Error e;
+                    VCardHelper.parse.end (res, out e);
+                    if (e != null)
+                        contact_error (new IconLoadingError.COULD_NOT_LOAD (@"Failed loading contact icons: $(e.message)"));
+                } catch (Error err) {
+                    contact_error (err);
+                }
+            });
         }
 
         public ContactListHandler iterator () {

@@ -114,8 +114,10 @@ namespace JsonHelper {
         public JsonAddressModel data {get; set;}
         public string data_type {get; set;}
 
-        public DataWithType<Address?> to_dwt () {
-            return new DataWithType<Address?> (data.to_address (), DataHelper.Type.parse (data_type));
+        public DataWithType<Address?>? to_dwt () {
+            var address = data.to_address ();
+            if (address == null) return null;
+            return new DataWithType<Address?> (address, DataHelper.Type.parse (data_type));
         }
     }
 
@@ -179,7 +181,8 @@ namespace JsonHelper {
             addresses_jarray.foreach_element ((array, i, node) => {
                 if (node.get_node_type () != NodeType.OBJECT) return;
                 var data = Json.gobject_deserialize (typeof (JsonDWTAddressModel), node) as JsonDWTAddressModel;
-                contact.addresses.append (data.to_dwt ());
+                var dwt_data = data.to_dwt ();
+                if (dwt_data != null) contact.addresses.append (dwt_data);
             });
         }
 
