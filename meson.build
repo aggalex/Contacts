@@ -117,8 +117,6 @@ message ('Adds files to build')
 subdir('po')
 
 code_files = files(
-    join_paths ('build', '@0@'.format(config_file)),
-
     'src/DataHelper/DataTypes.vala',
     'src/DataHelper/Address.vala',
 
@@ -169,6 +167,7 @@ message ('Defines executable')
 
 executable(
     meson.project_name(),
+    config_file,
     code_files,
     dependencies: dependencies,
     install: true
