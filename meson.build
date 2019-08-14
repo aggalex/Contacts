@@ -105,13 +105,6 @@ appstream_file = i18n.merge_file(
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
-message ('Installing desktop entry: ' + meson.project_name() + '.desktop')
-
-install_data(
-    desktop_file,
-    install_dir: join_paths(get_option('datadir'), 'applications')
-)
-
 message ('Adds files to build')
 
 subdir('po')
