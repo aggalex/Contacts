@@ -63,4 +63,8 @@
       <image>https://raw.githubusercontent.com/aggalex/Contacts/master/data/Images/Screenshot.png</image>
     </screenshot>
   </screenshots>
+  <custom>
+    <value key="x-appcenter-color-primary">@LIME_100</value>
+    <value key="x-appcenter-color-primary-text">@LIME_900</value>
+  </custom>
 </component>

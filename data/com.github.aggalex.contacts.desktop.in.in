@@ -7,4 +7,4 @@ Exec=@EXEC_NAME@ %U
 Icon=com.github.aggalex.contacts
 Terminal=false
 Categories=Utility;GTK;
-Keywords=People
+Keywords=People;Friends;Pals;Phone;Email;
