@@ -1,0 +1,216 @@
+# Russian translations for com.github.aggalex.contacts package.
+# Copyright (C) 2019 THE com.github.aggalex.contacts'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.aggalex.contacts package.
+# Automatically generated, 2019.
+# Jacob <jacob.100205@gmail.com>, 2019.
+# Shtokolov <jacob.100205@gmail.com>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.aggalex.contacts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-15 14:00+0300\n"
+"PO-Revision-Date: 2019-09-15 15:28+0300\n"
+"Last-Translator: Jacob Shtokolov <jacob.100205@gmail.com>\n"
+"Language-Team: русский <>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#: src/View/ContactList.vala:50
+msgid "No Contacts"
+msgstr "Нет Контактов"
+
+#: src/View/ContactList.vala:50
+msgid "Your contact list is empty."
+msgstr "Ваш список контактов пуст."
+
+#: src/View/ContactList.vala:51
+msgid "New Contact"
+msgstr "Новый Контакт"
+
+#: src/View/ContactList.vala:51
+msgid "Create a new contact"
+msgstr "Создать новый контакт"
+
+#: src/View/ContactList.vala:52
+msgid "Import Contacts"
+msgstr "Импортировать Контакты"
+
+#: src/View/ContactList.vala:52
+msgid "Import contacts from external file"
+msgstr "Импортировать контакты из внешнего файла"
+
+#: src/View/ContactList.vala:84
+msgid "Export all contacts to a file"
+msgstr "Экспортировать все контакты в файл"
+
+#: src/View/ContactList.vala:89
+msgid "Import contacts from a file"
+msgstr "Импортировать контакты из файла"
+
+#: src/View/ContactList.vala:135
+msgid "Select the contact file to import"
+msgstr "Выбрать файл контактов для импорта"
+
+#: src/View/ContactList.vala:143 src/View/ContactList.vala:166
+msgid "VCard contact file"
+msgstr "Файл контактов VCard"
+
+#: src/View/ContactList.vala:158 src/View/Contact.vala:197
+msgid "Where to save exported file"
+msgstr "Куда сохранить экспортируемый файл"
+
+#: src/View/Headerbar.vala:39
+msgid "Create new contact"
+msgstr "Создать новый контакт"
+
+#: src/View/Headerbar.vala:53
+msgid "Search Contacts"
+msgstr "Поиск контактов"
+
+#: src/View/Widgets/EditableLabelDate.vala:88
+#: src/View/Widgets/EditableLabel.vala:52
+#: src/View/Widgets/EditableLabelSegmented.vala:109
+msgid "Delete this entry"
+msgstr "Удалить эту запись"
+
+#: src/View/Widgets/EditableLabelDate.vala:92
+#: src/View/Widgets/EditableLabel.vala:57
+#: src/View/Widgets/EditableLabelNoType.vala:53
+#: src/View/Widgets/EditableLabelNoType.vala:57
+#: src/View/Widgets/EditableLabelSegmented.vala:113
+msgid "Edit this entry"
+msgstr "Редактировать эту запись"
+
+#: src/View/Widgets/EditableTitle.vala:58
+msgid "Edit the name"
+msgstr "Редактировать имя"
+
+#: src/View/Widgets/InfoSection.vala:70
+msgid "Add a new empty entry"
+msgstr "Добавить новую пустую запись"
+
+#: src/View/Widgets/IconPopup.vala:51
+msgid "Set from File..."
+msgstr "Задать из Файла..."
+
+#: src/View/Widgets/IconPopup.vala:58
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/View/Contact.vala:58
+msgid "Phones"
+msgstr "Телефоны"
+
+#: src/View/Contact.vala:59
+msgid "Emails"
+msgstr "Адреса E-Mail"
+
+#: src/View/Contact.vala:60
+msgid "Addresses"
+msgstr "Адреса"
+
+#: src/View/Contact.vala:61
+msgid "Street"
+msgstr "Улица"
+
+#: src/View/Contact.vala:62
+msgid "City"
+msgstr "Город"
+
+#: src/View/Contact.vala:63
+msgid "State/Province"
+msgstr "Штат/Область"
+
+#: src/View/Contact.vala:64
+msgid "Zip/Postal Code"
+msgstr "Почтовый Код"
+
+#: src/View/Contact.vala:65
+msgid "Country"
+msgstr "Страна"
+
+#: src/View/Contact.vala:68
+msgid "$0, "
+msgstr "$0, "
+
+#: src/View/Contact.vala:69
+msgid "$1, "
+msgstr "$1, "
+
+#: src/View/Contact.vala:70
+msgid "$2, "
+msgstr "$2, "
+
+#: src/View/Contact.vala:71
+msgid "$3, "
+msgstr "$4, "
+
+#: src/View/Contact.vala:72
+msgid "$4"
+msgstr "$3"
+
+#: src/View/Contact.vala:74
+msgid "Miscellaneous"
+msgstr "Разное"
+
+#: src/View/Contact.vala:134
+msgid "Change the icon"
+msgstr "Изменить значок"
+
+#: src/View/Contact.vala:166
+msgid "Delete Contact"
+msgstr "Удалить Контакт"
+
+#: src/View/Contact.vala:167
+msgid "Delete this contact permanently"
+msgstr "Удалить этот контакт навсегда"
+
+#: src/View/Contact.vala:171
+msgid "Export"
+msgstr "Экспортировать"
+
+#: src/View/Contact.vala:172
+msgid "Export this contact to a file"
+msgstr "Экспортировать этот контакт в файл"
+
+#: src/View/Contact.vala:226
+msgid "Choose an image"
+msgstr "Выбрать изображение"
+
+#: src/DataHelper/DataTypes.vala:51
+msgid "Home"
+msgstr "Дом"
+
+#: src/DataHelper/DataTypes.vala:52
+msgid "Work"
+msgstr "Работа"
+
+#: src/DataHelper/DataTypes.vala:53
+msgid "Other"
+msgstr "Другое"
+
+#: src/DataHelper/DataTypes.vala:54
+msgid "Website"
+msgstr "Сайт"
+
+#: src/DataHelper/DataTypes.vala:55
+msgid "Nickname"
+msgstr "Прозвище"
+
+#: src/DataHelper/DataTypes.vala:56
+msgid "Birthday"
+msgstr "День Рождения"
+
+#: src/DataHelper/DataTypes.vala:57
+msgid "Notes"
+msgstr "Заметки"
+
+#: src/Application.vala:51
+msgid "Contacts"
+msgstr "Контакты"
