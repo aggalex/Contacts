@@ -207,8 +207,7 @@ namespace View {
             contents.pack_end (bottom_box, false, false, 0);
             contents.pack_end (separator, false, false, 0);
 
-            get_style_context ().add_class ("chop-bottom-end");
-            add (contents);
+            this.add (contents);
         }
 
         public void export () {

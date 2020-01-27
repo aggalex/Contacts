@@ -28,13 +28,7 @@ namespace View {
 
         public static void apply () {
             var css_provider = new Gtk.CssProvider ();
-            var css_data = @"$(Constants.DATADIR)/css/style.css";  // TODO
-            print (@"CSS_DATA: $css_data");
-            try {
-                css_provider.load_from_path (css_data);
-            } catch (Error e) {
-                stderr.printf ("Failed laoding css provider: " + e.message + "\n");
-            }
+            css_provider.load_from_resource ("com/github/aggalex/contacts/style.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
         }
 

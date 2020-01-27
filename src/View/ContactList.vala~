@@ -117,19 +117,14 @@ namespace View {
 
             var sidebar_box = new Gtk.Box (Orientation.VERTICAL, 0);
             sidebar_box.get_style_context ().add_class ("sidebar-background");
-            sidebar_box.get_style_context ().add_class ("chop-bottom-start");
             sidebar_box.pack_start (sidebar, true, true, 0);
-            // sidebar_box.pack_end (action_box, false, false, 0);
-            // sidebar_box.pack_end (separator, false, false, 0);
+            sidebar_box.pack_end (action_box, false, false, 0);
+            sidebar_box.pack_end (separator, false, false, 0);
 
             sidebar_revealer.transition_type = RevealerTransitionType.SLIDE_LEFT;
             sidebar_revealer.reveal_child = false;
             sidebar_revealer.add (sidebar_box);
             sidebar_revealer.show_all ();
-            sidebar_revealer.get_style_context ().add_class ("sidebar-background");
-            sidebar_revealer.get_style_context ().add_class ("chop-bottom-start");
-
-            get_style_context ().add_class ("chop-bottom-start");
 
             add1 (sidebar_revealer);
             add2 (contact_stack_box);

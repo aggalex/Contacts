@@ -13,8 +13,9 @@ add_project_arguments([
 )
 
 # Include the translations module
-message('Include the translations module')
+message('Include the gnome & translations modules')
 
+gnome = import('gnome')
 i18n = import('i18n')
 
 # Set our translation domain
@@ -57,9 +58,10 @@ foreach i : avatar_sizes
     )
 endforeach
 
-install_data(
-    'data/css/style.css',
-    install_dir: join_paths(get_option('datadir'), 'contacts', 'css')
+gresource = gnome.compile_resources(
+    'gresource',
+    join_paths('data', 'gresource.xml'),
+    source_dir: 'data'
 )
 
 config_data = configuration_data()
@@ -110,20 +112,20 @@ message ('Adds files to build')
 subdir('po')
 
 code_files = files(
-    'src/DataHelper/DataTypes.vala',
-    'src/DataHelper/Address.vala',
+    'lib/Data/DataTypes.vala',
+    'lib/Data/Address.vala',
 
-    'src/FileHelper/FileHelper.vala',
+    'lib/File/FileHelper.vala',
 
-    'src/FolksHelper/FolksLoader.vala',
+    'lib/Folks/FolksLoader.vala',
 
-    'src/JsonHelper/JsonParser.vala',
-    'src/JsonHelper/JsonBuilder.vala',
+    'lib/Json/JsonParser.vala',
+    'lib/Json/JsonBuilder.vala',
 
-    'src/QuotedPrintableHelper/QuotedPrintableParser.vala',
+    'lib/QuotedPrintable/QuotedPrintableParser.vala',
 
-    'src/VCardHelper/VCardBuilder.vala',
-    'src/VCardHelper/VCardParser.vala',
+    'lib/VCard/VCardBuilder.vala',
+    'lib/VCard/VCardParser.vala',
 
     'src/Model/ContactList.vala',
     'src/Model/Contact.vala',
@@ -160,8 +162,10 @@ message ('Defines executable')
 
 executable(
     meson.project_name(),
+    gresource,
     config_file,
     code_files,
     dependencies: dependencies,
+    vala_args: '-g',
     install: true
 )

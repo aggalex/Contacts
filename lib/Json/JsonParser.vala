@@ -31,6 +31,9 @@ namespace JsonHelper {
         public int year {get; set;}
 
         public Date? to_date () {
+            if (!Date.valid_dmy ((DateDay) day, (DateMonth) month, (DateYear) year))
+                return null;
+
             var date = Date ();
             date.set_dmy ((DateDay) day, month, (DateYear) year);
             return date;
@@ -124,7 +127,6 @@ namespace JsonHelper {
     public Contact? parse (string json, out Error? icon_error) throws Error
         requires (json != null)
     {
-        print (json + "\n");
 
         var parser = new Json.Parser ();
         parser.load_from_data (json);

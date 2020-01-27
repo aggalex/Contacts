@@ -90,16 +90,24 @@ namespace View.Widgets {
         construct {
             hscrollbar_policy = Gtk.PolicyType.NEVER;
             width_request = 200;
+
             listbox = new Gtk.ListBox ();
             listbox.activate_on_single_click = true;
             listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+            listbox.get_style_context ().add_class ("sidebar-background");
+            listbox.margin_top = 12;
 
-            add (listbox);
+            var wrapper = new Gtk.Grid ();
+            wrapper.add (listbox);
+            wrapper.get_style_context ().add_class ("sidebar-background");
+            add (wrapper);
 
             on_sidebar_changed ();
             handler.changed.connect (on_sidebar_changed);
 
             stack.compare_func = (old_child, new_child) => {
+                if (old_child is Welcome) return -1;
+                if (new_child is Welcome) return 1;
                 return strcmp ((old_child as Contact).name, (new_child as Contact).name);
             };
 

@@ -32,7 +32,7 @@ namespace View.Widgets {
         private List<Gtk.Entry> entries = new List<Gtk.Entry> ();
         private Gtk.Box entry_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         private Gtk.Button delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
-        private SimpleMenu type_list = new SimpleMenu (null);
+        private SimpleMenu type_list;
         private Gtk.Revealer entry_revealer = new Gtk.Revealer ();
 
         private Gtk.Box button_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -143,7 +143,8 @@ namespace View.Widgets {
             type_button.get_style_context ().add_class ("flat");
             type_button.get_style_context ().add_class ("bold");
             type_button.set_hexpand (false);
-            type_list.set_relative_to (type_button);
+
+            type_list = new SimpleMenu (type_button);
 
             foreach (var data_type in DataHelper.Type.ALL) {
                 type_list.append (data_type.to_string_translated ());

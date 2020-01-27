@@ -22,7 +22,7 @@
 namespace FileHelper {
 
     private string get_data_folder () throws Error {
-        var data_folder = Granite.Services.Paths.xdg_data_home_folder.get_path ();
+        var data_folder = Granite.Services.Paths.xdg_data_home_folder == null? "" : Granite.Services.Paths.xdg_data_home_folder.get_path ();
 
         if (!(data_folder.has_suffix ("Contacts"))) {
             var data_path = @"$(Environment.get_home_dir ())/.local/share/contacts";
@@ -61,8 +61,6 @@ namespace FileHelper {
 
     public void save_outside (string path, string data) throws IOError, Error {
         File file = File.new_for_path (path);
-
-        print (@"INSIDE SAVE: $path\n");
 
         FileOutputStream ostream = file.replace (null, true, FileCreateFlags.PRIVATE);
         ostream.write (data.data);

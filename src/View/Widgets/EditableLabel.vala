@@ -31,8 +31,8 @@ namespace View.Widgets {
 
         private Gtk.Label label = new Gtk.Label ("");
         private Gtk.Entry entry = new Gtk.Entry ();
-        private SimpleMenu type_list = new SimpleMenu (null);
         private Gtk.Button type_button = new Gtk.Button ();
+        private SimpleMenu type_list;
 
         public DataHelper.Type data_type {get; protected set;}
         public string text {
@@ -50,6 +50,8 @@ namespace View.Widgets {
 
         //Making the UI
         construct {
+            type_list = new SimpleMenu (type_button);
+
             var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
             delete_button.set_tooltip_text (_("Delete this entry"));
             delete_button.get_style_context ().add_class ("flat");
@@ -61,13 +63,10 @@ namespace View.Widgets {
 
             type_button.get_style_context ().add_class ("flat");
             type_button.get_style_context ().add_class ("bold");
-            type_list.set_relative_to (type_button);
             foreach (var data_type in DataHelper.Type.ALL)
                 type_list.append (data_type.to_string_translated ());
 
             type_button.clicked.connect (() => {
-                type_list.popup ();
-                type_list.show_all ();
                 SignalAggregator.INSTANCE.opened (this);
             });
 

@@ -41,15 +41,14 @@
 using Granite;
 using Granite.Widgets;
 using Gtk;
+using Gdk;
 
 using ViewModel;
 
 namespace View.Widgets {
     private class SidebarRow : Gtk.ListBoxRow {
 
-        public Avatar display_widget { get; private set; 
-            default = new Granite.Widgets.Avatar.from_file (Constants.DATADIR + "/avatars/32/contacts-avatar-default.svg", 32);
-        }
+        public Avatar display_widget { get; private set; }
 
         public string? header { get; set; }
 
@@ -84,6 +83,15 @@ namespace View.Widgets {
         }
 
         construct {
+            try {
+                display_widget = new Granite.Widgets.Avatar.from_pixbuf (new Pixbuf.from_resource_at_scale ("/com/github/aggalex/contacts/avatar32.svg", 32, -1, true));
+            } catch (Error e) {
+                critical (@"Failed loading 32px avatar icon: $(e.message)");
+            }
+
+            get_style_context ().add_class ("sidebar-background");
+            get_style_context ().add_class ("sidebar-row");
+
             title_label = new Gtk.Label (handler.name);
             title_label.ellipsize = Pango.EllipsizeMode.END;
             title_label.xalign = 0;

@@ -54,7 +54,7 @@ namespace View.Widgets {
         private int backup_month;
         private int backup_year;
 
-        public DataHelper.Type data_type {get; private set;}
+        public DataHelper.Type data_type {get; protected set;}
         public string text {
             owned get {
                 return extract_label_text ();
@@ -66,7 +66,7 @@ namespace View.Widgets {
         public EditableLabelDate (uint? day, uint? month, uint? year, DataHelper.Type label_text) {
             data_type = label_text;
 
-            if (day == null || month == null || year == null) {
+            if (day == null || month == null || year == null? true: !Date.valid_dmy ((DateDay) day, (DateMonth) month, (DateYear) year)) {
                 var now = new GLib.DateTime.now_local ();
                 now.get_ymd (out backup_year, out backup_month, out backup_day);
                 calendar.select_month (backup_month, backup_year-30);
@@ -94,6 +94,13 @@ namespace View.Widgets {
         }
 
         construct {
+            if (!Date.valid_dmy ((DateDay) calendar.day, (DateMonth) calendar.month, (DateYear) calendar.year)) {
+                var now = new GLib.DateTime.now_local ();
+                now.get_ymd (out backup_year, out backup_month, out backup_day);
+                calendar.select_month (backup_month, backup_year-30);
+                label.set_text (extract_label_text ());
+            }
+
             date_backup.set_dmy ((DateDay) calendar.day, calendar.month, (DateYear) calendar.year);
 
             var delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic", Gtk.IconSize.BUTTON);
