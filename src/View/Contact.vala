@@ -197,7 +197,7 @@ namespace View {
             scroll.show_all ();
 
             var separator_revealer = new Gtk.Revealer ();
-            separator_revealer.add (new Gtk.Separator (Gtk.Orientation.VERTICAL));
+            separator_revealer.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
             separator_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
             separator_revealer.show_all ();
             separator_revealer.reveal_child = false;
@@ -223,14 +223,6 @@ namespace View {
 
             int title_box_margin_top;
 
-            icon_button.size_allocate.connect (() => {
-                int icon_height = icon_button.get_allocated_height ();
-                int title_height = title_box.get_allocated_height ();
-                title_box.margin_top = (icon_height - title_height) >> 1;
-                title_box_margin_top = title_box.margin_top;
-                message (@"$title_box_margin_top, $(title_box.margin_top), $icon_height - $title_height");
-            });
-
             var popup = new IconPopup (icon_button);
             has_icon.connect ((has) => {
                 popup.can_delete = has;
@@ -253,6 +245,22 @@ namespace View {
                 return true;
             });
 
+            ValueAnimator title_box_vertical_animator;
+            icon_button.size_allocate.connect (() => {
+                int icon_height = icon_button.get_allocated_height ();
+                int title_height = title_box.get_allocated_height ();
+                title_box_margin_top = (icon_height - title_height) >> 1;
+                title_box.margin_top = title_box_margin_top;
+                message (@"$title_box_margin_top, $(title_box.margin_top), $icon_height - $title_height");
+
+                title_box_vertical_animator = new ValueAnimator (0.0, title_box_margin_top);
+                title_box_vertical_animator.value_changed.connect ((margin) => {
+                    message (@"$margin [$(title_box_vertical_animator.begining), $(title_box_vertical_animator.end)]");
+                    title_box.margin_top = !reverse? title_box_margin_top - (int) margin: (int) margin;
+                    return true;
+                });
+            });
+
             scroll.vadjustment.notify["value"].connect (() => {
                 if (scroll.vadjustment.value == 0.0 || has_small_title)
                     return;
@@ -261,8 +269,17 @@ namespace View {
 
                 name_label.is_small = true;
                 reverse = false;
-                title_box_horizontal_animator.start ();
-                title_box_vertical_animator.start ();
+
+                if (!title_box_horizontal_animator.running && !title_box_vertical_animator.running) {
+                    title_box_horizontal_animator.start ();
+                    title_box_vertical_animator.start ();
+                } else {
+                    title_box_horizontal_animator.stop ();
+                    title_box_vertical_animator.stop ();
+                    title_box.margin_top = 0;
+                    title_box.margin_start = 100;
+                }
+
                 icon_revealer.reveal_child = false;
                 separator_revealer.reveal_child = true;
                 has_small_title = true;
@@ -276,8 +293,17 @@ namespace View {
 
                 name_label.is_small = false;
                 reverse = true;
-                title_box_horizontal_animator.start ();
-                title_box_vertical_animator.start ();
+
+                if (!title_box_horizontal_animator.running && !title_box_vertical_animator.running) {
+                    title_box_horizontal_animator.start ();
+                    title_box_vertical_animator.start ();
+                } else {
+                    title_box_horizontal_animator.stop ();
+                    title_box_vertical_animator.stop ();
+                    title_box.margin_top = title_box_margin_top;
+                    title_box.margin_start = 100;
+                }
+
                 icon_revealer.reveal_child = true;
                 separator_revealer.reveal_child = false;
                 has_small_title = false;

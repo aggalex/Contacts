@@ -9,9 +9,9 @@ namespace ValueAnimation {
         public double end {get; construct;}
         public double current_value {get; private set;}
         public SpeedFunc speed_descriptor;
+        public bool running {get; private set; default = false;}
 
         private bool stop_signal = false;
-        private bool running = true;
         private uint i = 0;
 
         public signal bool value_changed (double @value);
