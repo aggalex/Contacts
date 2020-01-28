@@ -127,7 +127,7 @@ code_files = files(
     'lib/VCard/VCardBuilder.vala',
     'lib/VCard/VCardParser.vala',
 
-    'lib/ValueAnimator.vala',
+    'lib/ValueAnimator.vala'
 
     'src/Model/ContactList.vala',
     'src/Model/Contact.vala',

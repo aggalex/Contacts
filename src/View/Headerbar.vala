@@ -31,15 +31,32 @@ namespace View {
         private Gtk.HeaderBar mainbox_header = new Gtk.HeaderBar ();
         private Gtk.HeaderBar sidebar_header = new Gtk.HeaderBar ();
 
-        private Gtk.Button add_entry_button = new Gtk.Button.from_icon_name ("contact-new", Gtk.IconSize.LARGE_TOOLBAR);
+        private Gtk.Button add_entry_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         private Gtk.SearchEntry search = new Gtk.SearchEntry ();
+        private Gtk.Button import_button = new Gtk.Button.from_icon_name ("document-import-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        private Gtk.Button export_button = new Gtk.Button.from_icon_name ("document-export-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
 
         public signal void new_contact ();
+        public signal void import_vcard ();
+        public signal void import_system ();
+        public signal void export ();
 
         public SplitHeaderbar () {
             add_entry_button.set_tooltip_text (_("Create new contact"));
             add_entry_button.clicked.connect (() => {
                 new_contact ();
+            });
+
+            import_button.set_tooltip_text (_("Import contacts from a file"));
+            var import_menu = new SimpleMenu (import_button);
+            var vcard_button = import_menu.append ("From vcard file");
+            vcard_button.clicked.connect (() => import_vcard ());
+            var system_button = import_menu.append ("From system & online accounts");
+            system_button.clicked.connect (() => import_system ());
+
+            export_button.set_tooltip_text (_("Export all contacts to a file"));
+            export_button.clicked.connect (() => {
+                export ();
             });
 
             search.valign = Gtk.Align.CENTER;
@@ -59,7 +76,10 @@ namespace View {
             mainbox_header_context.add_class ("default-decoration");
             mainbox_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-            sidebar_header.pack_start (search);
+            sidebar_header.pack_start (add_entry_button);
+            sidebar_header.set_custom_title (search);
+            sidebar_header.pack_end (import_button);
+            sidebar_header.pack_end (export_button);
             sidebar_header.decoration_layout = "close:";
             sidebar_header.has_subtitle = false;
             sidebar_header.show_close_button = true;

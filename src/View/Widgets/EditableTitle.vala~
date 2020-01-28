@@ -34,15 +34,6 @@ namespace View.Widgets {
 
         private bool requires_name = false;
 
-        public bool is_small {
-            set {
-                if (value)
-                    label.get_style_context ().add_class ("scroll-offset");
-                else
-                    label.get_style_context ().remove_class ("scroll-offset");
-            }
-        }
-
         public string text {
             get {
                 return entry.get_text ();
@@ -81,7 +72,6 @@ namespace View.Widgets {
 
         construct {
             label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-            label.get_style_context ().add_class ("contact-title");
 
             label_button.set_tooltip_text (_("Edit the name"));
             label_button.get_style_context ().add_class ("flat");
@@ -134,7 +124,6 @@ namespace View.Widgets {
                 return true;
             });
 
-            this.halign = 0;
             this.show_all();
             this.set_visible_child_name ("label");
             this.set_transition_type (Gtk.StackTransitionType.CROSSFADE);

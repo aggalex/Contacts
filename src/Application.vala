@@ -47,6 +47,9 @@ namespace Contacts {
             headerbar.fix_style ();
             headerbar.changed_search.connect ((query) => contact_list.search (query));
             headerbar.new_contact.connect (() => contact_list.add_empty_contact ());
+            headerbar.import_vcard.connect (() => contact_list.import_vcard ());
+            headerbar.import_system.connect (() => contact_list.import_system ());
+            headerbar.export.connect (() => contact_list.export ());
             contact_list.bind_property ("position", headerbar, "position", GLib.SettingsBindFlags.BIDIRECTIONAL);
 
             Css.apply ();

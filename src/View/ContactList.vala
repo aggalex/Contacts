@@ -93,38 +93,23 @@ namespace View {
             separator.margin_start = 6;
             separator.margin_end = 6;
 
-            var export_button = new Gtk.Button.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
-            export_button.set_tooltip_text (_("Export all contacts to a file"));
-            export_button.get_style_context ().add_class (STYLE_CLASS_FLAT);
-            export_button.clicked.connect (export);
+            // var export_button = new Gtk.Button.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
+            // export_button.set_tooltip_text (_("Export all contacts to a file"));
+            // export_button.get_style_context ().add_class (STYLE_CLASS_FLAT);
+            // export_button.clicked.connect (export);
 
-            var import_button = new Gtk.Button.from_icon_name ("document-import", Gtk.IconSize.LARGE_TOOLBAR);
-            import_button.set_tooltip_text (_("Import contacts from a file"));
-            import_button.get_style_context ().add_class (STYLE_CLASS_FLAT);
+            // var import_button = new Gtk.Button.from_icon_name ("document-import", Gtk.IconSize.LARGE_TOOLBAR);
+            // import_button.set_tooltip_text (_("Import contacts from a file"));
+            // import_button.get_style_context ().add_class (STYLE_CLASS_FLAT);
 
-            var import_menu = new SimpleMenu (import_button);
-            var vcard_button = import_menu.append ("From vcard file");
-            vcard_button.clicked.connect (import_vcard);
-            var system_button = import_menu.append ("From system & online accounts");
-            system_button.clicked.connect (import_system);
-
-            var action_box = new Gtk.Box (Orientation.HORIZONTAL, 6);
-            action_box.margin = 6;
-            action_box.margin_top = 8;
-            action_box.margin_bottom = 8;
-            action_box.pack_start (import_button, true, true, 0);
-            action_box.pack_start (export_button, true, true, 0);
-
-            var sidebar_box = new Gtk.Box (Orientation.VERTICAL, 0);
-            sidebar_box.get_style_context ().add_class ("sidebar-background");
-            sidebar_box.get_style_context ().add_class ("chop-bottom-start");
-            sidebar_box.pack_start (sidebar, true, true, 0);
-            // sidebar_box.pack_end (action_box, false, false, 0);
-            // sidebar_box.pack_end (separator, false, false, 0);
+            var sidebar_wrapper = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            sidebar_wrapper.pack_start (sidebar, true, true, 0);
+            sidebar_wrapper.get_style_context ().add_class ("sidebar-background");
+            sidebar_wrapper.get_style_context ().add_class ("chop-bottom-start");
 
             sidebar_revealer.transition_type = RevealerTransitionType.SLIDE_LEFT;
             sidebar_revealer.reveal_child = false;
-            sidebar_revealer.add (sidebar_box);
+            sidebar_revealer.add (sidebar_wrapper);
             sidebar_revealer.show_all ();
             sidebar_revealer.get_style_context ().add_class ("sidebar-background");
             sidebar_revealer.get_style_context ().add_class ("chop-bottom-start");

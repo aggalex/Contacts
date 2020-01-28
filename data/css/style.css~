@@ -13,14 +13,7 @@
     background-color: @sidebarColor;
 }
 
-scrolledWindow.sidebar-background overshot.top {
-    background: linear-gradient(
-        @sidebarColor 0%,
-        alpha(@sidebarColor, 0) 50%
-    );
-}
-
-.sidebar-background > viewport {
+.sidebar-background>viewport {
     background-color: @sidebarColor;
 }
 
@@ -83,24 +76,4 @@ scrolledWindow.sidebar-background overshot.top {
     background-color: @bg_color;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-}
-
-@keyframes contact-title-smaller {
-    0% { font-size: xx-large; }
-    100% { font-size: x-large; }
-}
-
-@keyframes contact-title-bigger {
-    0% { font-size: x-large; }
-    100% { font-size: xx-large; }
-}
-
-.contact-title.scroll-offset {
-    animation: contact-title-smaller 250ms;
-    font-size: x-large;
-}
-
-.contact-title:not(.scroll-offset) {
-    animation: contact-title-bigger 250ms;
-    font-size: xx-large;
 }

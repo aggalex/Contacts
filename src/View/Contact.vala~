@@ -27,7 +27,6 @@ using Gdk;
 using View.Widgets;
 using ViewModel;
 using DataHelper;
-using ValueAnimation;
 
 public errordomain FileChooserError {
     USER_CANCELED
@@ -35,7 +34,7 @@ public errordomain FileChooserError {
 
 namespace View {
 
-    public class Contact : Gtk.Overlay {
+    public class Contact : Gtk.ScrolledWindow {
 
         private unowned ContactHandler _handler;
         public unowned ContactHandler handler {
@@ -54,7 +53,7 @@ namespace View {
         private signal void has_icon (bool has);
         private signal void make_bottom_section_unavailable (bool not_available);
 
-        private Granite.Widgets.Avatar icon;
+        private Granite.Widgets.Avatar icon; // = new Granite.Widgets.Avatar.from_file (Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg", 64);
         private bool icon_is_set = false;
 
         private EditableTitle name_label = new EditableTitle ("");
@@ -79,7 +78,6 @@ namespace View {
         private InfoSectionMisc misc_info = new InfoSectionMisc (_("Miscellaneous"));
 
         private string title { get; set; }
-        private bool has_small_title = false;
 
         public new string name {
             get {
@@ -146,10 +144,29 @@ namespace View {
                 critical (@"Failed loading 64px avatar icon: $(e.message)");
             }
 
+            hscrollbar_policy = Gtk.PolicyType.NEVER;
+
+            var icon_button = new Gtk.Button ();
+            icon_button.set_tooltip_text (_("Change the icon"));
+            icon_button.get_style_context ().add_class ("flat");
+            icon_button.add (icon);
+
+            var popup = new IconPopup (icon_button);
+            has_icon.connect ((has) => {
+                popup.can_delete = has;
+                icon_is_set = has;
+            });
+
+            popup.change_image.connect (() => {
+                try {
+                    get_icon_from_file ();
+                } catch {
+                    print ("You canceled the operation\n");
+                }
+            });
+
             var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-            title_box.margin = 6;
-            title_box.margin_start = 100;
-            // title_box.pack_start (icon_button, false, false, 0);
+            title_box.pack_start (icon_button, false, false, 0);
             title_box.pack_start (name_label, false, false, 0);
 
             var flow_box = new Gtk.FlowBox ();
@@ -185,106 +202,13 @@ namespace View {
 
             var contents = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
             contents.margin = 12;
-            // contents.pack_start (title_box, false, false, 0);
+            contents.pack_start (title_box, false, false, 0);
             contents.pack_start (flow_box, false, false, 0);
             contents.pack_end (bottom_box, false, false, 0);
             contents.pack_end (separator, false, false, 0);
 
-            var scroll = new Gtk.ScrolledWindow (null, null);
-            scroll.get_style_context ().add_class ("chop-bottom-end");
-            scroll.hscrollbar_policy = Gtk.PolicyType.NEVER;
-            scroll.add (contents);
-            scroll.show_all ();
-
-            var separator_revealer = new Gtk.Revealer ();
-            separator_revealer.add (new Gtk.Separator (Gtk.Orientation.VERTICAL));
-            separator_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-            separator_revealer.show_all ();
-            separator_revealer.reveal_child = false;
-
-            var context = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            context.pack_start (title_box, false, false, 0);
-            context.pack_start (separator_revealer, false, false, 0);
-            context.pack_end (scroll, true, true, 0);
-
-            var icon_button = new Gtk.Button ();
-            icon_button.set_tooltip_text (_("Change the icon"));
-            icon_button.get_style_context ().add_class ("flat");
-            icon_button.add (icon);
-            icon_button.margin_start = 12;
-
-            var icon_revealer = new Gtk.Revealer ();
-            icon_revealer.add (icon_button);
-            icon_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-            icon_revealer.show_all ();
-            icon_revealer.reveal_child = true;
-            icon_revealer.halign = Gtk.Align.START;
-            icon_revealer.valign = Gtk.Align.START;
-
-            int title_box_margin_top;
-
-            icon_button.size_allocate.connect (() => {
-                int icon_height = icon_button.get_allocated_height ();
-                int title_height = title_box.get_allocated_height ();
-                title_box.margin_top = (icon_height - title_height) >> 1;
-                title_box_margin_top = title_box.margin_top;
-                message (@"$title_box_margin_top, $(title_box.margin_top), $icon_height - $title_height");
-            });
-
-            var popup = new IconPopup (icon_button);
-            has_icon.connect ((has) => {
-                popup.can_delete = has;
-                icon_is_set = has;
-            });
-
-            popup.change_image.connect (() => {
-                try {
-                    get_icon_from_file ();
-                } catch {
-                    print ("You canceled the operation\n");
-                }
-            });
-
-            var reverse = false;
-
-            var title_box_horizontal_animator = new ValueAnimator (12.0, 100.0);
-            title_box_horizontal_animator.value_changed.connect ((margin) => {
-                title_box.margin_start = !reverse? 112 - (int) margin: (int) margin;
-                return true;
-            });
-
-            scroll.vadjustment.notify["value"].connect (() => {
-                if (scroll.vadjustment.value == 0.0 || has_small_title)
-                    return;
-
-                message ("INIT");
-
-                name_label.is_small = true;
-                reverse = false;
-                title_box_horizontal_animator.start ();
-                title_box_vertical_animator.start ();
-                icon_revealer.reveal_child = false;
-                separator_revealer.reveal_child = true;
-                has_small_title = true;
-            });
-
-            scroll.edge_reached.connect ((position) => {
-                if (position != Gtk.PositionType.TOP)
-                    return;
-
-                message ("INIT2");
-
-                name_label.is_small = false;
-                reverse = true;
-                title_box_horizontal_animator.start ();
-                title_box_vertical_animator.start ();
-                icon_revealer.reveal_child = true;
-                separator_revealer.reveal_child = false;
-                has_small_title = false;
-            });
-
-            add (context);
-            add_overlay (icon_revealer);
+            get_style_context ().add_class ("chop-bottom-end");
+            add (contents);
         }
 
         public void export () {
