@@ -32,10 +32,9 @@ namespace View {
         private Gtk.HeaderBar sidebar_header = new Gtk.HeaderBar ();
 
         private Gtk.Button add_entry_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        private Gtk.Button search_button = new Gtk.Button.from_icon_name ("system-search-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+        private Gtk.SearchEntry search = new Gtk.SearchEntry ();
         private Gtk.Button import_button = new Gtk.Button.from_icon_name ("document-import-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         private Gtk.Button export_button = new Gtk.Button.from_icon_name ("document-export-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-        private Gtk.SearchEntry search = new Gtk.SearchEntry ();
 
         public signal void new_contact ();
         public signal void import_vcard ();
@@ -62,7 +61,6 @@ namespace View {
 
             search.valign = Gtk.Align.CENTER;
             search.set_placeholder_text (_("Search Contacts"));
-            search_button.set_tooltip_text (_("Search Contacts"));
 
             search.changed.connect(() => changed_search (search.get_text()));
 
@@ -78,23 +76,10 @@ namespace View {
             mainbox_header_context.add_class ("default-decoration");
             mainbox_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-            var icon_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            icon_box.pack_end (add_entry_button, false, false, 0);
-            icon_box.pack_end (search_button, false, false, 0);
-            icon_box.pack_end (import_button, false, false, 0);
-            icon_box.pack_end (export_button, false, false, 0);
-
-            var sidebar_header_stack = new Gtk.Stack ();
-            sidebar_header_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            sidebar_header_stack.add (icon_box);
-            sidebar_header_stack.add (search);
-            sidebar_header_stack.hexpand = true;
-            sidebar_header_stack.set_size_request (200, -1);
-
-            search_button.clicked.connect (() => sidebar_header_stack.visible_child = search);
-            search.activate.connect (() => sidebar_header_stack.visible_child = icon_box);
-
-            sidebar_header.set_custom_title (sidebar_header_stack);
+            sidebar_header.pack_start (add_entry_button);
+            sidebar_header.set_custom_title (search);
+            sidebar_header.pack_end (import_button);
+            sidebar_header.pack_end (export_button);
             sidebar_header.decoration_layout = "close:";
             sidebar_header.has_subtitle = false;
             sidebar_header.show_close_button = true;
@@ -103,8 +88,8 @@ namespace View {
             mainbox_header.decoration_layout = ":maximize";
             mainbox_header.show_close_button = true;
 
-            pack1 (sidebar_header, false, false);
-            pack2 (mainbox_header, true, false);
+            this.pack1 (sidebar_header, false, false);
+            this.pack2 (mainbox_header, true, false);
 
             unowned Gtk.StyleContext this_context = get_style_context ();
             this_context.add_class ("titlebar-paned");

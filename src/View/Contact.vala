@@ -148,6 +148,7 @@ namespace View {
 
             var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
             title_box.margin = 6;
+            title_box.margin_top = 19;
             title_box.margin_start = 100;
             // title_box.pack_start (icon_button, false, false, 0);
             title_box.pack_start (name_label, false, false, 0);

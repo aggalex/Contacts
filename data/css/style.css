@@ -32,7 +32,7 @@ scrolledWindow.sidebar-background overshot.top {
 
 .sidebar-row:selected,
 .sidebar-row:hover:selected {
-    background-color: shade (@colorAccent, 0.70);
+    background-color: shade (@colorAccent, 0.92);
     color: #fff;
 }
 
