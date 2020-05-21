@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.aggalex.contacts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-21 18:52+0300\n"
-"PO-Revision-Date: 2019-07-31 02:36+0300\n"
+"PO-Revision-Date: 2020-05-21 03:19+0300\n"
 "Last-Translator: Igor <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <igor_ck@outlook.com>\n"
 "Language: uk\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 2.3\n"
 
 #: src/View/ContactList.vala:50
 msgid "No Contacts"
@@ -62,7 +62,7 @@ msgstr "Файл контактів VCard"
 
 #: src/View/ContactList.vala:158 src/View/Contact.vala:197
 msgid "Where to save exported file"
-msgstr "Куди слід зберегти експортований файл?"
+msgstr "Куди зберегти експортований файл"
 
 #: src/View/Headerbar.vala:39
 msgid "Create new contact"
@@ -76,7 +76,7 @@ msgstr "Пошук контактів"
 #: src/View/Widgets/EditableLabel.vala:52
 #: src/View/Widgets/EditableLabelSegmented.vala:109
 msgid "Delete this entry"
-msgstr "Вилучити цю подробицю"
+msgstr "Видалити цю подробицю"
 
 #: src/View/Widgets/EditableLabelDate.vala:92
 #: src/View/Widgets/EditableLabel.vala:57
@@ -84,11 +84,11 @@ msgstr "Вилучити цю подробицю"
 #: src/View/Widgets/EditableLabelNoType.vala:57
 #: src/View/Widgets/EditableLabelSegmented.vala:113
 msgid "Edit this entry"
-msgstr "Редагувати цю подробицю"
+msgstr "Змінити цю подробицю"
 
 #: src/View/Widgets/EditableTitle.vala:58
 msgid "Edit the name"
-msgstr "Редагувати ім'я"
+msgstr "Змінити ім'я"
 
 #: src/View/Widgets/InfoSection.vala:70
 msgid "Add a new empty entry"
@@ -100,7 +100,7 @@ msgstr "Вибрати з файлу..."
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"
-msgstr "Вилучити"
+msgstr "Видалити"
 
 #: src/View/Contact.vala:58
 msgid "Phones"
@@ -112,7 +112,7 @@ msgstr "Електронна пошта"
 
 #: src/View/Contact.vala:60
 msgid "Addresses"
-msgstr "Адреса"
+msgstr "Адреси"
 
 #: src/View/Contact.vala:61
 msgid "Street"
@@ -128,7 +128,7 @@ msgstr "Область"
 
 #: src/View/Contact.vala:64
 msgid "Zip/Postal Code"
-msgstr "Поштовий код"
+msgstr "Поштовий індекс"
 
 #: src/View/Contact.vala:65
 msgid "Country"
@@ -164,11 +164,11 @@ msgstr "Змінити піктограму"
 
 #: src/View/Contact.vala:166
 msgid "Delete Contact"
-msgstr "Вилучити контакт"
+msgstr "Видалити контакт"
 
 #: src/View/Contact.vala:167
 msgid "Delete this contact permanently"
-msgstr "Вилучити цей контакт остаточно"
+msgstr "Видалити цей контакт остаточно"
 
 #: src/View/Contact.vala:171
 msgid "Export"
@@ -180,7 +180,7 @@ msgstr "Експортувати цей контакт до файлу"
 
 #: src/View/Contact.vala:226
 msgid "Choose an image"
-msgstr "Оберіть світлину"
+msgstr "Виберіть світлину"
 
 #: src/DataHelper/DataTypes.vala:51
 msgid "Home"
