@@ -1,0 +1,213 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.aggalex.contacts package.
+# André Barata <andretiagob@protonmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.aggalex.contacts\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-21 18:52+0300\n"
+"PO-Revision-Date: 2020-08-20 14:02+0100\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.1\n"
+"Last-Translator: André Barata <andretiagob@protonmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: pt\n"
+
+#: src/View/ContactList.vala:50
+msgid "No Contacts"
+msgstr "Nenhum Contacto"
+
+#: src/View/ContactList.vala:50
+msgid "Your contact list is empty."
+msgstr "A sua lista de contactos está vazia."
+
+#: src/View/ContactList.vala:51
+msgid "New Contact"
+msgstr "Novo Contacto"
+
+#: src/View/ContactList.vala:51
+msgid "Create a new contact"
+msgstr "Criar um novo contacto"
+
+#: src/View/ContactList.vala:52
+msgid "Import Contacts"
+msgstr "Importar Contactos"
+
+#: src/View/ContactList.vala:52
+msgid "Import contacts from external file"
+msgstr "Importar contactos de um ficheiro externo"
+
+#: src/View/ContactList.vala:84
+msgid "Export all contacts to a file"
+msgstr "Exportar todos os contactos para um ficheiro"
+
+#: src/View/ContactList.vala:89
+msgid "Import contacts from a file"
+msgstr "Importar contactos de um ficheiro"
+
+#: src/View/ContactList.vala:135
+msgid "Select the contact file to import"
+msgstr "Selecione o ficheiro do contacto a importar"
+
+#: src/View/ContactList.vala:143 src/View/ContactList.vala:166
+msgid "VCard contact file"
+msgstr "Ficheiro de contacto VCard"
+
+#: src/View/ContactList.vala:158 src/View/Contact.vala:197
+msgid "Where to save exported file"
+msgstr "Onde gravar o ficheiro exportado"
+
+#: src/View/Headerbar.vala:39
+msgid "Create new contact"
+msgstr "Criar novo contacto"
+
+#: src/View/Headerbar.vala:53
+msgid "Search Contacts"
+msgstr "Procurar Contactos"
+
+#: src/View/Widgets/EditableLabelDate.vala:88
+#: src/View/Widgets/EditableLabel.vala:52
+#: src/View/Widgets/EditableLabelSegmented.vala:109
+msgid "Delete this entry"
+msgstr "Apagar esta entrada"
+
+#: src/View/Widgets/EditableLabelDate.vala:92
+#: src/View/Widgets/EditableLabel.vala:57
+#: src/View/Widgets/EditableLabelNoType.vala:53
+#: src/View/Widgets/EditableLabelNoType.vala:57
+#: src/View/Widgets/EditableLabelSegmented.vala:113
+msgid "Edit this entry"
+msgstr "Editar esta entrada"
+
+#: src/View/Widgets/EditableTitle.vala:58
+msgid "Edit the name"
+msgstr "Editar o nome"
+
+#: src/View/Widgets/InfoSection.vala:70
+msgid "Add a new empty entry"
+msgstr "Adicionar uma nova entrada vazia"
+
+#: src/View/Widgets/IconPopup.vala:51
+msgid "Set from File..."
+msgstr "Definir a partir do ficheiro..."
+
+#: src/View/Widgets/IconPopup.vala:58
+msgid "Delete"
+msgstr "Apagar"
+
+#: src/View/Contact.vala:58
+msgid "Phones"
+msgstr "Contactos"
+
+#: src/View/Contact.vala:59
+msgid "Emails"
+msgstr "Emails"
+
+#: src/View/Contact.vala:60
+msgid "Addresses"
+msgstr "Endereços"
+
+#: src/View/Contact.vala:61
+msgid "Street"
+msgstr "Rua"
+
+#: src/View/Contact.vala:62
+msgid "City"
+msgstr "Cidade"
+
+#: src/View/Contact.vala:63
+msgid "State/Province"
+msgstr "Distrito/Província"
+
+#: src/View/Contact.vala:64
+msgid "Zip/Postal Code"
+msgstr "Código Postal"
+
+#: src/View/Contact.vala:65
+msgid "Country"
+msgstr "País"
+
+#: src/View/Contact.vala:68
+msgid "$0, "
+msgstr ""
+
+#: src/View/Contact.vala:69
+msgid "$1, "
+msgstr ""
+
+#: src/View/Contact.vala:70
+msgid "$2, "
+msgstr ""
+
+#: src/View/Contact.vala:71
+msgid "$3, "
+msgstr ""
+
+#: src/View/Contact.vala:72
+msgid "$4"
+msgstr ""
+
+#: src/View/Contact.vala:74
+msgid "Miscellaneous"
+msgstr "Diversos"
+
+#: src/View/Contact.vala:134
+msgid "Change the icon"
+msgstr "Alterar o ícone"
+
+#: src/View/Contact.vala:166
+msgid "Delete Contact"
+msgstr "Apagar Contacto"
+
+#: src/View/Contact.vala:167
+msgid "Delete this contact permanently"
+msgstr "Apagar este contacto permanentemente"
+
+#: src/View/Contact.vala:171
+msgid "Export"
+msgstr "Exportar"
+
+#: src/View/Contact.vala:172
+msgid "Export this contact to a file"
+msgstr "Exportar este contacto para um ficheiro"
+
+#: src/View/Contact.vala:226
+msgid "Choose an image"
+msgstr "Escolha uma imagem"
+
+#: src/DataHelper/DataTypes.vala:51
+msgid "Home"
+msgstr "Casa"
+
+#: src/DataHelper/DataTypes.vala:52
+msgid "Work"
+msgstr "Trabalho"
+
+#: src/DataHelper/DataTypes.vala:53
+msgid "Other"
+msgstr "Outro"
+
+#: src/DataHelper/DataTypes.vala:54
+msgid "Website"
+msgstr "Website"
+
+#: src/DataHelper/DataTypes.vala:55
+msgid "Nickname"
+msgstr "Alcunha"
+
+#: src/DataHelper/DataTypes.vala:56
+msgid "Birthday"
+msgstr "Data de Nascimento"
+
+#: src/DataHelper/DataTypes.vala:57
+msgid "Notes"
+msgstr "Notas"
+
+#: src/Application.vala:51
+msgid "Contacts"
+msgstr "Contactos"
