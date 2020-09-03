@@ -60,7 +60,7 @@ msgstr "Ficheiro de contacto VCard"
 
 #: src/View/ContactList.vala:158 src/View/Contact.vala:197
 msgid "Where to save exported file"
-msgstr "Onde gravar o ficheiro exportado"
+msgstr "Onde guardar o ficheiro exportado"
 
 #: src/View/Headerbar.vala:39
 msgid "Create new contact"
