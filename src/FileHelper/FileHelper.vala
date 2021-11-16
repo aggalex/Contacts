@@ -22,17 +22,11 @@
 namespace FileHelper {
 
     private string get_data_folder () throws Error {
-        var data_folder = Granite.Services.Paths.xdg_data_home_folder.get_path ();
-
-        if (!(data_folder.has_suffix ("Contacts"))) {
-            var data_path = @"$(Environment.get_home_dir ())/.local/share/contacts";
-            if (!(FileUtils.test (data_path, FileTest.IS_DIR)))
-                File.new_for_path (data_path).make_directory ();
-            Granite.Services.Paths.initialize ("Contacts", data_path);
-            data_folder = Granite.Services.Paths.xdg_data_home_folder.get_path ();
+        var got = Environment.get_user_data_dir();
+        if (got == "") {
+            got = @"$(Environment.get_home_dir())/.local/share";
         }
-
-        return data_folder + "/contacts";
+        return got + "/contacts";
     }
 
     private string get_file_path (string filename, string path_suffix) throws Error{

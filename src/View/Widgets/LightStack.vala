@@ -125,7 +125,7 @@ namespace View.Widgets {
                 Idle.add((owned) callback);
                 return true;
             };
-            new Thread<bool> ("garbage-handling-thread", action);
+            new Thread<bool> ("garbage-handling-thread", (owned) action);
 
             yield;
         }

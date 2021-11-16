@@ -26,11 +26,11 @@ using View;
 using ViewModel;
 
 namespace Contacts {
-    public class Application : Granite.Application {
+    public class Application : Gtk.Application {
 
         public Application () {
             Object(
-                application_id: "com.github.aggalex.Contacts", 
+                application_id: "com.github.aggalex.Contacts",
                 flags: ApplicationFlags.FLAGS_NONE
             );
         }

@@ -100,7 +100,11 @@ namespace View.Widgets {
             handler.changed.connect (on_sidebar_changed);
 
             stack.compare_func = (old_child, new_child) => {
-                return strcmp ((old_child as Contact).name, (new_child as Contact).name);
+                var old_contact = old_child as Contact;
+                var new_contact = new_child as Contact;
+                var old_name = old_contact == null ? "" : old_contact.name;
+                var new_name = new_contact == null ? "" : new_contact.name;
+                return strcmp (old_name, new_name);
             };
 
             listbox.row_selected.connect_after ((row) => {

@@ -27,10 +27,8 @@ namespace VCardHelper {
 
     public delegate void ContactActions (Contact contact);
 
-    public async void parse (string path, out Error? icon_error, ContactActions actions) throws Error, IOError {
-        icon_error = null;
-
-        var loop = new MainLoop ();
+    public async Error? parse (string path, ContactActions actions) throws Error, IOError {
+        Error? icon_error = null;
 
         File file = File.new_for_path (path);
         var dis = new DataInputStream (file.read ());
@@ -49,13 +47,14 @@ namespace VCardHelper {
                 line = parse_quoted_printable_line (line);
                 line = line.strip ();
                 if (line == "END:VCARD") break;
-                set_contact_info(line, contact, ref icon_error);
+                set_contact_info(line, contact, out icon_error);
             }
 
             if (contact.name == "") continue;
 
             actions (contact);
         }
+        return icon_error;
     }
 
     private DataHelper.Type parse_type (string line) {
@@ -78,7 +77,8 @@ namespace VCardHelper {
         return type;
     }
 
-    private void set_contact_info (string line, Contact contact, ref Error? icon_error) {
+    private void set_contact_info (string line, Contact contact, out Error? icon_error) {
+        icon_error = null;
         if (line.has_prefix ("FN")){
 
             var needle = parse_needle (line);

@@ -130,8 +130,8 @@ namespace View.Widgets {
             entry_revealer.set_reveal_child (true);
         }
 
-        protected ListIterator<Widget> iterator () {
-            return new ListIterator<Widget> (list_box.get_children ());
+        protected ListIterator<unowned Widget> iterator () {
+            return new ListIterator<unowned Widget> (list_box.get_children ());
         }
 
         protected virtual void handler_new_entry (EditableWidget widget) {

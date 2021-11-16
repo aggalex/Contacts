@@ -160,10 +160,9 @@ namespace ViewModel {
                 changed ();
             }, (obj, res) => {
                 try {
-                    Error e;
-                    VCardHelper.parse.end (res, out e);
-                    if (e != null)
-                        contact_error (new IconLoadingError.COULD_NOT_LOAD (@"Failed loading contact icons: $(e.message)"));
+                    var got = VCardHelper.parse.end (res);
+                    if (got != null)
+                        contact_error (new IconLoadingError.COULD_NOT_LOAD (@"Failed loading contact icons: $(got.message)"));
                 } catch (Error err) {
                     contact_error (err);
                 }
