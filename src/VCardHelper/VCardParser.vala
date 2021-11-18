@@ -43,11 +43,11 @@ namespace VCardHelper {
 
             var contact = new Contact ("");
 
-            while ((line = dis.read_line_utf8(null)) != null){
+            while ((line = dis.read_line_utf8 (null)) != null) {
                 line = parse_quoted_printable_line (line);
                 line = line.strip ();
                 if (line == "END:VCARD") break;
-                set_contact_info(line, contact, out icon_error);
+                set_contact_info (line, contact, out icon_error);
             }
 
             if (contact.name == "") continue;
@@ -59,7 +59,7 @@ namespace VCardHelper {
 
     private DataHelper.Type parse_type (string line) {
         var type_start = line.up ().index_of ("TYPE=");
-        var type_needle = line.slice (type_start+5, type_start+9).compress ();
+        var type_needle = line.slice (type_start + 5, type_start + 9).compress ();
         DataHelper.Type type = DataHelper.Type.DEFAULT;
 
         switch (type_needle) {
@@ -79,7 +79,7 @@ namespace VCardHelper {
 
     private void set_contact_info (string line, Contact contact, out Error? icon_error) {
         icon_error = null;
-        if (line.has_prefix ("FN")){
+        if (line.has_prefix ("FN")) {
 
             var needle = parse_needle (line);
             assert (needle != null);
@@ -228,8 +228,8 @@ namespace VCardHelper {
         int start = 0;
         do {
             start = line.last_index_of_char (':', start);
-        } while (line[start-1] == '\\');
-        string needle = line.slice (start+1, line.length).compress ();
+        } while (line[start - 1] == '\\');
+        string needle = line.slice (start + 1, line.length).compress ();
 
         return needle;
     }

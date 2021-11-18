@@ -92,8 +92,8 @@ msgid "Add a new empty entry"
 msgstr "Voeg een nieuwe lege invoer toe"
 
 #: src/View/Widgets/IconPopup.vala:51
-msgid "Set from File..."
-msgstr "Stel in van Bestand..."
+msgid "Set from File…"
+msgstr "Stel in van Bestand…"
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"

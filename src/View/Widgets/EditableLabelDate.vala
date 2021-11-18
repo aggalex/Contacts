@@ -69,7 +69,7 @@ namespace View.Widgets {
             if (day == null || month == null || year == null) {
                 var now = new GLib.DateTime.now_local ();
                 now.get_ymd (out backup_year, out backup_month, out backup_day);
-                calendar.select_month (backup_month, backup_year-30);
+                calendar.select_month (backup_month, backup_year - 30);
                 label.set_text (extract_label_text ());
             } else {
                 backup_day = (int) day;
@@ -160,7 +160,7 @@ namespace View.Widgets {
                 return true;
             });
 
-            calendar.focus_out_event.connect (() => {close_calendar ();}); 
+            calendar.focus_out_event.connect (() => {close_calendar ();});
 
             SignalAggregator.INSTANCE.opened.connect ((widget) => {
                 if (widget != this) {
@@ -168,7 +168,7 @@ namespace View.Widgets {
                 }
             });
 
-            this.show_all();
+            this.show_all ();
             this.set_visible_child_name ("label");
             this.set_homogeneous (false);
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);

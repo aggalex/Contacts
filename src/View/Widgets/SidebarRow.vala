@@ -47,8 +47,10 @@ using ViewModel;
 namespace View.Widgets {
     private class SidebarRow : Gtk.ListBoxRow {
 
-        public Avatar display_widget { get; private set; 
-            default = new Granite.Widgets.Avatar.from_file (Constants.DATADIR + "/avatars/32/contacts-avatar-default.svg", 32);
+        public Avatar display_widget { get; private set;
+            default = new Granite.Widgets.Avatar.from_file (
+                Constants.DATADIR + "/avatars/32/contacts-avatar-default.svg", 32
+            );
         }
 
         public string? header { get; set; }

@@ -96,10 +96,11 @@ namespace View.Widgets {
 
             if (can_write) handler_new_entry (entry);
 
-            if (index == null) 
+            if (index == null) {
                 index = population++;
-            else
+            } else {
                 population++;
+            }
 
             entry.changed.connect (() => {
                 if (can_write)

@@ -92,7 +92,7 @@ msgid "Add a new empty entry"
 msgstr "Ajouter une nouvelle entrée vide"
 
 #: src/View/Widgets/IconPopup.vala:51
-msgid "Set from File..."
+msgid "Set from File…"
 msgstr "Définir depuis un fichier…"
 
 #: src/View/Widgets/IconPopup.vala:58

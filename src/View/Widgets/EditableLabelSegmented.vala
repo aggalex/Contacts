@@ -71,7 +71,12 @@ namespace View.Widgets {
                             var data = entries.nth_data (int.parse (occurences[1])).get_text ();
                             if (data != "")
                                 try {
-                                    section = format_string.replace ("$" + occurences[1], regex.replace (occurences[1], occurences[1].length, 0, data));
+                                    section = format_string.replace (
+                                        "$" + occurences[1],
+                                        regex.replace (
+                                            occurences[1], occurences[1].length, 0, data
+                                        )
+                                    );
                                 } catch (RegexError e) {
                                     assert_not_reached ();
                                 }
@@ -84,7 +89,7 @@ namespace View.Widgets {
         }
 
         public EditableLabelSegmented (string[]? text_array, string[] entry_names, DataHelper.Type type) {
-            for (int i = 0; i<entry_names.length; i++) {
+            for (int i = 0; i < entry_names.length; i++) {
                 var entry = new Gtk.Entry ();
                 entry.text = text_array [i];
                 entry.set_placeholder_text (entry_names[i]);
@@ -222,7 +227,7 @@ namespace View.Widgets {
             });
 
             set_label_text ();
-            this.show_all();
+            this.show_all ();
             this.set_visible_child_name ("label");
             this.set_homogeneous (false);
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
@@ -269,8 +274,8 @@ namespace View.Widgets {
                     if (text.str.index_of_char (' ') < 0) break;
                     changed = true;
                     j = j - text.str.index_of_char (' ') - 1;
-                    text.erase (0, text.str.index_of_char (' ')+1);
-                } while (text.str.index_of_char (' ')+1 < j);
+                    text.erase (0, text.str.index_of_char (' ') + 1);
+                } while (text.str.index_of_char (' ') + 1 < j);
                 if (!changed) break;
             }
             return i;

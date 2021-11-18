@@ -231,7 +231,7 @@ namespace View {
                 return;
             }
 
-            var indexes = handler.search (needle); 
+            var indexes = handler.search (needle);
 
             if (indexes.length () == 0) {
                 sidebar.hide_all_rows ();
@@ -245,6 +245,5 @@ namespace View {
             foreach (var index in indexes)
                 sidebar.show_row (index);
         }
- 
     }
 }

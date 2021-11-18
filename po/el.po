@@ -92,8 +92,8 @@ msgid "Add a new empty entry"
 msgstr "Προσθήκη νέας κενης καταχώρισης"
 
 #: src/View/Widgets/IconPopup.vala:51
-msgid "Set from File..."
-msgstr "Ορισμός από αρχείο..."
+msgid "Set from File…"
+msgstr "Ορισμός από αρχείο…"
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"

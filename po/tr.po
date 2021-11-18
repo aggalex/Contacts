@@ -93,8 +93,8 @@ msgid "Add a new empty entry"
 msgstr "Boş bir girdi ekle"
 
 #: src/View/Widgets/IconPopup.vala:51
-msgid "Set from File..."
-msgstr "Bir Dosyadan Ayarla..."
+msgid "Set from File…"
+msgstr "Bir Dosyadan Ayarla…"
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"

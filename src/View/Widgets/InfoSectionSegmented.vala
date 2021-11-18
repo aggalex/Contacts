@@ -36,7 +36,7 @@ namespace View.Widgets {
         public HandlerSetFunc change;
     }
 
-    public class InfoSectionSegmented : InfoSection{
+    public class InfoSectionSegmented : InfoSection {
 
         internal new HandlerInterfaceSegmented handler = new HandlerInterfaceSegmented ();
 

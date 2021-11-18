@@ -52,7 +52,10 @@ namespace View {
         private signal void has_icon (bool has);
         private signal void make_bottom_section_unavailable (bool not_available);
 
-        private Granite.Widgets.Avatar icon = new Granite.Widgets.Avatar.from_file (Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg", 64);
+        private Granite.Widgets.Avatar icon =
+            new Granite.Widgets.Avatar.from_file (
+                Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg", 64
+            );
         private bool icon_is_set = false;
 
         private EditableTitle name_label = new EditableTitle ("");
@@ -117,10 +120,16 @@ namespace View {
                 misc_info.new_entry_nickname (nickname);
 
             if (handler.birthday != null? handler.birthday.valid (): false)
-                misc_info.new_entry_birthday (handler.birthday.get_day (), handler.birthday.get_month (), handler.birthday.get_year ());
+                misc_info.new_entry_birthday (
+                    handler.birthday.get_day (), handler.birthday.get_month (),
+                    handler.birthday.get_year ()
+                );
 
             if (handler.anniversary != null? handler.anniversary.valid (): false)
-                misc_info.new_entry_anniversary (handler.anniversary.get_day (), handler.anniversary.get_month (), handler.anniversary.get_year ());
+                misc_info.new_entry_anniversary (
+                    handler.anniversary.get_day (), handler.anniversary.get_month (),
+                    handler.anniversary.get_year ()
+                );
 
             if (handler.icon != null) {
                 icon.pixbuf = handler.icon;
@@ -176,7 +185,7 @@ namespace View {
             var delete_button = new Gtk.Button.with_label (_("Delete Contact"));
             delete_button.set_tooltip_text (_("Delete this contact permanently"));
             delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            delete_button.clicked.connect (() => delete_contact());
+            delete_button.clicked.connect (() => delete_contact ());
 
             var export_button = new Gtk.Button.with_label (_("Export"));
             export_button.set_tooltip_text (_("Export this contact to a file"));
@@ -274,7 +283,7 @@ namespace View {
 
         public void set_image_path (string path) {
             try {
-                handler.icon =  new Gdk.Pixbuf.from_file_at_scale (path, 64, 64, true);
+                handler.icon = new Gdk.Pixbuf.from_file_at_scale (path, 64, 64, true);
                 icon.pixbuf = handler.icon;
                 has_icon (true);
             } catch (Error e) {

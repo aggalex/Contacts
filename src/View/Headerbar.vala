@@ -42,7 +42,7 @@ namespace View {
             search.valign = Gtk.Align.CENTER;
             search.set_placeholder_text (_("Search Contacts"));
 
-            search.changed.connect(() => changed_search (search.get_text()));
+            search.changed.connect (() => changed_search (search.get_text ()));
 
             this.pack_start (search);
             this.pack_start (add_entry_button);

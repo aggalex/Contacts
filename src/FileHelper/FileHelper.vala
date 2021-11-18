@@ -22,14 +22,14 @@
 namespace FileHelper {
 
     private string get_data_folder () throws Error {
-        var got = Environment.get_user_data_dir();
+        var got = Environment.get_user_data_dir ();
         if (got == "") {
-            got = @"$(Environment.get_home_dir())/.local/share";
+            got = @"$(Environment.get_home_dir ())/.local/share";
         }
         return got + "/contacts";
     }
 
-    private string get_file_path (string filename, string path_suffix) throws Error{
+    private string get_file_path (string filename, string path_suffix) throws Error {
         var data_folder = get_data_folder ();
 
         var path_builder = new StringBuilder (data_folder);
@@ -40,7 +40,7 @@ namespace FileHelper {
         return path_builder.str;
     }
 
-    public void rename (string old_name, string new_name, string path_suffix = "") throws Error{
+    public void rename (string old_name, string new_name, string path_suffix = "") throws Error {
         var old_path = get_file_path (old_name, path_suffix);
         var new_path = get_file_path (new_name, path_suffix);
 

@@ -118,13 +118,15 @@ namespace View.Widgets {
         private Gtk.Button anniversary_button;
 
         private void on_set_birthday (bool has_birthday) {
-            if (birthday_button != null) 
+            if (birthday_button != null) {
                 birthday_button.sensitive = !has_birthday;
+            }
         }
 
         private void on_set_anniversary (bool has_anniversary) {
-            if (anniversary_button != null) 
+            if (anniversary_button != null) {
                 anniversary_button.sensitive = !has_anniversary;
+            }
         }
 
         public InfoSectionMisc (string title) {
@@ -233,12 +235,12 @@ namespace View.Widgets {
             switch (widget.data_type) {
                 case BIRTHDAY:
                     var label = (EditableLabelDate) widget;
-                    print (@"SET ENTRY BIRTHDAY: $(label.day), $(label.month+1), $(label.year)\n");
-                    handler.set_birthday ((DateDay) label.day, label.month+1, (DateYear) label.year);
+                    print (@"SET ENTRY BIRTHDAY: $(label.day), $(label.month + 1), $(label.year)\n");
+                    handler.set_birthday ((DateDay) label.day, label.month + 1, (DateYear) label.year);
                     return;
                 case ANNIVERSARY:
                     var label = (EditableLabelDate) widget;
-                    handler.set_anniversary ((DateDay) label.day, label.month+1, (DateYear) label.year);
+                    handler.set_anniversary ((DateDay) label.day, label.month + 1, (DateYear) label.year);
                     return;
                 case NOTES:
                     handler.change_note (widget.text, index);

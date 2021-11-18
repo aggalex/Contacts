@@ -82,7 +82,7 @@ namespace View.Widgets {
 
             entry.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
 
-            entry.set_text(text);
+            entry.set_text (text);
 
             var entry_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             entry_box.pack_start (entry, true, false, 0);
@@ -124,7 +124,7 @@ namespace View.Widgets {
                 return true;
             });
 
-            this.show_all();
+            this.show_all ();
             this.set_visible_child_name ("label");
             this.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
         }

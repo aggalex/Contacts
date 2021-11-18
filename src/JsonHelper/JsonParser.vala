@@ -122,8 +122,7 @@ namespace JsonHelper {
     }
 
     public Contact? parse (string json, out Error? icon_error) throws Error
-        requires (json != null)
-    {
+    requires (json != null) {
         print (json + "\n");
 
         var parser = new Json.Parser ();

@@ -64,7 +64,7 @@ namespace View.Widgets {
             }
         }
 
-        public StackTransitionType transition_type { 
+        public StackTransitionType transition_type {
             get {
                 return stack.transition_type;
             }
@@ -122,7 +122,7 @@ namespace View.Widgets {
                     wait_for.end (res);
                     stack.remove (old_child);
                 });
-                Idle.add((owned) callback);
+                Idle.add ((owned) callback);
                 return true;
             };
             new Thread<bool> ("garbage-handling-thread", (owned) action);

@@ -31,14 +31,13 @@ namespace DataHelper {
             return {street, city, state, zip, country};
         }
 
-        public static Address parse (string[] array) 
-                requires (array.length == 5) 
-        {
+        public static Address parse (string[] array)
+        requires (array.length == 5) {
             return Address () {
-                street  = array[0],
-                city    = array[1],
-                state   = array[2],
-                zip     = array[3],
+                street = array[0],
+                city = array[1],
+                state = array[2],
+                zip = array[3],
                 country = array[4]
             };
         }

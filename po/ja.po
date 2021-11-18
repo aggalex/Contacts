@@ -93,7 +93,7 @@ msgid "Add a new empty entry"
 msgstr "新しい空のエントリーを追加します"
 
 #: src/View/Widgets/IconPopup.vala:51
-msgid "Set from File..."
+msgid "Set from File…"
 msgstr "ファイルから設定…"
 
 #: src/View/Widgets/IconPopup.vala:58

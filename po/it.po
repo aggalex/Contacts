@@ -93,8 +93,8 @@ msgid "Add a new empty entry"
 msgstr "Aggiungi una nuova voce vuota"
 
 #: src/View/Widgets/IconPopup.vala:51
-msgid "Set from File..."
-msgstr "Imposta da un File..."
+msgid "Set from File…"
+msgstr "Imposta da un File…"
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"

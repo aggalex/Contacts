@@ -41,7 +41,7 @@ namespace View.Widgets {
             }
         }
 
-        public EditableLabel (string text = "", DataHelper.Type type){
+        public EditableLabel (string text = "", DataHelper.Type type) {
             label.set_text (text);
             entry.set_text (text);
             data_type = type;
@@ -119,7 +119,7 @@ namespace View.Widgets {
                 }
             });
 
-            this.show_all();
+            this.show_all ();
             this.set_visible_child_name ("label");
             this.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
         }

@@ -95,8 +95,8 @@ msgid "Add a new empty entry"
 msgstr "Додати нову порожню подробицю"
 
 #: src/View/Widgets/IconPopup.vala:51
-msgid "Set from File..."
-msgstr "Вибрати з файлу..."
+msgid "Set from File…"
+msgstr "Вибрати з файлу…"
 
 #: src/View/Widgets/IconPopup.vala:58
 msgid "Delete"

@@ -35,7 +35,10 @@ namespace View {
             } catch (Error e) {
                 stderr.printf ("Failed laoding css provider: " + e.message + "\n");
             }
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_USER
+            );
         }
 
     }

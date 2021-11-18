@@ -40,15 +40,15 @@ namespace View.Widgets {
             }
         }
 
-        public IconPopup (Gtk.Button? Relative) {
-            if (Relative != null) this.set_relative_to (Relative);
-            Relative.clicked.connect (() => {
+        public IconPopup (Gtk.Button? relative_button) {
+            if (relative_button != null) this.set_relative_to (relative_button);
+            relative_button.clicked.connect (() => {
                 popup ();
                 show_all ();
             });
 
             var change_button = new Gtk.Button ();
-            change_button.set_label (_("Set from File..."));
+            change_button.set_label (_("Set from File…"));
             change_button.get_style_context ().add_class ("suggested-action");
             change_button.clicked.connect (() => {
                 this.popdown ();

@@ -33,9 +33,9 @@ namespace View.Widgets {
         private ListBox list_box = new Gtk.ListBox ();
         private List<Gtk.Button> list = new List<Gtk.Button> ();
 
-        public SimpleMenu (Gtk.Button? Relative) {
-            if (Relative != null) this.set_relative_to (Relative);
-            Relative.clicked.connect (() => {
+        public SimpleMenu (Gtk.Button? relative_button) {
+            if (relative_button != null) this.set_relative_to (relative_button);
+            relative_button.clicked.connect (() => {
                 popup ();
                 show_all ();
             });

@@ -79,9 +79,8 @@ namespace ViewModel {
             return strcmp (c1.name, c2.name);
         };
 
-        public ContactHandler get_contact(int index)
-            requires (index >= 0 && index < contact_list.data.length ())
-        {
+        public ContactHandler get_contact (int index)
+        requires (index >= 0 && index < contact_list.data.length ()) {
             return new ContactHandler.from_model (contact_list.data.nth_data (index));
         }
 
@@ -125,7 +124,7 @@ namespace ViewModel {
 
         public List<int> search (string needle) {
             List<int> indexes = new List<int> ();
-            for (var i=0; i<contact_list.data.length (); i++) {
+            for (var i=0; i < contact_list.data.length (); i++) {
                 var contact = contact_list.data.nth_data (i);
                 if (contact.name.casefold ().contains (needle.down ()))
                     indexes.append (i);
@@ -162,7 +161,9 @@ namespace ViewModel {
                 try {
                     var got = VCardHelper.parse.end (res);
                     if (got != null)
-                        contact_error (new IconLoadingError.COULD_NOT_LOAD (@"Failed loading contact icons: $(got.message)"));
+                        contact_error (new IconLoadingError.COULD_NOT_LOAD (
+                            @"Failed loading contact icons: $(got.message)"
+                        ));
                 } catch (Error err) {
                     contact_error (err);
                 }

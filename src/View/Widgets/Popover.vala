@@ -34,7 +34,7 @@ namespace View.Widgets {
             }
         }
 
-        public Popover (Gtk.Widget Relative) {
+        public Popover (Gtk.Widget relative_widget) {
             var name_entry = new Gtk.Entry ();
 
             name_entry.margin = 12;
@@ -47,7 +47,7 @@ namespace View.Widgets {
                 this.popdown ();
             });
 
-            this.set_relative_to (Relative);
+            this.set_relative_to (relative_widget);
         }
 
     }

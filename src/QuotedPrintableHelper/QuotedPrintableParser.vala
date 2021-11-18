@@ -34,7 +34,7 @@ namespace QuotedPrintableHelper {
 
         if (pass) {
             var needle = line[line.last_index_of_char (':'):line.length];
-            var line_init = line[0:line.last_index_of_char (':')+1];
+            var line_init = line[0:line.last_index_of_char (':') + 1];
             return line_init + parse_string (needle);
         }
         if (pass || quoted2.match (line))
@@ -51,10 +51,10 @@ namespace QuotedPrintableHelper {
         }
 
         uint8[] chari = new uint8[2];
-        var needle = str.slice (1,3).down ();
+        var needle = str.slice (1, 3).down ();
         print ("NEEDLE: " + needle + "\t");
-        for (int i=0; i<2; i++) {
-            switch(needle[i]) {
+        for (int i = 0; i < 2; i++) {
+            switch (needle[i]) {
                 case 'a':
                   chari[i] = 10;
                   break;
@@ -74,7 +74,7 @@ namespace QuotedPrintableHelper {
                   chari[i] = 15;
                   break;
                 default:
-                  chari[i] = (uint8) int.parse(needle[i].to_string ());
+                  chari[i] = (uint8) int.parse (needle[i].to_string ());
                   break;
             }
             print ("chari: " + chari[i].to_string () + "\t");
