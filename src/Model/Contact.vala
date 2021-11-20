@@ -124,8 +124,8 @@ namespace Model {
             generator.set_root (root);
 
             var output = generator.to_data (null);
-            print (output);
-            print ("\n");
+            // print (output);
+            // print ("\n");
 
             FileHelper.save (new_filename, output);
         }

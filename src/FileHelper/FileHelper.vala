@@ -56,7 +56,7 @@ namespace FileHelper {
     public void save_outside (string path, string data) throws IOError, Error {
         File file = File.new_for_path (path);
 
-        print (@"INSIDE SAVE: $path\n");
+        // print (@"INSIDE SAVE: $path\n");
 
         FileOutputStream ostream = file.replace (null, true, FileCreateFlags.PRIVATE);
         ostream.write (data.data);
