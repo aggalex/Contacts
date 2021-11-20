@@ -83,11 +83,15 @@ namespace Model {
             } else
                 builder.add_string_value ("");
 
-            builder.set_member_name ("birthday");
-            builder.add_value (get_date (birthday));
+            if (birthday != null) {
+                builder.set_member_name ("birthday");
+                builder.add_value (get_date (birthday));
+            }
 
-            builder.set_member_name ("anniversary");
-            builder.add_value (get_date (anniversary));
+            if (anniversary != null) {
+                builder.set_member_name ("anniversary");
+                builder.add_value (get_date (anniversary));
+            }
 
             builder.set_member_name ("phones");
             builder.add_value (get_string_list_with_type (phones));

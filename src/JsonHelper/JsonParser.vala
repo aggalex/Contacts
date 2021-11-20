@@ -72,6 +72,16 @@ namespace JsonHelper {
 
         // GObject Deserialize won't dedserialize arrays :(
 
+        private static bool valid_date (JsonDateModel? date) {
+            if (date != null) {
+                if (date.day <= 0 || date.day > 31) { return false; }
+                if (date.month <= 0 || date.month > 12) { return false; }
+                if (date.year < 1700) { return false; }
+                return true;
+            }
+            return false;
+        }
+
         public Contact to_contact (out Error? icon_error) {
             icon_error = null;
             var contact = new Contact (name.locale_to_utf8 (-1, null, null));
@@ -89,11 +99,11 @@ namespace JsonHelper {
                 contact.icon = icon_loader.get_pixbuf ();
             }
 
-            if (birthday != null) {
+            if (valid_date (birthday)) {
                 contact.birthday = birthday.to_date ();
             }
 
-            if (anniversary != null) {
+            if (valid_date (anniversary)) {
                 contact.anniversary = anniversary.to_date ();
             }
 
@@ -123,7 +133,7 @@ namespace JsonHelper {
 
     public Contact? parse (string json, out Error? icon_error) throws Error
     requires (json != null) {
-        print (json + "\n");
+        // print (json + "\n");
 
         var parser = new Json.Parser ();
         parser.load_from_data (json);
