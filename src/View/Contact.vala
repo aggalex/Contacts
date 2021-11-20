@@ -52,11 +52,8 @@ namespace View {
         private signal void has_icon (bool has);
         private signal void make_bottom_section_unavailable (bool not_available);
 
-        private Granite.Widgets.Avatar icon =
-            new Granite.Widgets.Avatar.from_file (
-                Constants.DATADIR + "/avatars/64/contacts-avatar-default.svg", 64
-            );
-        private bool icon_is_set = false;
+        public Gdk.Pixbuf? default_image;
+        public Image icon_image { get; private set; default = new Image (); }
 
         private EditableTitle name_label = new EditableTitle ("");
 
@@ -132,8 +129,11 @@ namespace View {
                 );
 
             if (handler.icon != null) {
-                icon.pixbuf = handler.icon;
+                icon_image.pixbuf = handler.icon;
                 has_icon (true);
+            } else {
+                icon_image.pixbuf = default_image;
+                has_icon (false);
             }
 
             handler.contact_error.connect ((contact_error) => show_error (contact_error.message));
@@ -148,15 +148,23 @@ namespace View {
         construct {
             hscrollbar_policy = Gtk.PolicyType.NEVER;
 
+            var icon_theme = IconTheme.get_default ();
+            try {
+                default_image = icon_theme.load_icon ("avatar-default", 64, 0);
+            }
+            catch (Error err) {
+                error (err.message);
+            }
+            icon_image.pixbuf = default_image;
+
             var icon_button = new Gtk.Button ();
             icon_button.set_tooltip_text (_("Change the icon"));
             icon_button.get_style_context ().add_class ("flat");
-            icon_button.add (icon);
+            icon_button.add (icon_image);
 
             var popup = new IconPopup (icon_button);
             has_icon.connect ((has) => {
                 popup.can_delete = has;
-                icon_is_set = has;
             });
 
             popup.change_image.connect (() => {
@@ -165,6 +173,11 @@ namespace View {
                 } catch {
                     print ("You canceled the operation\n");
                 }
+            });
+            popup.remove_image.connect (() => {
+                handler.icon = null;
+                icon_image.pixbuf = default_image;
+                has_icon (false);
             });
 
             var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
@@ -284,7 +297,7 @@ namespace View {
         public void set_image_path (string path) {
             try {
                 handler.icon = new Gdk.Pixbuf.from_file_at_scale (path, 64, 64, true);
-                icon.pixbuf = handler.icon;
+                icon_image.pixbuf = handler.icon;
                 has_icon (true);
             } catch (Error e) {
                 error (e.message);

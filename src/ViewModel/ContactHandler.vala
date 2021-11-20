@@ -62,23 +62,24 @@ namespace ViewModel {
             }
         }
 
-        public Pixbuf icon {
+        public Pixbuf? icon {
             get {
                 return contact.icon;
             }
             set {
                 var image = value;
 
-                if (image.width < image.height) {
-                    int y = image.height / 2 - image.width / 2;
-                    image = new Gdk.Pixbuf.subpixbuf (image, 0, y, image.width, image.width);
-                } else if (image.width > image.height) {
-                    int x = image.width / 2 - image.height / 2;
-                    image = new Gdk.Pixbuf.subpixbuf (image, x, 0, image.height, image.height);
+                if (image != null) {
+                    if (image.width < image.height) {
+                        int y = image.height / 2 - image.width / 2;
+                        image = new Gdk.Pixbuf.subpixbuf (image, 0, y, image.width, image.width);
+                    } else if (image.width > image.height) {
+                        int x = image.width / 2 - image.height / 2;
+                        image = new Gdk.Pixbuf.subpixbuf (image, x, 0, image.height, image.height);
+                    }
+                    if (image.width != 64)
+                        image = image.scale_simple (64, 64, Gdk.InterpType.HYPER);
                 }
-
-                if (image.width != 64)
-                    image = image.scale_simple (64, 64, Gdk.InterpType.HYPER);
 
                 contact.icon = image;
                 changed ();

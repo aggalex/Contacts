@@ -47,11 +47,8 @@ using ViewModel;
 namespace View.Widgets {
     private class SidebarRow : Gtk.ListBoxRow {
 
-        public Avatar display_widget { get; private set;
-            default = new Granite.Widgets.Avatar.from_file (
-                Constants.DATADIR + "/avatars/32/contacts-avatar-default.svg", 32
-            );
-        }
+        public Gdk.Pixbuf? default_image;
+        public Image icon_image { get; private set; default = new Image (); }
 
         public string? header { get; set; }
 
@@ -98,7 +95,16 @@ namespace View.Widgets {
 
             var overlay = new Gtk.Overlay ();
             overlay.width_request = 38;
-            overlay.add (display_widget);
+            overlay.add (icon_image);
+
+            var icon_theme = IconTheme.get_default ();
+            try {
+                default_image = icon_theme.load_icon ("avatar-default", 32, 0);
+            }
+            catch (Error err) {
+                error (err.message);
+            }
+            icon_image.pixbuf = default_image;
 
             var grid = new Gtk.Grid ();
             grid.margin = 6;
@@ -118,12 +124,17 @@ namespace View.Widgets {
         public void on_info_changed () {
             this.title = handler.name;
 
-            if (handler.icon != null)
-                this.display_widget.pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
+            if (handler.icon != null) {
+                this.icon_image.pixbuf = handler.icon.scale_simple (32, 32, Gdk.InterpType.HYPER);
+            } else {
+                this.icon_image.pixbuf = default_image;
+            }
 
             if (handler.phones != null && handler.phones.length () != 0) {
                 var phone = handler.phones.nth_data (0).data;
                 this.status = phone.locale_to_utf8 (-1, null, null);
+            } else {
+                this.status = "";
             }
         }
     }
