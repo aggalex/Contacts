@@ -34,11 +34,13 @@ namespace View.Widgets {
         private List<Gtk.Button> list = new List<Gtk.Button> ();
 
         public SimpleMenu (Gtk.Button? relative_button) {
-            if (relative_button != null) this.set_relative_to (relative_button);
-            relative_button.clicked.connect (() => {
-                popup ();
-                show_all ();
-            });
+            if (relative_button != null) {
+                this.set_relative_to (relative_button);
+                relative_button.clicked.connect (() => {
+                    popup ();
+                    show_all ();
+                });
+            }
             this.add (list_box);
             list_box.margin_top = 3;
             list_box.margin_bottom = 3;
