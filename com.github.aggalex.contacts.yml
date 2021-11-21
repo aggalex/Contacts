@@ -4,21 +4,12 @@ runtime-version: '6'
 sdk: io.elementary.Sdk
 command: com.github.aggalex.contacts
 finish-args:
-  #- '--filesystem=/tmp/io.elementary.mail:create'
-  #- '--env=TMPDIR=/tmp/io.elementary.mail'
-
   - '--share=ipc'
   - '--share=network'
   - '--socket=fallback-x11'
   - '--socket=wayland'
   - '--socket=session-bus'
   - '--filesystem=xdg-data'
-
-  # EDS DBus interfaces
-  #- '--talk-name=org.gnome.evolution.dataserver.AddressBook10'
-  #- '--talk-name=org.gnome.evolution.dataserver.Sources5'
-
-  #- '--metadata=X-DConf=migrate-path=/io/elementary/mail/'
 
 modules:
   - name: folks
