@@ -66,7 +66,6 @@ conf_data.set_quoted('VERSION', meson.project_version())
 conf_data.set_quoted('PREFIX', get_option('prefix'))
 conf_data.set_quoted('DATADIR', get_option('datadir'))
 
-message ('data dir == ' + get_option('prefix') + ', ' + get_option('datadir'))
 message ('Configuring desktop entry: ' + meson.project_name() + '.desktop')
 
 desktop_in_file = configure_file(
