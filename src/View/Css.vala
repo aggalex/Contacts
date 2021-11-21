@@ -28,7 +28,10 @@ namespace View {
 
         public static void apply () {
             var css_provider = new Gtk.CssProvider ();
-            var css_data = @"$(Constants.DATADIR)/css/style.css";  // TODO
+            var css_data = Path.build_filename (
+                Constants.INSTALL_PREFIX, Constants.DATADIR,
+                "contacts", "css", "style.css"
+            );
             // print (@"CSS_DATA: $css_data");
             try {
                 css_provider.load_from_path (css_data);

@@ -248,6 +248,9 @@ namespace View.Widgets {
                 case NICKNAME:
                     handler.change_nickname (widget.text, index);
                     return;
+                default:
+                    // ignore other types
+                    return;
             }
         }
 
@@ -266,6 +269,9 @@ namespace View.Widgets {
                 case NICKNAME:
                     handler.remove_nickname (index);
                     nickname_count--;
+                    return;
+                default:
+                    // ignore other types
                     return;
             }
         }

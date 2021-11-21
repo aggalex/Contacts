@@ -48,15 +48,6 @@ foreach i : icon_sizes
     )
 endforeach
 
-avatar_sizes = ['32', '64']
-
-foreach i : avatar_sizes
-    install_data(
-        join_paths('data/icons', i, 'contacts-avatar-default.svg'),
-        install_dir: join_paths(get_option('datadir'), 'contacts', 'avatars', i)
-    )
-endforeach
-
 install_data(
     'data/css/style.css',
     install_dir: join_paths(get_option('datadir'), 'contacts', 'css')
@@ -73,7 +64,9 @@ conf_data.set_quoted('PROJECT_NAME', meson.project_name())
 conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf_data.set_quoted('VERSION', meson.project_version())
 conf_data.set_quoted('PREFIX', get_option('prefix'))
+conf_data.set_quoted('DATADIR', get_option('datadir'))
 
+message ('data dir == ' + get_option('prefix') + ', ' + get_option('datadir'))
 message ('Configuring desktop entry: ' + meson.project_name() + '.desktop')
 
 desktop_in_file = configure_file(

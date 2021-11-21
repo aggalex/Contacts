@@ -26,7 +26,12 @@ namespace FileHelper {
         if (got == "") {
             got = @"$(Environment.get_home_dir ())/.local/share";
         }
-        return got + "/contacts";
+        got = got + "/contacts";
+        if (!GLib.FileUtils.test (got, GLib.FileTest.IS_DIR)) {
+            var dir = File.new_for_path (got);
+            dir.make_directory_with_parents ();
+        }
+        return got;
     }
 
     private string get_file_path (string filename, string path_suffix) throws Error {
