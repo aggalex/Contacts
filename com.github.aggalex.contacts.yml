@@ -4,8 +4,6 @@ runtime-version: '6'
 sdk: io.elementary.Sdk
 command: com.github.aggalex.contacts
 finish-args:
-  - '--share=ipc'
-  - '--share=network'
   - '--socket=fallback-x11'
   - '--socket=wayland'
   - '--socket=session-bus'
