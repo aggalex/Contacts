@@ -1,8 +1,8 @@
-app-id: com.github.aggalex.contacts
+app-id: com.github.itmm.contacts
 runtime: io.elementary.Platform
 runtime-version: '6'
 sdk: io.elementary.Sdk
-command: com.github.aggalex.contacts
+command: com.github.itmm.contacts
 finish-args:
   - '--socket=fallback-x11'
   - '--socket=wayland'

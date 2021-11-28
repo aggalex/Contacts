@@ -30,7 +30,7 @@ namespace Contacts {
 
         public Application () {
             Object (
-                application_id: "com.github.aggalex.Contacts",
+                application_id: "com.github.itmm.Contacts",
                 flags: ApplicationFlags.FLAGS_NONE
             );
         }

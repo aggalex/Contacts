@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2018 Alex Angelou <{{email}}> -->
 <component type="desktop">
-  <id>com.github.aggalex.contacts</id>
+  <id>com.github.itmm.contacts</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_group>Alex Angelou</project_group>
   <project_license>GPL-3.0+</project_license>
@@ -19,10 +19,10 @@
     </ul>
   </description>
   <releases>
-    <release version="1.0.3" date="2019-08-14"/>
+    <release version="1.2.0" date="2021-11-28"/>
   </releases>
   <provides>
-    <binary>com.github.aggalex.contacts</binary>
+    <binary>com.github.itmm.contacts</binary>
   </provides>
   <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">none</content_attribute>
@@ -54,13 +54,13 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <developer_name>Alex Angelou</developer_name>
-  <url type="homepage">https://github.com/aggalex/Contacts</url>
-  <url type="bugtracker">https://github.com/aggalex/Contacts/issues</url>
-  <url type="help">https://github.com/aggalex/Contacts/issues</url>
+  <url type="homepage">https://github.com/itmm/Contacts</url>
+  <url type="bugtracker">https://github.com/itmm/Contacts/issues</url>
+  <url type="help">https://github.com/itmm/Contacts/issues</url>
   <update_contact>ubuntu1aggelalex_AT_gmail.com</update_contact>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/aggalex/Contacts/master/data/Images/Screenshot.png</image>
+      <image>https://raw.githubusercontent.com/itmm/Contacts/master/data/Images/Screenshot.png</image>
     </screenshot>
   </screenshots>
   <custom>

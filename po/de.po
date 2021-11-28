@@ -1,11 +1,11 @@
-# German translations for com.github.aggalex.contacts package.
+# German translations for com.github.itmm.contacts package.
 # Copyright (C) 2019 THE com.github.aggalex.contacts'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.aggalex.contacts package.
+# This file is distributed under the same license as the com.github.itmm.contacts package.
 # Automatically generated, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.aggalex.contacts\n"
+"Project-Id-Version: com.github.itmm.contacts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-21 18:52+0300\n"
 "PO-Revision-Date: 2019-07-19 13:37+0300\n"
